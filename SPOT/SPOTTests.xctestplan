@@ -1,0 +1,28 @@
+{
+  "configurations" : [
+    {
+      "id" : "2473949E-DC89-4BCD-AEF1-0CFA2818AECA",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:SPOT.xcodeproj",
+      "identifier" : "311F84C92B528D920035134F",
+      "name" : "SPOT"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:SPOT.xcodeproj",
+        "identifier" : "311F84DA2B528D950035134F",
+        "name" : "SPOTTests"
+      }
+    }
+  ],
+  "version" : 1
+}
