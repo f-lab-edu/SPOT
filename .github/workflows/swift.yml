@@ -20,6 +20,7 @@ jobs:
       - uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: '15.0'
+      - name: Xcode build
       - run: swift build
 
   test:
