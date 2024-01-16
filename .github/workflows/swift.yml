@@ -8,32 +8,14 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-  status:
-    branches: [ "main" ]
-
-env:
-  SCHEME: Domain
-  TEST_DEVICE: platform=iOS Simulator, name=iPhone 15, OS=17.0
 
 jobs:
   build:
+    name: Build and tests
     runs-on: macos-latest
-    
     steps:
-      - name: Checkout project repo
-        uses: actions/checkout@v3
-
-      - name: Build
-        shell: bash
-        run: xcodebuild -scheme '${{ env.SCHEME }}' -sdk iphonesimulator -destination '${{ env.TEST_DEVICE }}' build
-
-  test: 
-    runs-on: macos-latest
-
-    steps: 
-    - name: Checkout project repo
-      uses: actions/checkout@v2 
-      
-    - name: Test
-      shell: bash
-      run: xcodebuild -scheme '${{ env.SCHEME }} ' -sk iphonesimulator -destination '${{ env. TEST_ DEVICE }}' test
+    - uses: actions/checkout@v4
+    - name: Show current version of Xcode
+      run: xcodebuild -version
+    - name: Run tests
+      run: ./run_tests.sh
