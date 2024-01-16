@@ -11,22 +11,29 @@ on:
   status:
     branches: [ "main" ]
 
+env:
+  SCHEME: Domain, Presentation, DataAccess, Proxy
+  TEST_DEVICE: platform=iOS Simulator, name=iPhone 15, OS=17.0
+
 jobs:
   build:
     runs-on: macos-13
+    
     steps:
-      - uses: actions/checkout@v3
-      - uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: '15.0.1'
-      - run: swift build
+      - name: Checkout project repo
+        uses: actions/checkout@v3
 
-  test:
+      - name: Build
+        shell: bash
+        run: xcodebuild -scheme '${{ env.SCHEME }}' -sdk iphonesimulator -destination '${{ env.TEST_DEVICE }}' build
+
+  test: 
     runs-on: macos-latest
-    needs: build
-    steps:
-      - uses: actions/checkout@v3
-      - uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: '15.0.1'
-      - run: swift test
+
+    steps: 
+    - name: Checkout project repo
+      uses: actions/checkout@v2 
+      
+    - name: Test
+      shell: bash
+      run: xcodebuild -scheme '${{ env.SCHEME }} ' -sk iphonesimulator -destination '${{ env. TEST_ DEVICE }}' test
