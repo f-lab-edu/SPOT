@@ -25,4 +25,6 @@ jobs:
     - name: Show current version of Xcode
       run: xcodebuild -version
     - name: Run tests
+      env:
+        TMPDIR: ${{ runner.temp }}
       run: ./run_tests.sh
