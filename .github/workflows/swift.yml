@@ -26,5 +26,5 @@ jobs:
     - name: Show current version of Xcode
       run: xcodebuild -version
     - name: Run tests
-      #run: ./run_tests.sh
-      run: swift test
+      run: ./run_tests.sh
+      #run: swift test
