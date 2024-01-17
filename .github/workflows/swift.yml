@@ -4,10 +4,16 @@
 name: iOS CI
 
 on:
+  workflow_dispatch:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build:
@@ -20,4 +26,5 @@ jobs:
     - name: Show current version of Xcode
       run: xcodebuild -version
     - name: Run tests
-      run: ./run_tests.sh
+      #run: ./run_tests.sh
+      run: swift test
