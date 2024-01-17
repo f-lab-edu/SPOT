@@ -9,11 +9,6 @@ on:
   pull_request:
     branches: [ "main" ]
 
-concurrency:
-  # Cancel any in-progress workflows for this workflow/branch combination.
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   build:
     name: Build and tests
@@ -25,6 +20,4 @@ jobs:
     - name: Show current version of Xcode
       run: xcodebuild -version
     - name: Run tests
-      env:
-        TMPDIR: ${{ runner.temp }}
       run: ./run_tests.sh
