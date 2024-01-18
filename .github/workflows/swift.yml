@@ -27,4 +27,5 @@ jobs:
       run: xcodebuild -version
     - name: Run tests
       run: ./run_tests.sh
+      working-directory: ${{ github.workspace }}/SPOT
       #run: swift test
