@@ -38,6 +38,7 @@
 		311F84FE2B52B6B10035134F /* Presentation */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Presentation; sourceTree = "<group>"; };
 		311F84FF2B52B6C70035134F /* DataAccess */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = DataAccess; sourceTree = "<group>"; };
 		311F85002B52B6D40035134F /* Proxy */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Proxy; sourceTree = "<group>"; };
+		6911E8C32B5A5F34005F02AB /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +62,7 @@
 		311F84C12B528D920035134F = {
 			isa = PBXGroup;
 			children = (
+				6911E8C32B5A5F34005F02AB /* .swiftlint.yml */,
 				311F85002B52B6D40035134F /* Proxy */,
 				311F84FF2B52B6C70035134F /* DataAccess */,
 				311F84FE2B52B6B10035134F /* Presentation */,
@@ -136,6 +138,7 @@
 				311F84D72B528D950035134F /* Sources */,
 				311F84D82B528D950035134F /* Frameworks */,
 				311F84D92B528D950035134F /* Resources */,
+				6911E8C22B5A5B8F005F02AB /* SwiftLint Script */,
 			);
 			buildRules = (
 			);
@@ -204,6 +207,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6911E8C22B5A5B8F005F02AB /* SwiftLint Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "SwiftLint Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		311F84C62B528D920035134F /* Sources */ = {
