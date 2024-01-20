@@ -6,7 +6,7 @@ name: iOS CI
 on:
   workflow_dispatch:
   push:
-    branches: [ "main" ]
+    branches: [ "Feature/*" ]
   pull_request:
     branches: [ "main" ]
 
