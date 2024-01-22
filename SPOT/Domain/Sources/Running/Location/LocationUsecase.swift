@@ -5,7 +5,9 @@
 //  Created by 10004 on 1/22/24.
 //
 
-import Foundation 
+import Foundation
+import Dependencies
+import RunningDataAccess
 
 public protocol LocationUsecaseProtocol {
     func start()
@@ -15,19 +17,13 @@ public protocol LocationUsecaseProtocol {
 
 public final class LocationUsecase: LocationUsecaseProtocol {
     
-    public init() {
-        
-    }
+    @Dependency(\.locationClient) var client
     
-    public func start() {
-        
-    }
+    public init() {}
     
-    public func pause() {
-        
-    }
+    public func start() {}
     
-    public func stop() {
-        
-    }
+    public func pause() {}
+    
+    public func stop() {}
 }
