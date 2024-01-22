@@ -8,14 +8,21 @@ let package = Package(
     platforms: [.iOS(.v17)],
     products: [
         .library(
-            name: "Domain",
-            targets: ["Domain"]),
+            name: "Running",
+            targets: ["Running"]),
+    ],
+    dependencies: [
+        .package(path: "../DataAccess")
     ],
     targets: [
         .target(
-            name: "Domain"),
+            name: "Running",
+            dependencies: [
+                .product(name: "RunningDataAccess", package: "DataAccess")
+            ]
+        ),
         .testTarget(
-            name: "DomainTests",
-            dependencies: ["Domain"]),
+            name: "RunningTests",
+            dependencies: ["Running"]),
     ]
 )

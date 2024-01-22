@@ -8,21 +8,18 @@ let package = Package(
     platforms: [.iOS(.v17)],
     products: [
         .library(
-            name: "DataAccess",
-            targets: ["DataAccess"]),
+            name: "RunningDataAccess",
+            targets: ["RunningDataAccess"]),
     ],
     dependencies: [
-        .package(name: "Proxy", path: "../../Proxy")
+        .package(path: "../Proxy")
     ],
     targets: [
         .target(
-            name: "DataAccess",
+            name: "RunningDataAccess",
             dependencies: [
                 .product(name: "DependenciesWrapper", package: "Proxy")
             ]
-        ),
-        .testTarget(
-            name: "DataAccessTests",
-            dependencies: ["DataAccess"]),
+        )
     ]
 )
