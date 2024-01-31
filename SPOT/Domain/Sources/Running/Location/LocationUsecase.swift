@@ -6,8 +6,6 @@
 //
 
 import Foundation
-import Dependencies
-import RunningDataAccess
 
 public protocol LocationUsecaseProtocol {
     func start()
@@ -15,10 +13,7 @@ public protocol LocationUsecaseProtocol {
     func stop()
 }
 
-public final class LocationUsecase: LocationUsecaseProtocol {
-    
-    @Dependency(\.locationClient) var client
-    
+public final class LocationUsecase {    
     public init() {}
     
     public func start() {}
