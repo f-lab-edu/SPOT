@@ -12,13 +12,11 @@ let package = Package(
             targets: ["Running"]),
     ],
     dependencies: [
-        .package(path: "../DataAccess")
     ],
     targets: [
         .target(
             name: "Running",
             dependencies: [
-                .product(name: "RunningDataAccess", package: "DataAccess")
             ]
         ),
         .testTarget(

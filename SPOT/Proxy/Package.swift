@@ -11,13 +11,13 @@ let package = Package(
             targets: ["DependenciesWrapper"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "1.0.0")
+//        .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "1.0.0")
     ],
     targets: [
         .target(
             name: "DependenciesWrapper",
             dependencies: [
-                .product(name: "Dependencies", package: "swift-dependencies")
+//                .product(name: "Dependencies", package: "swift-dependencies")
             ]
         )
     ]

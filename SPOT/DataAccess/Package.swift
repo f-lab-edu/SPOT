@@ -12,13 +12,13 @@ let package = Package(
             targets: ["RunningDataAccess"]),
     ],
     dependencies: [
-        .package(path: "../Proxy")
+        .package(path: "../Domain")
     ],
     targets: [
         .target(
             name: "RunningDataAccess",
             dependencies: [
-                .product(name: "DependenciesWrapper", package: "Proxy")
+                .product(name: "Running", package: "Domain")
             ]
         )
     ]
