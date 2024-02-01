@@ -84,8 +84,8 @@
 		311F84CC2B528D920035134F /* SPOT */ = {
 			isa = PBXGroup;
 			children = (
-				311F84CD2B528D920035134F /* SPOTApp.swift */,
-				311F84CF2B528D920035134F /* ContentView.swift */,
+				6911E90C2B6B9834005F02AB /* Composition */,
+				6911E90A2B6B74B2005F02AB /* iOS */,
 				311F84D12B528D950035134F /* Assets.xcassets */,
 				311F84D32B528D950035134F /* SPOT.entitlements */,
 				311F84D42B528D950035134F /* Preview Content */,
@@ -107,6 +107,22 @@
 				311F84DF2B528D950035134F /* SPOTTests.swift */,
 			);
 			path = SPOTTests;
+			sourceTree = "<group>";
+		};
+		6911E90A2B6B74B2005F02AB /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				311F84CD2B528D920035134F /* SPOTApp.swift */,
+				311F84CF2B528D920035134F /* ContentView.swift */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
+		6911E90C2B6B9834005F02AB /* Composition */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Composition;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
