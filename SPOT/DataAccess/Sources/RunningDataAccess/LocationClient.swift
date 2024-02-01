@@ -31,15 +31,26 @@ public struct LcationAuthorizationStatus: Equatable {
 }
 
 public final class RunningLocationManager: LocationUsecaseProtocol {
-    private let manager: MainActorIsolated<CLLocationManager>
+    private let manager: CLLocationManager
     
-    public init(manager: MainActorIsolated<CLLocationManager> = MainActorIsolated(initialValue: { CLLocationManager() })) {
+    public init(manager: CLLocationManager) {
         self.manager = manager
+        
+        AsyncStream { continuation in
+            let delegate = RunningLocationManagerDelegate(continuation: continuation)
+            manager.delegate = delegate
+            
+            continuation.onTermination = { [delegate] _ in
+                _ = delegate
+            }
+        }
+        
+        manager.requestWhenInUseAuthorization()
     }
     
     public func start() {
-        
-        manager.value.delegate
+        manager.requestWhenInUseAuthorization()
+        manager.requestLocation()
     }
     
     public func pause() {
@@ -102,4 +113,3 @@ private final class RunningLocationManagerDelegate: NSObject, CLLocationManagerD
         continuation.yield(.didResumeLocationUpdates)
     }
 }
-
