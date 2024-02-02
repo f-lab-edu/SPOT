@@ -5,17 +5,18 @@ import PackageDescription
 
 let package = Package(
     name: "Proxy",
+    platforms: [.iOS(.v17)],
     products: [
         .library(
-            name: "ComposableArchitectureWrapper",
-            targets: ["ComposableArchitectureWrapper"]),
+            name: "TCAProxy",
+            targets: ["TCAProxy"]),
     ],
     dependencies: [
         .package(url: "https://github.com/pointfreeco/swift-composable-architecture.git", exact: "1.7.2")
     ],
     targets: [
         .target(
-            name: "ComposableArchitectureWrapper",
+            name: "TCAProxy",
             dependencies: [
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
             ]

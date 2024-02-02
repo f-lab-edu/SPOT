@@ -8,17 +8,8 @@
 import Foundation
 
 public protocol LocationUsecaseProtocol {
+    func delegate()
     func start()
     func pause()
     func stop()
-}
-
-public final class LocationUsecase {    
-    public init() {}
-    
-    public func start() {}
-    
-    public func pause() {}
-    
-    public func stop() {}
 }

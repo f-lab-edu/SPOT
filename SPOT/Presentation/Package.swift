@@ -8,20 +8,27 @@ let package = Package(
     platforms: [.iOS(.v17)],
     products: [
         .library(
-            name: "Presentation",
-            targets: ["Presentation"]),
+            name: "Root",
+            targets: ["Root"]),
+        .library(
+            name: "LocationFeature",
+            targets: ["LocationFeature"])
     ],
     dependencies: [
         .package(path: "../Proxy")
     ],
     targets: [
         .target(
-            name: "Presentation",
+            name: "Root",
             dependencies: [
-                .product(name: "ComposableArchitectureWrapper", package: "Proxy")
+            ]),
+        .target(
+            name: "LocationFeature",
+            dependencies: [
+                .product(name: "TCAProxy", package: "Proxy")
             ]),
         .testTarget(
-            name: "PresentationTests",
-            dependencies: ["Presentation"]),
+            name: "LocationFeatureTests",
+            dependencies: ["LocationFeature"]),
     ]
 )

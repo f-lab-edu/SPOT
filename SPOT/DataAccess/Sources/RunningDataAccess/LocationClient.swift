@@ -35,7 +35,10 @@ public final class RunningLocationManager: LocationUsecaseProtocol {
     
     public init(manager: CLLocationManager) {
         self.manager = manager
-        
+        self.manager.requestWhenInUseAuthorization()
+    }
+    
+    public func delegate() {
         AsyncStream { continuation in
             let delegate = RunningLocationManagerDelegate(continuation: continuation)
             manager.delegate = delegate
@@ -44,8 +47,6 @@ public final class RunningLocationManager: LocationUsecaseProtocol {
                 _ = delegate
             }
         }
-        
-        manager.requestWhenInUseAuthorization()
     }
     
     public func start() {
