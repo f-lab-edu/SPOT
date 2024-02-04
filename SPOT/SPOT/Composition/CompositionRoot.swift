@@ -25,7 +25,7 @@ enum CompositionRoot {
         }
     }
     
-    private static var runningLocationManager: LocationUsecaseProtocol = RunningLocationManager(manager: locationManager)
+    private static var runningLocationManager: LocationUsecase = RunningLocationService(manager: locationManager)
     
     private static let locationManager = CLLocationManager()
     

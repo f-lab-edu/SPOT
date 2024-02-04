@@ -30,7 +30,7 @@ public struct LcationAuthorizationStatus: Equatable {
     let status: CLAuthorizationStatus
 }
 
-public final class RunningLocationManager: LocationUsecaseProtocol {
+public final class RunningLocationService: LocationUsecase {
     private let manager: CLLocationManager
     
     public init(manager: CLLocationManager) {
@@ -80,10 +80,10 @@ public final class RunningLocationManager: LocationUsecaseProtocol {
 }
 
 private final class RunningLocationManagerDelegate: NSObject, CLLocationManagerDelegate {
-    let continuation: AsyncStream<RunningLocationManager.Action>.Continuation
+    let continuation: AsyncStream<RunningLocationService.Action>.Continuation
     
     public init(
-        continuation: AsyncStream<RunningLocationManager.Action>.Continuation
+        continuation: AsyncStream<RunningLocationService.Action>.Continuation
     ) {
         self.continuation = continuation
     }
@@ -103,7 +103,7 @@ private final class RunningLocationManagerDelegate: NSObject, CLLocationManagerD
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        continuation.yield(.didFailWithError(RunningLocationManager.Error(error)))
+        continuation.yield(.didFailWithError(RunningLocationService.Error(error)))
     }
     
     func locationManagerDidPauseLocationUpdates(_ manager: CLLocationManager) {
