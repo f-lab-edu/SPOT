@@ -12,6 +12,11 @@
 		311F84D22B528D950035134F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 311F84D12B528D950035134F /* Assets.xcassets */; };
 		311F84D62B528D950035134F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 311F84D52B528D950035134F /* Preview Assets.xcassets */; };
 		311F84E02B528D950035134F /* SPOTTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311F84DF2B528D950035134F /* SPOTTests.swift */; };
+		6911E90F2B6C75C9005F02AB /* RunningDataAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 6911E90E2B6C75C9005F02AB /* RunningDataAccess */; };
+		6911E9112B6C75C9005F02AB /* Running in Frameworks */ = {isa = PBXBuildFile; productRef = 6911E9102B6C75C9005F02AB /* Running */; };
+		6911E9132B6C7600005F02AB /* CompositionRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6911E9122B6C7600005F02AB /* CompositionRoot.swift */; };
+		6911E9172B6CD028005F02AB /* LocationFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 6911E9162B6CD028005F02AB /* LocationFeature */; };
+		6911E9192B6CD028005F02AB /* Root in Frameworks */ = {isa = PBXBuildFile; productRef = 6911E9182B6CD028005F02AB /* Root */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +43,7 @@
 		311F84FE2B52B6B10035134F /* Presentation */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Presentation; sourceTree = "<group>"; };
 		311F84FF2B52B6C70035134F /* DataAccess */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = DataAccess; sourceTree = "<group>"; };
 		311F85002B52B6D40035134F /* Proxy */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Proxy; sourceTree = "<group>"; };
+		6911E9122B6C7600005F02AB /* CompositionRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionRoot.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +51,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6911E9172B6CD028005F02AB /* LocationFeature in Frameworks */,
+				6911E9192B6CD028005F02AB /* Root in Frameworks */,
+				6911E9112B6C75C9005F02AB /* Running in Frameworks */,
+				6911E90F2B6C75C9005F02AB /* RunningDataAccess in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -69,6 +79,7 @@
 				311F84CC2B528D920035134F /* SPOT */,
 				311F84DE2B528D950035134F /* SPOTTests */,
 				311F84CB2B528D920035134F /* Products */,
+				6911E90D2B6C75C9005F02AB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -84,8 +95,8 @@
 		311F84CC2B528D920035134F /* SPOT */ = {
 			isa = PBXGroup;
 			children = (
-				311F84CD2B528D920035134F /* SPOTApp.swift */,
-				311F84CF2B528D920035134F /* ContentView.swift */,
+				6911E90C2B6B9834005F02AB /* Composition */,
+				6911E90A2B6B74B2005F02AB /* iOS */,
 				311F84D12B528D950035134F /* Assets.xcassets */,
 				311F84D32B528D950035134F /* SPOT.entitlements */,
 				311F84D42B528D950035134F /* Preview Content */,
@@ -109,6 +120,30 @@
 			path = SPOTTests;
 			sourceTree = "<group>";
 		};
+		6911E90A2B6B74B2005F02AB /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				311F84CD2B528D920035134F /* SPOTApp.swift */,
+				311F84CF2B528D920035134F /* ContentView.swift */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
+		6911E90C2B6B9834005F02AB /* Composition */ = {
+			isa = PBXGroup;
+			children = (
+				6911E9122B6C7600005F02AB /* CompositionRoot.swift */,
+			);
+			path = Composition;
+			sourceTree = "<group>";
+		};
+		6911E90D2B6C75C9005F02AB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -125,6 +160,12 @@
 			dependencies = (
 			);
 			name = SPOT;
+			packageProductDependencies = (
+				6911E90E2B6C75C9005F02AB /* RunningDataAccess */,
+				6911E9102B6C75C9005F02AB /* Running */,
+				6911E9162B6CD028005F02AB /* LocationFeature */,
+				6911E9182B6CD028005F02AB /* Root */,
+			);
 			productName = SPOT;
 			productReference = 311F84CA2B528D920035134F /* SPOT.app */;
 			productType = "com.apple.product-type.application";
@@ -211,6 +252,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				311F84D02B528D920035134F /* ContentView.swift in Sources */,
+				6911E9132B6C7600005F02AB /* CompositionRoot.swift in Sources */,
 				311F84CE2B528D920035134F /* SPOTApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -505,6 +547,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		6911E90E2B6C75C9005F02AB /* RunningDataAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RunningDataAccess;
+		};
+		6911E9102B6C75C9005F02AB /* Running */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Running;
+		};
+		6911E9162B6CD028005F02AB /* LocationFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = LocationFeature;
+		};
+		6911E9182B6CD028005F02AB /* Root */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Root;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 311F84C22B528D920035134F /* Project object */;
 }

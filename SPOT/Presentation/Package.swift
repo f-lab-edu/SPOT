@@ -7,18 +7,28 @@ let package = Package(
     name: "Presentation",
     platforms: [.iOS(.v17)],
     products: [
-        // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
-            name: "Presentation",
-            targets: ["Presentation"]),
+            name: "Root",
+            targets: ["Root"]),
+        .library(
+            name: "LocationFeature",
+            targets: ["LocationFeature"])
+    ],
+    dependencies: [
+        .package(path: "../Proxy")
     ],
     targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "Presentation"),
+            name: "Root",
+            dependencies: [
+            ]),
+        .target(
+            name: "LocationFeature",
+            dependencies: [
+                .product(name: "TCAProxy", package: "Proxy")
+            ]),
         .testTarget(
-            name: "PresentationTests",
-            dependencies: ["Presentation"]),
+            name: "LocationFeatureTests",
+            dependencies: ["LocationFeature"]),
     ]
 )

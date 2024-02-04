@@ -5,19 +5,20 @@ import PackageDescription
 
 let package = Package(
     name: "Proxy",
+    platforms: [.iOS(.v17)],
     products: [
         .library(
-            name: "DependenciesWrapper",
-            targets: ["DependenciesWrapper"]),
+            name: "TCAProxy",
+            targets: ["TCAProxy"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "1.0.0")
+        .package(url: "https://github.com/pointfreeco/swift-composable-architecture.git", exact: "1.7.2")
     ],
     targets: [
         .target(
-            name: "DependenciesWrapper",
+            name: "TCAProxy",
             dependencies: [
-                .product(name: "Dependencies", package: "swift-dependencies")
+                .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
             ]
         )
     ]
