@@ -17,6 +17,12 @@ public struct LocationView: View {
     }
     
     public var body: some View {
-        Text("Location")
+        WithViewStore(self.store, observe: { $0 }, send: { .view($0) }) {
+            viewStore in
+            Text("운동시간")
+                .onAppear {
+                    viewStore.send(.startButtonTapped)
+                }
+        }
     }
 }
