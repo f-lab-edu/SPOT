@@ -7,9 +7,11 @@
 
 import SwiftUI
 
+let root = CompositionRoot()
+
 struct ContentView: View {
     var body: some View {
-        CompositionRoot.locationView
+      root.locationView
     }
 }
 

@@ -14,19 +14,34 @@ import LocationFeature
 import Running
 import RunningDataAccess
 
-enum CompositionRoot {
-    static var locationView: some View {
+class CompositionRoot {
+    var locationView: some View {
         LocationView(store: locationCore)
     }
     
-    static var locationCore: StoreOf<LocationCore> {
+    var locationCore: StoreOf<LocationCore> {
         Store(initialState: LocationCore.State(usecase: runningLocationManager)) {
             
         }
     }
     
-    private static var runningLocationManager: LocationUsecase = RunningLocationService(manager: locationManager)
+    var runningLocationManager: LocationUsecase = RunningLocationService(manager: locationManager)
     
-    private static let locationManager = CLLocationManager()
+  let locationManager: LocationMansger
     
+  
+  init() {
+    // create instances and object graph
+    
+    let locationManager = LocationManger()
+    self.locationManager = locationManager
+    
+    self.runningLocationManager = RunningLocationService(manager: locationManager)
+    
+    
+    
+    
+    
+    
+  }
 }

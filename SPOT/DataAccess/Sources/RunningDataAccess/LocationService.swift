@@ -30,7 +30,7 @@ public struct LcationAuthorizationStatus: Equatable {
     let status: CLAuthorizationStatus
 }
 
-public final class RunningLocationService: LocationUsecase {
+public final class RunningLocationService: LocationController {
     private let manager: CLLocationManager
     
     public init(manager: CLLocationManager) {
