@@ -11,6 +11,9 @@ let package = Package(
             name: "Root",
             targets: ["Root"]),
         .library(
+            name: "RunningFeature",
+            targets: ["RunningFeature"]),
+        .library(
             name: "LocationFeature",
             targets: ["LocationFeature"])
     ],
@@ -21,11 +24,16 @@ let package = Package(
         .target(
             name: "Root",
             dependencies: [
+                "RunningFeature"
+            ]),
+        .target(
+            name: "RunningFeature",
+            dependencies: [
+                "LocationFeature"
             ]),
         .target(
             name: "LocationFeature",
             dependencies: [
-                .product(name: "TCAProxy", package: "Proxy")
             ]),
         .testTarget(
             name: "LocationFeatureTests",
