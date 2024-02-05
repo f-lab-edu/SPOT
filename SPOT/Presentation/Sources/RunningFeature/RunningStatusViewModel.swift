@@ -1,5 +1,5 @@
 //
-//  RunningViewModel.swift
+//  RunningStatusViewModel.swift
 //
 //
 //  Created by 김민식 on 2024/02/05.
@@ -7,8 +7,10 @@
 
 import Foundation
 
-public final class RunningViewModel: ObservableObject {
-    @Published var uiState: RunningState = .pause
+public final class RunningStatusViewModel: ObservableObject {
+    @Published var uiState: RunningState = .before
+    
+    public init() {}
 }
 
 enum RunningState {
