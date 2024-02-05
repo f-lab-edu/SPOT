@@ -9,9 +9,9 @@ import CoreLocation
 import SwiftUI
 
 import LocationFeature
-import Running
 import RunningFeature
 import RunningDataAccess
+import Usecase
 
 class CompositionRoot {
     var RunningView: some View {
