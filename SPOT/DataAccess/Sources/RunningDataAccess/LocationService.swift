@@ -6,16 +6,7 @@
 //
 
 import CoreLocation
-import Running
-
-//protocol LocationClient {
-//    func delegate(completion: @Sendable () async -> AsyncStream<RunningLocationManager.Action>)
-//    func authorizationStatus(completion: @Sendable () async -> CLAuthorizationStatus)
-//    func location(completion: @Sendable () async -> Location)
-//    func requestLocation(completion: @Sendable () async -> Void)
-//    func requestWhenInUseAuthorization(completion: @Sendable () async -> Void)
-//    func startUpdatingLocation(completion: @Sendable () async -> Void)
-//}
+import Controller
 
 @MainActor
 public final class MainActorIsolated<Value>: Sendable {
@@ -30,7 +21,7 @@ public struct LcationAuthorizationStatus: Equatable {
     let status: CLAuthorizationStatus
 }
 
-public final class RunningLocationService: LocationUsecase {
+public final class RunningLocationService {
     private let manager: CLLocationManager
     
     public init(manager: CLLocationManager) {
@@ -62,13 +53,13 @@ public final class RunningLocationService: LocationUsecase {
         
     }
     
-    public enum Action {
-        case didChangeAuthorization(CLAuthorizationStatus)
-        case didUpdateLocations([Location])
-        case didPauseLocationUpdates
-        case didResumeLocationUpdates
-        case didFailWithError(Error)
-    }
+//    public enum Action {
+//        case didChangeAuthorization(CLAuthorizationStatus)
+//        case didUpdateLocations([Location])
+//        case didPauseLocationUpdates
+//        case didResumeLocationUpdates
+//        case didFailWithError(Error)
+//    }
     
     public struct Error: Swift.Error, Equatable {
         public let error: NSError
@@ -79,38 +70,38 @@ public final class RunningLocationService: LocationUsecase {
     }
 }
 
-private final class RunningLocationManagerDelegate: NSObject, CLLocationManagerDelegate {
-    let continuation: AsyncStream<RunningLocationService.Action>.Continuation
-    
-    public init(
-        continuation: AsyncStream<RunningLocationService.Action>.Continuation
-    ) {
-        self.continuation = continuation
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        continuation.yield(
-            .didUpdateLocations(
-                locations.map {
-                    Location(coordinate: .init(latitude: $0.coordinate.latitude, longitude: $0.coordinate.longitude))
-                }
-            )
-        )
-    }
-    
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        continuation.yield(.didChangeAuthorization(manager.authorizationStatus))
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        continuation.yield(.didFailWithError(RunningLocationService.Error(error)))
-    }
-    
-    func locationManagerDidPauseLocationUpdates(_ manager: CLLocationManager) {
-        continuation.yield(.didPauseLocationUpdates)
-    }
-    
-    func locationManagerDidResumeLocationUpdates(_ manager: CLLocationManager) {
-        continuation.yield(.didResumeLocationUpdates)
-    }
-}
+//private final class RunningLocationManagerDelegate: NSObject, CLLocationManagerDelegate {
+//    let continuation: AsyncStream<RunningLocationService.Action>.Continuation
+//    
+//    public init(
+//        continuation: AsyncStream<RunningLocationService.Action>.Continuation
+//    ) {
+//        self.continuation = continuation
+//    }
+//    
+//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//        continuation.yield(
+//            .didUpdateLocations(
+//                locations.map {
+//                    Location(coordinate: .init(latitude: $0.coordinate.latitude, longitude: $0.coordinate.longitude))
+//                }
+//            )
+//        )
+//    }
+//    
+//    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+//        continuation.yield(.didChangeAuthorization(manager.authorizationStatus))
+//    }
+//    
+//    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+//        continuation.yield(.didFailWithError(RunningLocationService.Error(error)))
+//    }
+//    
+//    func locationManagerDidPauseLocationUpdates(_ manager: CLLocationManager) {
+//        continuation.yield(.didPauseLocationUpdates)
+//    }
+//    
+//    func locationManagerDidResumeLocationUpdates(_ manager: CLLocationManager) {
+//        continuation.yield(.didResumeLocationUpdates)
+//    }
+//}
