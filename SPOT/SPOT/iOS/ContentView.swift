@@ -11,7 +11,7 @@ struct ContentView: View {
     let compositionRoot = CompositionRoot()
     
     var body: some View {
-        compositionRoot.locationView
+        compositionRoot.RunningView
     }
 }
 

@@ -8,29 +8,23 @@
 import CoreLocation
 import SwiftUI
 
-import ComposableArchitecture
-import TCAProxy
 import LocationFeature
 import Running
+import RunningFeature
 import RunningDataAccess
 
 class CompositionRoot {
-    var locationView: some View {
-        LocationView(store: locationCore)
+    var RunningView: some View {
+        RunningStatusView(viewModel: runningStatusViewModel)
     }
     
-    var locationCore: StoreOf<LocationCore> {
-        Store(initialState: LocationCore.State(usecase: runningLocationManager)) {
-            
-        }
-    }
+    var runningStatusViewModel = RunningStatusViewModel()
+    
+    var runningLocationManager: LocationUsecase
+    let locationManager: CLLocationManager
     
     init() {
         self.locationManager = CLLocationManager()
         self.runningLocationManager = RunningLocationService(manager: locationManager)
     }
-    
-    var runningLocationManager: LocationUsecase
-    
-    let locationManager: CLLocationManager
 }
