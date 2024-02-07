@@ -18,7 +18,7 @@ let package = Package(
         .target(
             name: "RunningDataAccess",
             dependencies: [
-                .product(name: "Usecase", package: "Domain")
+                .product(name: "Controller", package: "Domain")
             ]
         )
     ]
