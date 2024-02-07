@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    let compositionRoot = CompositionRoot()
+    private let compositionRoot = CompositionRoot()
     
     var body: some View {
         compositionRoot.RunningView
