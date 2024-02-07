@@ -23,6 +23,7 @@ let package = Package(
         .target(
             name: "Usecase",
             dependencies: [
+                "Controller"
             ]
         ),
         .target(

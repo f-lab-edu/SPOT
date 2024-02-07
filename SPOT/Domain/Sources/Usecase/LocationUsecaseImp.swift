@@ -6,7 +6,20 @@
 //
 
 import Foundation
+import Combine
 
-class LocationUsecaseImp {
+import Controller
+
+public final class LocationUsecaseImp: LocationUsecase {
+    public let location: AnyPublisher<Location, Never> = PassthroughSubject.init().eraseToAnyPublisher()
     
+    private let locationController: LocationController
+    
+    public init(locationController: LocationController) {
+        self.locationController = locationController
+    }
+    
+    public func startRunning() {
+        locationController.start()
+    }
 }

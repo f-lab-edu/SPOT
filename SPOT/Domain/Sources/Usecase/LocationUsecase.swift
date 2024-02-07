@@ -7,13 +7,11 @@
 import Combine
 
 public protocol LocationUsecase {
-//    func delegate()
-//    func start()
-//    func pause()
-//    func stop()
+    var location: AnyPublisher<Location, Never> { get }    
+    func startRunning()
 }
 
-//struct Location {
-//    let latitude: Double
-//    let longitude: Double
-//}
+public struct Location {
+    public let latitude: Double
+    public let longitude: Double
+}

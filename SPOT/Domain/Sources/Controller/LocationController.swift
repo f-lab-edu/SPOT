@@ -5,13 +5,18 @@
 //  Created by 김민식 on 2024/02/05.
 //
 
+import Combine
 import Foundation
+
 import Entity
 
-protocol LocationController {
-    func authorizationStatus(completion: @Sendable () async -> Bool)
-    func location(completion: @Sendable () async -> Location)
-    func requestLocation(completion: @Sendable () async -> Void)
-    func requestWhenInUseAuthorization(completion: @Sendable () async -> Void)
-    func startUpdatingLocation(completion: @Sendable () async -> Void)
+public protocol LocationController {
+    var location: PassthroughSubject<Location, Never> { get }
+    var authorizationStatus: PassthroughSubject<Bool, Never> { get }
+    var updatingLocation: PassthroughSubject<Bool, Never> { get }
+    
+    func start()
+    func pause()
+    func resume()
+    func stop()
 }
