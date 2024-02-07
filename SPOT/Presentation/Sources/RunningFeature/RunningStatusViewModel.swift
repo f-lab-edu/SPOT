@@ -7,10 +7,20 @@
 
 import Foundation
 
+import Usecase
+
 public final class RunningStatusViewModel: ObservableObject {
     @Published var uiState: RunningState = .before
     
-    public init() {}
+    private let locationUsecase: LocationUsecase
+    
+    public init(locationUsecase: LocationUsecase) {
+        self.locationUsecase = locationUsecase
+    }
+    
+    func startRunningButtonTapped() {
+        locationUsecase.startRunning()
+    }
 }
 
 enum RunningState {

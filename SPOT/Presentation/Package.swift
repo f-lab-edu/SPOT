@@ -18,7 +18,7 @@ let package = Package(
             targets: ["LocationFeature"])
     ],
     dependencies: [
-        .package(path: "../Proxy")
+        .package(path: "../Domain")
     ],
     targets: [
         .target(
@@ -29,11 +29,13 @@ let package = Package(
         .target(
             name: "RunningFeature",
             dependencies: [
-                "LocationFeature"
+                "LocationFeature",
+                .product(name: "Usecase", package: "Domain")
             ]),
         .target(
             name: "LocationFeature",
             dependencies: [
+                .product(name: "Usecase", package: "Domain")
             ]),
         .testTarget(
             name: "LocationFeatureTests",

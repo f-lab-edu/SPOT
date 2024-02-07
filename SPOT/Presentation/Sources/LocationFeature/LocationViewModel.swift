@@ -7,6 +7,16 @@
 
 import Foundation
 
+import Usecase
+
 class RunningLocationViewModel: ObservableObject {
+    private let locationUsecase: LocationUsecase
     
+    init(locationUsecase: LocationUsecase) {
+        self.locationUsecase = locationUsecase
+    }
+    
+    func startRunning() {
+        
+    }
 }

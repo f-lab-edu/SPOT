@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+import LocationFeature
+
 public struct RunningStatusView: View {
     @ObservedObject var viewModel: RunningStatusViewModel
     
@@ -28,7 +30,7 @@ extension RunningStatusView {
             Group {
                 switch viewModel.uiState {
                 case .before:
-                    BeforeRunning()
+                    BeforeRunning(viewModel: viewModel)
                 case .startCountdown:
                     Text("startCountdown")
                 case .run:
@@ -46,6 +48,8 @@ extension RunningStatusView {
 // MARK: - Before View
 extension RunningStatusView {
     struct BeforeRunning: View {
+        @ObservedObject var viewModel: RunningStatusViewModel
+        
         var body: some View {
             VStack(alignment: .center) {
                 GPSStatusView()
@@ -59,7 +63,7 @@ extension RunningStatusView {
                 Spacer()
                 
                 HStack(alignment: .center, spacing: 20) {
-                    StartRunningButton()
+                    StartRunningButton(viewModel: viewModel)
                     
                     SettingButton()
                 }
@@ -90,9 +94,11 @@ extension RunningStatusView {
 //MARK: - Start Button
 extension RunningStatusView {
     struct StartRunningButton: View {
+        @ObservedObject var viewModel: RunningStatusViewModel
+        
         var body: some View {
             Button {
-                
+                viewModel.startRunningButtonTapped()
             } label: {
                 Image(systemName: "arrowtriangle.right.circle.fill")
                     .resizable()
@@ -118,8 +124,4 @@ extension RunningStatusView {
             }
         }
     }
-}
-
-#Preview {
-    RunningStatusView(viewModel: RunningStatusViewModel())
 }
