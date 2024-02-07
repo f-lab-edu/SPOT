@@ -46,6 +46,7 @@
 		311F84FF2B52B6C70035134F /* DataAccess */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = DataAccess; sourceTree = "<group>"; };
 		311F85002B52B6D40035134F /* Proxy */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Proxy; sourceTree = "<group>"; };
 		6911E9122B6C7600005F02AB /* CompositionRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionRoot.swift; sourceTree = "<group>"; };
+		6911E9202B724B5D005F02AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +100,7 @@
 		311F84CC2B528D920035134F /* SPOT */ = {
 			isa = PBXGroup;
 			children = (
+				6911E9202B724B5D005F02AB /* Info.plist */,
 				6911E90C2B6B9834005F02AB /* Composition */,
 				6911E90A2B6B74B2005F02AB /* iOS */,
 				311F84D12B528D950035134F /* Assets.xcassets */,
@@ -219,8 +221,8 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				Base,
 				ko,
+				Base,
 			);
 			mainGroup = 311F84C12B528D920035134F;
 			productRefGroup = 311F84CB2B528D920035134F /* Products */;
@@ -411,6 +413,9 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SPOT/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "사용자 위치 권한 허용";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "사용자 위치 권한 허용";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -450,6 +455,9 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SPOT/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "사용자 위치 권한 허용";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "사용자 위치 권한 허용";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
