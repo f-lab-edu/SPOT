@@ -8,19 +8,36 @@ let package = Package(
     platforms: [.iOS(.v17)],
     products: [
         .library(
-            name: "Running",
-            targets: ["Running"]),
+            name: "Usecase",
+            targets: ["Usecase"]),
+        .library(
+            name: "Controller",
+            targets: ["Controller"]),
+        .library(
+            name: "Entity",
+            targets: ["Entity"]),
     ],
     dependencies: [
     ],
     targets: [
         .target(
-            name: "Running",
+            name: "Usecase",
             dependencies: [
+                "Controller"
             ]
         ),
+        .target(
+            name: "Controller",
+            dependencies: [
+                "Entity"
+            ]
+        ),
+        .target(
+            name: "Entity",
+            dependencies: []
+        ),
         .testTarget(
-            name: "RunningTests",
-            dependencies: ["Running"]),
+            name: "UsecaseTests",
+            dependencies: []),
     ]
 )

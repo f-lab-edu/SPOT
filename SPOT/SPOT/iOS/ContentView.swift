@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
+    private let compositionRoot = CompositionRoot()
+    
     var body: some View {
-        CompositionRoot.locationView
+        compositionRoot.RunningView
     }
 }
 

@@ -1,52 +1,29 @@
 //
-//  LocationManager.swift
+//  LocationService.swift
 //
 //
 //  Created by 10004 on 1/21/24.
 //
 
 import CoreLocation
-import Running
+import Combine
 
-//protocol LocationClient {
-//    func delegate(completion: @Sendable () async -> AsyncStream<RunningLocationManager.Action>)
-//    func authorizationStatus(completion: @Sendable () async -> CLAuthorizationStatus)
-//    func location(completion: @Sendable () async -> Location)
-//    func requestLocation(completion: @Sendable () async -> Void)
-//    func requestWhenInUseAuthorization(completion: @Sendable () async -> Void)
-//    func startUpdatingLocation(completion: @Sendable () async -> Void)
-//}
+import Controller
+import Entity
 
-@MainActor
-public final class MainActorIsolated<Value>: Sendable {
-    public lazy var value: Value = initialValue()
-    private let initialValue: @MainActor () -> Value
-    nonisolated public init(initialValue: @MainActor @escaping () -> Value) {
-        self.initialValue = initialValue
-    }
-}
-
-public struct LcationAuthorizationStatus: Equatable {
-    let status: CLAuthorizationStatus
-}
-
-public final class RunningLocationService: LocationUsecase {
+public final class LocationService: LocationController {
+    public var location = PassthroughSubject<Location, Never>()
+    public var authorizationStatus = PassthroughSubject<Bool, Never>()
+    public var updatingLocation = PassthroughSubject<Bool, Never>()
     private let manager: CLLocationManager
+    private var delegate: LocationServiceDelegate
     
     public init(manager: CLLocationManager) {
         self.manager = manager
-        self.manager.requestWhenInUseAuthorization()
-    }
-    
-    public func delegate() {
-        AsyncStream { continuation in
-            let delegate = RunningLocationManagerDelegate(continuation: continuation)
-            manager.delegate = delegate
-            
-            continuation.onTermination = { [delegate] _ in
-                _ = delegate
-            }
-        }
+        self.delegate = LocationServiceDelegate(location: location,
+                                               authorizationStatus: authorizationStatus,
+                                               updatingLocation: updatingLocation)
+        self.manager.delegate = self.delegate
     }
     
     public func start() {
@@ -54,63 +31,41 @@ public final class RunningLocationService: LocationUsecase {
         manager.requestLocation()
     }
     
-    public func pause() {
-        
-    }
+    public func pause() {}
     
-    public func stop() {
-        
-    }
+    public func resume() {}
     
-    public enum Action {
-        case didChangeAuthorization(CLAuthorizationStatus)
-        case didUpdateLocations([Location])
-        case didPauseLocationUpdates
-        case didResumeLocationUpdates
-        case didFailWithError(Error)
-    }
-    
-    public struct Error: Swift.Error, Equatable {
-        public let error: NSError
-        
-        public init(_ error: Swift.Error) {
-            self.error = error as NSError
-        }
-    }
+    public func stop() {}
 }
 
-private final class RunningLocationManagerDelegate: NSObject, CLLocationManagerDelegate {
-    let continuation: AsyncStream<RunningLocationService.Action>.Continuation
+private final class LocationServiceDelegate: NSObject, CLLocationManagerDelegate {
+    let location: PassthroughSubject<Location, Never>
+    let authorizationStatus: PassthroughSubject<Bool, Never>
+    let updatingLocation: PassthroughSubject<Bool, Never>
     
-    public init(
-        continuation: AsyncStream<RunningLocationService.Action>.Continuation
-    ) {
-        self.continuation = continuation
+    init(location: PassthroughSubject<Location, Never>,
+         authorizationStatus: PassthroughSubject<Bool, Never>,
+         updatingLocation: PassthroughSubject<Bool, Never>) {
+        self.location = location
+        self.authorizationStatus = authorizationStatus
+        self.updatingLocation = updatingLocation
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        continuation.yield(
-            .didUpdateLocations(
-                locations.map {
-                    Location(coordinate: .init(latitude: $0.coordinate.latitude, longitude: $0.coordinate.longitude))
-                }
-            )
-        )
+        locations.forEach { location in
+            self.location.send(Location(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude))
+        }
     }
     
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        continuation.yield(.didChangeAuthorization(manager.authorizationStatus))
-    }
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {}
     
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        continuation.yield(.didFailWithError(RunningLocationService.Error(error)))
-    }
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {}
     
     func locationManagerDidPauseLocationUpdates(_ manager: CLLocationManager) {
-        continuation.yield(.didPauseLocationUpdates)
+        updatingLocation.send(false)
     }
     
     func locationManagerDidResumeLocationUpdates(_ manager: CLLocationManager) {
-        continuation.yield(.didResumeLocationUpdates)
+        updatingLocation.send(true)
     }
 }

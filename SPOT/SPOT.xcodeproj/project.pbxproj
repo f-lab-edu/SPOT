@@ -13,10 +13,12 @@
 		311F84D62B528D950035134F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 311F84D52B528D950035134F /* Preview Assets.xcassets */; };
 		311F84E02B528D950035134F /* SPOTTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311F84DF2B528D950035134F /* SPOTTests.swift */; };
 		6911E90F2B6C75C9005F02AB /* RunningDataAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 6911E90E2B6C75C9005F02AB /* RunningDataAccess */; };
-		6911E9112B6C75C9005F02AB /* Running in Frameworks */ = {isa = PBXBuildFile; productRef = 6911E9102B6C75C9005F02AB /* Running */; };
 		6911E9132B6C7600005F02AB /* CompositionRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6911E9122B6C7600005F02AB /* CompositionRoot.swift */; };
 		6911E9172B6CD028005F02AB /* LocationFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 6911E9162B6CD028005F02AB /* LocationFeature */; };
 		6911E9192B6CD028005F02AB /* Root in Frameworks */ = {isa = PBXBuildFile; productRef = 6911E9182B6CD028005F02AB /* Root */; };
+		6911E91B2B70BF20005F02AB /* RunningFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 6911E91A2B70BF20005F02AB /* RunningFeature */; };
+		6911E91D2B70D623005F02AB /* Usecase in Frameworks */ = {isa = PBXBuildFile; productRef = 6911E91C2B70D623005F02AB /* Usecase */; };
+		6911E91F2B70D717005F02AB /* Controller in Frameworks */ = {isa = PBXBuildFile; productRef = 6911E91E2B70D717005F02AB /* Controller */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +46,7 @@
 		311F84FF2B52B6C70035134F /* DataAccess */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = DataAccess; sourceTree = "<group>"; };
 		311F85002B52B6D40035134F /* Proxy */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Proxy; sourceTree = "<group>"; };
 		6911E9122B6C7600005F02AB /* CompositionRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionRoot.swift; sourceTree = "<group>"; };
+		6911E9202B724B5D005F02AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,8 +56,10 @@
 			files = (
 				6911E9172B6CD028005F02AB /* LocationFeature in Frameworks */,
 				6911E9192B6CD028005F02AB /* Root in Frameworks */,
-				6911E9112B6C75C9005F02AB /* Running in Frameworks */,
+				6911E91F2B70D717005F02AB /* Controller in Frameworks */,
 				6911E90F2B6C75C9005F02AB /* RunningDataAccess in Frameworks */,
+				6911E91D2B70D623005F02AB /* Usecase in Frameworks */,
+				6911E91B2B70BF20005F02AB /* RunningFeature in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,6 +100,7 @@
 		311F84CC2B528D920035134F /* SPOT */ = {
 			isa = PBXGroup;
 			children = (
+				6911E9202B724B5D005F02AB /* Info.plist */,
 				6911E90C2B6B9834005F02AB /* Composition */,
 				6911E90A2B6B74B2005F02AB /* iOS */,
 				311F84D12B528D950035134F /* Assets.xcassets */,
@@ -162,9 +168,11 @@
 			name = SPOT;
 			packageProductDependencies = (
 				6911E90E2B6C75C9005F02AB /* RunningDataAccess */,
-				6911E9102B6C75C9005F02AB /* Running */,
 				6911E9162B6CD028005F02AB /* LocationFeature */,
 				6911E9182B6CD028005F02AB /* Root */,
+				6911E91A2B70BF20005F02AB /* RunningFeature */,
+				6911E91C2B70D623005F02AB /* Usecase */,
+				6911E91E2B70D717005F02AB /* Controller */,
 			);
 			productName = SPOT;
 			productReference = 311F84CA2B528D920035134F /* SPOT.app */;
@@ -213,8 +221,8 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				Base,
 				ko,
+				Base,
 			);
 			mainGroup = 311F84C12B528D920035134F;
 			productRefGroup = 311F84CB2B528D920035134F /* Products */;
@@ -405,6 +413,9 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SPOT/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "사용자 위치 권한 허용";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "사용자 위치 권한 허용";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -444,6 +455,9 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SPOT/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "사용자 위치 권한 허용";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "사용자 위치 권한 허용";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -553,10 +567,6 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = RunningDataAccess;
 		};
-		6911E9102B6C75C9005F02AB /* Running */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Running;
-		};
 		6911E9162B6CD028005F02AB /* LocationFeature */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = LocationFeature;
@@ -564,6 +574,18 @@
 		6911E9182B6CD028005F02AB /* Root */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Root;
+		};
+		6911E91A2B70BF20005F02AB /* RunningFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RunningFeature;
+		};
+		6911E91C2B70D623005F02AB /* Usecase */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Usecase;
+		};
+		6911E91E2B70D717005F02AB /* Controller */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Controller;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

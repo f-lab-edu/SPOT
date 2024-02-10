@@ -11,21 +11,31 @@ let package = Package(
             name: "Root",
             targets: ["Root"]),
         .library(
+            name: "RunningFeature",
+            targets: ["RunningFeature"]),
+        .library(
             name: "LocationFeature",
             targets: ["LocationFeature"])
     ],
     dependencies: [
-        .package(path: "../Proxy")
+        .package(path: "../Domain")
     ],
     targets: [
         .target(
             name: "Root",
             dependencies: [
+                "RunningFeature"
+            ]),
+        .target(
+            name: "RunningFeature",
+            dependencies: [
+                "LocationFeature",
+                .product(name: "Usecase", package: "Domain")
             ]),
         .target(
             name: "LocationFeature",
             dependencies: [
-                .product(name: "TCAProxy", package: "Proxy")
+                .product(name: "Usecase", package: "Domain")
             ]),
         .testTarget(
             name: "LocationFeatureTests",
