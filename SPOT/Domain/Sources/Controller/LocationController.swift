@@ -12,8 +12,9 @@ import Entity
 
 public protocol LocationController {
     var location: PassthroughSubject<Location, Never> { get }
-    var authorizationStatus: PassthroughSubject<Bool, Never> { get }
+    var authorizationStatus: PassthroughSubject<AuthorizationStatus, Never> { get }
     var updatingLocation: PassthroughSubject<Bool, Never> { get }
+    var locationError: PassthroughSubject<Error, Never> { get }
     
     func start()
     func pause()
