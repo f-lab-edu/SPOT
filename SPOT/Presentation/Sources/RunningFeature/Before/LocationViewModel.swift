@@ -15,8 +15,4 @@ class RunningLocationViewModel: ObservableObject {
     init(locationUsecase: LocationUsecase) {
         self.locationUsecase = locationUsecase
     }
-    
-    func startRunning() {
-        
-    }
 }

@@ -16,10 +16,10 @@ import Usecase
 
 class CompositionRoot {
     var RunningView: some View {
-        RunningStatusView(viewModel: runningStatusViewModel)
+        RunningStatusView(status: runningStatus)
     }
     
-    var runningStatusViewModel: RunningStatusViewModel
+    var runningStatus: RunningStatus
     var runningLocationUsecase: LocationUsecaseImp
     var locationController: LocationController
     let locationManager: CLLocationManager
@@ -28,6 +28,6 @@ class CompositionRoot {
         self.locationManager = CLLocationManager()
         self.locationController = LocationService(manager: self.locationManager)
         self.runningLocationUsecase = LocationUsecaseImp(locationController: self.locationController)
-        self.runningStatusViewModel = RunningStatusViewModel(locationUsecase: self.runningLocationUsecase)
+        self.runningStatus = RunningStatus()
     }
 }
