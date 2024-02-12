@@ -7,10 +7,14 @@
 
 import SwiftUI
 
-struct BeforeRunning: View {
-    @ObservedObject var status: RunningStatus
+public struct BeforeRunning: View {
+    private var viewModel: RunningLocationViewModel
     
-    var body: some View {
+    public init(viewModel: RunningLocationViewModel) {
+        self.viewModel = viewModel
+    }
+    
+    public var body: some View {
         VStack(alignment: .center) {
             GPSStatusView()
             
@@ -23,7 +27,7 @@ struct BeforeRunning: View {
             Spacer()
             
             HStack(alignment: .center, spacing: 20) {
-                StartRunningButton(status: status)
+                StartRunningButton()
                 
                 SettingButton()
             }
@@ -52,8 +56,6 @@ extension BeforeRunning {
 //MARK: - Start Button
 extension BeforeRunning {
     struct StartRunningButton: View {
-        @ObservedObject var status: RunningStatus
-        
         var body: some View {
             Button {
                 

@@ -30,7 +30,8 @@ extension RunningStatusView {
             Group {
                 switch status.uiState {
                 case .before:
-                    BeforeRunning(status: status)
+//                    BeforeRunning(status: status)
+                    Text("BeforeRunning")
                 case .startCountdown:
                     Text("startCountdown")
                 case .run:

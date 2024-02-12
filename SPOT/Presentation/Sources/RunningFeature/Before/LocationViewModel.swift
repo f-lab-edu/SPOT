@@ -9,10 +9,14 @@ import Foundation
 
 import Usecase
 
-class RunningLocationViewModel: ObservableObject {
+public class RunningLocationViewModel: ObservableObject {
     private let locationUsecase: LocationUsecase
     
-    init(locationUsecase: LocationUsecase) {
+    public init(locationUsecase: LocationUsecase) {
         self.locationUsecase = locationUsecase
+    }
+    
+    func startButtonTapped() {
+        locationUsecase.startRunning()
     }
 }
