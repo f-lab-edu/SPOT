@@ -11,4 +11,10 @@ import Foundation
 import Entity
 
 public protocol ActivityController {
+    var activity: PassthroughSubject<Activity, Never> { get }
+    var authorizationStatus: PassthroughSubject<ActivityAuthorizationStatus, Never> { get }
+    
+    func checkAuthoization()
+    func startUpdates(startedAt: Date)
+    func stopUpdates()
 }
