@@ -1,0 +1,25 @@
+name: Merged CI
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build and tests
+    runs-on: macos-13
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Xcode version
+      run: sudo xcode-select -s /Applications/Xcode_15.0.1.app/Contents/Developer
+    - name: Show current version of Xcode
+      run: xcodebuild -version
+    - name: Run tests
+      run: ./run_tests.sh
+      working-directory: ${{ github.workspace }}/SPOT
+      #run: swift test
