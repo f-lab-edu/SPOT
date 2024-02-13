@@ -15,7 +15,10 @@ let package = Package(
             targets: ["RunningFeature"]),
         .library(
             name: "LocationFeature",
-            targets: ["LocationFeature"])
+            targets: ["LocationFeature"]),
+        .library(
+            name: "ActivityFeature",
+            targets: ["ActivityFeature"])
     ],
     dependencies: [
         .package(path: "../Domain")
@@ -30,10 +33,16 @@ let package = Package(
             name: "RunningFeature",
             dependencies: [
                 "LocationFeature",
+                "ActivityFeature",
                 .product(name: "Usecase", package: "Domain")
             ]),
         .target(
             name: "LocationFeature",
+            dependencies: [
+                .product(name: "Usecase", package: "Domain")
+            ]),
+        .target(
+            name: "ActivityFeature",
             dependencies: [
                 .product(name: "Usecase", package: "Domain")
             ]),
