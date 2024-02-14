@@ -11,17 +11,21 @@ import Foundation
 import Usecase
 import Entity
 
-public class ActivityDashBoardViewModel: ObservableObject {
+public class ActivityDashboardViewModel: ObservableObject {
     @Published var distance = String()
     @Published var pace = String()
     @Published var calories = String()
+    @Published var runningTime = Int()
     
     private var activityUsecase: ActivityUsecase
-    private var cancellable: AnyCancellable?
+    private var timerUsecase: TimerUsecase
+    private var cancellables = Set<AnyCancellable>()
     
-    public init(activityUsecase: ActivityUsecase) {
+    public init(activityUsecase: ActivityUsecase, timerUsecase: TimerUsecase) {
         self.activityUsecase = activityUsecase
-        cancellable = activityUsecase.activity
+        self.timerUsecase = timerUsecase
+        
+        activityUsecase.activity
             .sink { activity in
                 self.distance = String(format: "%.1f", activity.distance)
                 
@@ -32,9 +36,16 @@ public class ActivityDashBoardViewModel: ObservableObject {
                 let calories = Int(activity.calories)
                 self.calories = String(calories)
             }
+            .store(in: &cancellables)
+        
+        timerUsecase.runningTime
+            .sink { time in
+                self.runningTime = time
+            }
+            .store(in: &cancellables)
     }
     
     deinit {
-        cancellable = nil
+        cancellables.forEach { $0.cancel() }
     }
 }

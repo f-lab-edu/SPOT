@@ -8,9 +8,9 @@
 import SwiftUI
 
 public struct ActivityDashboardView: View {
-    private var viewModel: ActivityDashBoardViewModel
+    private var viewModel: ActivityDashboardViewModel
     
-    public init(viewModel: ActivityDashBoardViewModel) {
+    public init(viewModel: ActivityDashboardViewModel) {
         self.viewModel = viewModel
     }
     
