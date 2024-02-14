@@ -38,7 +38,13 @@ public final class ActivityService: ActivityController {
         pedometer.startUpdates(from: startedAt) { data, error in
             guard let data else { return }
             
-            let updated = Activity(distance: data.distance?.doubleValue ?? 0, pace: data.currentPace?.doubleValue ?? 0)
+            let distance = data.distance?.doubleValue ?? 0
+            
+            let updated = Activity(
+                distance: distance,
+                pace: data.currentPace?.doubleValue ?? 0,
+                calories: distance * 70 * 0.005
+            ) // FIXME: - 칼로리 계산식
             
             self.activity.send(updated)
         }

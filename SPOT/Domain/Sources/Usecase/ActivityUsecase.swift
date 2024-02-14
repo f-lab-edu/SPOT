@@ -11,9 +11,4 @@ import Entity
 
 public protocol ActivityUsecase {
     var activity: AnyPublisher<Activity, Never> { get }
-    
-    func startRunning()
-    func pauseRunning()
-    func resumeRunning()
-    func stopRunning()
 }
