@@ -14,26 +14,10 @@ import Entity
 public final class ActivityUsecaseImp: ActivityUsecase {
     public let activity: AnyPublisher<Activity, Never> = PassthroughSubject.init().eraseToAnyPublisher()
     
-//    private let locationController: LocationController
+    private let activityController: ActivityController
     
-//    public init(locationController: LocationController) {
-//        self.locationController = locationController
-//    }
-    
-    public func startRunning() {
-//        locationController.start()
-    }
-    
-    public func pauseRunning() {
-        
-    }
-    
-    public func resumeRunning() {
-        
-    }
-    
-    public func stopRunning() {
-        
+    public init(activityController: ActivityController) {
+        self.activityController = activityController
     }
 }
 
