@@ -15,7 +15,7 @@ public final class RunningStatus: ObservableObject {
     enum UIState {
         case before
         case startCountdown
-        case run
+        case during
         case pause
         case stop
     }

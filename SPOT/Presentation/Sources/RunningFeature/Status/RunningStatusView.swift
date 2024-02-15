@@ -34,7 +34,7 @@ extension RunningStatusView {
                     Text("BeforeRunning")
                 case .startCountdown:
                     Text("startCountdown")
-                case .run:
+                case .during:
                     Text("run")
                 case .pause:
                     Text("pause")
