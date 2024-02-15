@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct SPOTApp: App {
+    private let compositionRoot = CompositionRoot()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(runningFactory: compositionRoot.runningFactory)
         }
     }
 }

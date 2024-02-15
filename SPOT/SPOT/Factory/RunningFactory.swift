@@ -10,13 +10,37 @@ import SwiftUI
 import RunningFeature
 
 protocol RunningFactory {
-    associatedtype SomeView: View
+    associatedtype BeforeRunningView: View
+    associatedtype DuringRunningView: View
+    associatedtype PauseRunningView: View
+    associatedtype StopRunningView: View
     
-    func makeBeforeRunning(_ viewModel: RunningLocationViewModel) -> SomeView
+    func makeBeforeRunning() -> BeforeRunningView
+    func makeDuringRunning() -> DuringRunningView
+    func makePauseRunning() -> PauseRunningView
+    func makeStopRunning() -> StopRunningView
 }
 
 struct RunningFactoryImp: RunningFactory {
-    @ViewBuilder func makeBeforeRunning(_ viewModel: RunningLocationViewModel) -> BeforeRunning {
-        BeforeRunning(viewModel: viewModel)
+    let locationViewModel: RunningLocationViewModel
+    
+    init(locationViewModel: RunningLocationViewModel) {
+        self.locationViewModel = locationViewModel
+    }
+    
+    @ViewBuilder func makeBeforeRunning() -> BeforeRunning {
+        BeforeRunning(viewModel: locationViewModel)
+    }
+    
+    @ViewBuilder func makeDuringRunning() -> DuringRunning {
+        DuringRunning()
+    }
+    
+    @ViewBuilder func makePauseRunning() -> PauseRunning {
+        PauseRunning()
+    }
+    
+    @ViewBuilder func makeStopRunning() -> StopRunning {
+        StopRunning()
     }
 }

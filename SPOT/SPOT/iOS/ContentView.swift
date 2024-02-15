@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
-    private let compositionRoot = CompositionRoot()
+    private let runningFactory: any RunningFactory
+    
+    init(runningFactory: any RunningFactory) {
+        self.runningFactory = runningFactory
+    }
     
     var body: some View {
-        compositionRoot.makeBeforeRunning()
+        runningFactory.makeBeforeRunning
     }
-}
-
-#Preview {
-    ContentView()
 }
