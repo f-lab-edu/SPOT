@@ -14,7 +14,12 @@ import RunningDataAccess
 import Controller
 import Usecase
 
-class CompositionRoot {
+class CompositionRoot {    
+    func makeBeforeRunning() -> BeforeRunning {
+        runningFactory.makeBeforeRunning(runningLocationViewModel) as! BeforeRunning
+    }
+    
+    var runningFactory: any RunningFactory
     var runningStatus: RunningStatus
     var runningLocationUsecase: LocationUsecaseImp
     var locationController: LocationController
@@ -27,5 +32,6 @@ class CompositionRoot {
         self.runningLocationUsecase = LocationUsecaseImp(locationController: self.locationController)
         self.runningLocationViewModel = RunningLocationViewModel(locationUsecase: runningLocationUsecase)
         self.runningStatus = RunningStatus()
+        self.runningFactory = RunningFactoryImp()
     }
 }

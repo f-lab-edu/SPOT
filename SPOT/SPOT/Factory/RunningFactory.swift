@@ -16,8 +16,7 @@ protocol RunningFactory {
 }
 
 struct RunningFactoryImp: RunningFactory {
-    func makeBeforeRunning(_ viewModel: RunningLocationViewModel) -> BeforeRunning {
-        
-        return BeforeRunning(viewModel: viewModel)
+    @ViewBuilder func makeBeforeRunning(_ viewModel: RunningLocationViewModel) -> BeforeRunning {
+        BeforeRunning(viewModel: viewModel)
     }
 }
