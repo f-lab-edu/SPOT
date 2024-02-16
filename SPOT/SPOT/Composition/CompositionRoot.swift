@@ -51,7 +51,7 @@ class CompositionRoot {
         
         self.beforeRunningFactory = BeforeRunningFactoryImp(locationViewModel: self.runningLocationViewModel)
         self.duringRunningFactory = DuringRunningFactoryImp(dashboardViewModel: self.dashboardViewModel)
-        self.pauseRunningFactory = PauseRunningFactoryImp()
+        self.pauseRunningFactory = PauseRunningFactoryImp(dashboardViewModel: self.dashboardViewModel)
         self.stopRunningFactory = StopRunningFactoryImp()
     }
 }

@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct PauseButton: View {
+    @ObservedObject var status: RunningStatus
+    
     var body: some View {
         Button {
-            
+            status.uiState = .pause
         } label: {
             Image(systemName: "pause.circle.fill")
                 .resizable()
