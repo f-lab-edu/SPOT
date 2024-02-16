@@ -8,6 +8,8 @@
 import SwiftUI
 
 public struct DuringRunning: View {
+    @EnvironmentObject private var status: RunningStatus
+    
     private var dashboardViewModel: DashboardViewModel
     
     public init(dashboardViewModel: DashboardViewModel) {
@@ -25,7 +27,7 @@ public struct DuringRunning: View {
             Spacer()
             
             HStack(alignment: .center, spacing: 20) {
-                PauseButton()
+                PauseButton(status: status)
                 
                 MapButton()
             }

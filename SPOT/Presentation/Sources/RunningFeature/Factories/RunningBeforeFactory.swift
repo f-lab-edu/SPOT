@@ -38,10 +38,14 @@ public struct DuringRunningFactoryImp: Factory {
 }
 
 public struct PauseRunningFactoryImp: Factory {
-    public init() {}
+    let dashboardViewModel: DashboardViewModel
+    
+    public init(dashboardViewModel: DashboardViewModel) {
+        self.dashboardViewModel = dashboardViewModel
+    }
     
     public func make() -> some View {
-        PauseRunning()
+        PauseRunning(dashboardViewModel: dashboardViewModel)
     }
 }
 
