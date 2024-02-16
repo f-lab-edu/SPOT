@@ -7,14 +7,32 @@
 
 import SwiftUI
 
+import RunningFeature
+
 struct ContentView: View {
-    private let runningFactory: any RunningFactory
+    private let beforeRunningFactory: any Factory
+    private let duringRunningFactory: any Factory
+    private let pauseRunningFactory: any Factory
+    private let stopRunningFactory: any Factory
     
-    init(runningFactory: any RunningFactory) {
-        self.runningFactory = runningFactory
+    init(beforeRunningFactory: any Factory,
+         duringRunningFactory: any Factory,
+         pauseRunningFactory: any Factory,
+         stopRunningFactory: any Factory) {
+        self.beforeRunningFactory = beforeRunningFactory
+        self.duringRunningFactory = duringRunningFactory
+        self.pauseRunningFactory = pauseRunningFactory
+        self.stopRunningFactory = stopRunningFactory
     }
     
     var body: some View {
-        runningFactory.makeBeforeRunning
+        AnyView(
+            RunningStatusView(
+                beforeRunningFactory: beforeRunningFactory,
+                duringRunningFactory: duringRunningFactory,
+                pauseRunningFactory: pauseRunningFactory,
+                stopRunningFactory: stopRunningFactory
+            )
+        )
     }
 }

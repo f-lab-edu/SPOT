@@ -15,7 +15,6 @@
 		6911E91B2B70BF20005F02AB /* RunningFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 6911E91A2B70BF20005F02AB /* RunningFeature */; };
 		6911E91D2B70D623005F02AB /* Usecase in Frameworks */ = {isa = PBXBuildFile; productRef = 6911E91C2B70D623005F02AB /* Usecase */; };
 		6911E91F2B70D717005F02AB /* Controller in Frameworks */ = {isa = PBXBuildFile; productRef = 6911E91E2B70D717005F02AB /* Controller */; };
-		9B756BAD2B7A1DFB005A16D7 /* RunningFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B756BAC2B7A1DFB005A16D7 /* RunningFactory.swift */; };
 		9B756BAF2B7A2233005A16D7 /* CompositionRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B756BAE2B7A2233005A16D7 /* CompositionRoot.swift */; };
 		9B756BB22B7A224E005A16D7 /* SPOTApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B756BB02B7A224E005A16D7 /* SPOTApp.swift */; };
 		9B756BB32B7A224E005A16D7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B756BB12B7A224E005A16D7 /* ContentView.swift */; };
@@ -44,7 +43,6 @@
 		311F84FF2B52B6C70035134F /* DataAccess */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = DataAccess; sourceTree = "<group>"; };
 		311F85002B52B6D40035134F /* Proxy */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Proxy; sourceTree = "<group>"; };
 		6911E9202B724B5D005F02AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		9B756BAC2B7A1DFB005A16D7 /* RunningFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningFactory.swift; sourceTree = "<group>"; };
 		9B756BAE2B7A2233005A16D7 /* CompositionRoot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompositionRoot.swift; sourceTree = "<group>"; };
 		9B756BB02B7A224E005A16D7 /* SPOTApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SPOTApp.swift; sourceTree = "<group>"; };
 		9B756BB12B7A224E005A16D7 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -100,7 +98,6 @@
 		311F84CC2B528D920035134F /* SPOT */ = {
 			isa = PBXGroup;
 			children = (
-				9B756BA62B7A1A56005A16D7 /* Factory */,
 				6911E9202B724B5D005F02AB /* Info.plist */,
 				6911E90C2B6B9834005F02AB /* Composition */,
 				6911E90A2B6B74B2005F02AB /* iOS */,
@@ -149,14 +146,6 @@
 			children = (
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		9B756BA62B7A1A56005A16D7 /* Factory */ = {
-			isa = PBXGroup;
-			children = (
-				9B756BAC2B7A1DFB005A16D7 /* RunningFactory.swift */,
-			);
-			path = Factory;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -267,7 +256,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9B756BAD2B7A1DFB005A16D7 /* RunningFactory.swift in Sources */,
 				9B756BAF2B7A2233005A16D7 /* CompositionRoot.swift in Sources */,
 				9B756BB32B7A224E005A16D7 /* ContentView.swift in Sources */,
 				9B756BB22B7A224E005A16D7 /* SPOTApp.swift in Sources */,

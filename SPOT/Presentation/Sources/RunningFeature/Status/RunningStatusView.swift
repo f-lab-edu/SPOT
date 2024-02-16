@@ -10,37 +10,37 @@ import SwiftUI
 import LocationFeature
 
 public struct RunningStatusView: View {
-    @ObservedObject var status: RunningStatus
+    @StateObject private var status: RunningStatus = .init()
     
-    public init(status: RunningStatus) {
-        self.status = status
+    private let beforeRunningFactory: any Factory
+    private let duringRunningFactory: any Factory
+    private let pauseRunningFactory: any Factory
+    private let stopRunningFactory: any Factory
+    
+    public init(
+         beforeRunningFactory: any Factory,
+         duringRunningFactory: any Factory,
+         pauseRunningFactory: any Factory,
+         stopRunningFactory: any Factory) {
+        self.beforeRunningFactory = beforeRunningFactory
+        self.duringRunningFactory = duringRunningFactory
+        self.pauseRunningFactory = pauseRunningFactory
+        self.stopRunningFactory = stopRunningFactory
     }
     
     public var body: some View {
-        Content(status: status)
-    }
-}
-
-// MARK: - Content
-extension RunningStatusView {
-    struct Content: View {
-        @ObservedObject var status: RunningStatus
-        
-        var body: some View {
-            Group {
-                switch status.uiState {
-                case .before:
-//                    BeforeRunning(status: status)
-                    Text("BeforeRunning")
-                case .startCountdown:
-                    Text("startCountdown")
-                case .during:
-                    Text("run")
-                case .pause:
-                    Text("pause")
-                case .stop:
-                    Text("stop")
-                }
+        Group {
+            switch status.uiState {
+            case .before:
+                AnyView(beforeRunningFactory.make())
+            case .startCountdown:
+                Text("startCountdown")
+            case .during:
+                AnyView(duringRunningFactory.make())
+            case .pause:
+                AnyView(pauseRunningFactory.make())
+            case .stop:
+                AnyView(stopRunningFactory.make())
             }
         }
     }

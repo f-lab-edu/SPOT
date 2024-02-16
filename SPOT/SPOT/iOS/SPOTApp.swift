@@ -13,7 +13,12 @@ struct SPOTApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView(runningFactory: compositionRoot.runningFactory)
+            ContentView(
+                beforeRunningFactory: compositionRoot.beforeRunningFactory,
+                duringRunningFactory: compositionRoot.duringRunningFactory,
+                pauseRunningFactory: compositionRoot.pauseRunningFactory,
+                stopRunningFactory: compositionRoot.stopRunningFactory
+            )
         }
     }
 }

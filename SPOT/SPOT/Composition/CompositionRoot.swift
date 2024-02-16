@@ -15,7 +15,10 @@ import Controller
 import Usecase
 
 class CompositionRoot {
-    var runningFactory: any RunningFactory
+    var beforeRunningFactory: any Factory
+    var duringRunningFactory: any Factory
+    var pauseRunningFactory: any Factory
+    var stopRunningFactory: any Factory
     var runningStatus: RunningStatus
     var runningLocationUsecase: LocationUsecaseImp
     var locationController: LocationController
@@ -28,6 +31,9 @@ class CompositionRoot {
         self.runningLocationUsecase = LocationUsecaseImp(locationController: self.locationController)
         self.runningLocationViewModel = RunningLocationViewModel(locationUsecase: runningLocationUsecase)
         self.runningStatus = RunningStatus()
-        self.runningFactory = RunningFactoryImp(locationViewModel: self.runningLocationViewModel)
+        self.beforeRunningFactory = BeforeRunningFactoryImp(locationViewModel: self.runningLocationViewModel)
+        self.duringRunningFactory = DuringRunningFactoryImp()
+        self.pauseRunningFactory = PauseRunningFactoryImp()
+        self.stopRunningFactory = StopRunningFactoryImp()
     }
 }
