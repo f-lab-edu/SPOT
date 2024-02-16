@@ -6,6 +6,7 @@
 //
 
 import CoreLocation
+import CoreMotion
 import SwiftUI
 
 import LocationFeature
@@ -19,20 +20,37 @@ class CompositionRoot {
     var duringRunningFactory: any Factory
     var pauseRunningFactory: any Factory
     var stopRunningFactory: any Factory
-    var runningStatus: RunningStatus
+    
     var runningLocationUsecase: LocationUsecaseImp
+    var activityUsecase: ActivityUsecase
+    var timerUsecase: TimerUsecase
+    
     var locationController: LocationController
+    var activityController: ActivityController
+    
     let locationManager: CLLocationManager
-    let runningLocationViewModel: RunningLocationViewModel
+    var pedometer: CMPedometer
+    
+    let runningLocationViewModel: BeforeRnningViewModel
+    let dashboardViewModel: DashboardViewModel
     
     init() {
         self.locationManager = CLLocationManager()
+        self.pedometer = CMPedometer()
+        
         self.locationController = LocationService(manager: self.locationManager)
+        self.activityController = ActivityService(pedometer: self.pedometer)
+        
         self.runningLocationUsecase = LocationUsecaseImp(locationController: self.locationController)
-        self.runningLocationViewModel = RunningLocationViewModel(locationUsecase: runningLocationUsecase)
-        self.runningStatus = RunningStatus()
+        self.activityUsecase = ActivityUsecaseImp(activityController: self.activityController)
+        self.timerUsecase = TimerUsecaseImp()
+        
+        self.runningLocationViewModel = BeforeRnningViewModel(locationUsecase: runningLocationUsecase)
+        self.dashboardViewModel = DashboardViewModel(activityUsecase: self.activityUsecase,
+                                                     timerUsecase: self.timerUsecase)
+        
         self.beforeRunningFactory = BeforeRunningFactoryImp(locationViewModel: self.runningLocationViewModel)
-        self.duringRunningFactory = DuringRunningFactoryImp()
+        self.duringRunningFactory = DuringRunningFactoryImp(dashboardViewModel: self.dashboardViewModel)
         self.pauseRunningFactory = PauseRunningFactoryImp()
         self.stopRunningFactory = StopRunningFactoryImp()
     }

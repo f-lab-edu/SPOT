@@ -1,5 +1,5 @@
 //
-//  ActivityDashBoardViewModel.swift
+//  DashBoardViewModel.swift
 //
 //
 //  Created by 김민식 on 2024/02/13.
@@ -11,11 +11,11 @@ import Foundation
 import Usecase
 import Entity
 
-public class ActivityDashboardViewModel: ObservableObject {
-    @Published var distance = String()
-    @Published var pace = String()
-    @Published var calories = String()
-    @Published var runningTime = Int()
+public class DashboardViewModel: ObservableObject {
+    @Published var distance = "0.0"
+    @Published var pace = "0'0"
+    @Published var calories = "0"
+    @Published var runningTime: Int = 0
     
     private var activityUsecase: ActivityUsecase
     private var timerUsecase: TimerUsecase

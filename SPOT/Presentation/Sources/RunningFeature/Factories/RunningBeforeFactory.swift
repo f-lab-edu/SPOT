@@ -14,9 +14,9 @@ public protocol Factory {
 }
 
 public struct BeforeRunningFactoryImp: Factory {
-    let locationViewModel: RunningLocationViewModel
+    let locationViewModel: BeforeRnningViewModel
     
-    public init(locationViewModel: RunningLocationViewModel) {
+    public init(locationViewModel: BeforeRnningViewModel) {
         self.locationViewModel = locationViewModel
     }
     
@@ -26,10 +26,14 @@ public struct BeforeRunningFactoryImp: Factory {
 }
 
 public struct DuringRunningFactoryImp: Factory {
-    public init() {}
+    let dashboardViewModel: DashboardViewModel
+    
+    public init(dashboardViewModel: DashboardViewModel) {
+        self.dashboardViewModel = dashboardViewModel
+    }
     
     public func make() -> some View {
-        DuringRunning()
+        DuringRunning(dashboardViewModel: dashboardViewModel)
     }
 }
 

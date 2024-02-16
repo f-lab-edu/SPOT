@@ -43,5 +43,6 @@ public struct RunningStatusView: View {
                 AnyView(stopRunningFactory.make())
             }
         }
+        .environmentObject(status)
     }
 }
