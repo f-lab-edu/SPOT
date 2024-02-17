@@ -9,6 +9,7 @@ import Foundation
 import Combine
 
 import Controller
+import Entity
 
 public final class LocationUsecaseImp: LocationUsecase {
     public let location: AnyPublisher<Location, Never> = PassthroughSubject.init().eraseToAnyPublisher()
