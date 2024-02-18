@@ -10,9 +10,8 @@ import Foundation
 import Usecase
 
 public class BeforeRnningViewModel: ObservableObject {
-    private let dashboardUsecase: RunningDashboardUsecase
     
-    public init(dashboardUsecase: RunningDashboardUsecase) {
-        self.dashboardUsecase = dashboardUsecase
+    public init() {
+        
     }
 }
