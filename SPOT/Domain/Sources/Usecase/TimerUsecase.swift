@@ -9,8 +9,4 @@ import Combine
 
 public protocol TimerUsecase {
     var runningTime: PassthroughSubject<Int, Never> { get }
-    
-    func activate()
-    func resume()
-    func suspend()
 }
