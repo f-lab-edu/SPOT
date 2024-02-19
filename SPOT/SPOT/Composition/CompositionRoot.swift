@@ -21,8 +21,7 @@ class CompositionRoot {
     var pauseRunningFactory: any Factory
     var stopRunningFactory: any Factory
     
-    var runningLocationUsecase: LocationUsecaseImp
-    var activityUsecase: ActivityUsecase
+    var dashboardUsecase: RunningDashboardUsecase
     var timerUsecase: TimerUsecase
     
     var locationController: LocationController
@@ -41,17 +40,17 @@ class CompositionRoot {
         self.locationController = LocationService(manager: self.locationManager)
         self.activityController = ActivityService(pedometer: self.pedometer)
         
-        self.runningLocationUsecase = LocationUsecaseImp(locationController: self.locationController)
-        self.activityUsecase = ActivityUsecaseImp(activityController: self.activityController)
+        self.dashboardUsecase = RunningDashboardUsecaseImp(locationController: self.locationController,
+                                                           activityController: self.activityController)
         self.timerUsecase = TimerUsecaseImp()
         
-        self.runningLocationViewModel = BeforeRnningViewModel(locationUsecase: runningLocationUsecase)
-        self.dashboardViewModel = DashboardViewModel(activityUsecase: self.activityUsecase,
+        self.runningLocationViewModel = BeforeRnningViewModel()
+        self.dashboardViewModel = DashboardViewModel(dashboardUsecase: self.dashboardUsecase,
                                                      timerUsecase: self.timerUsecase)
         
         self.beforeRunningFactory = BeforeRunningFactoryImp(locationViewModel: self.runningLocationViewModel)
         self.duringRunningFactory = DuringRunningFactoryImp(dashboardViewModel: self.dashboardViewModel)
-        self.pauseRunningFactory = PauseRunningFactoryImp()
+        self.pauseRunningFactory = PauseRunningFactoryImp(dashboardViewModel: self.dashboardViewModel)
         self.stopRunningFactory = StopRunningFactoryImp()
     }
 }

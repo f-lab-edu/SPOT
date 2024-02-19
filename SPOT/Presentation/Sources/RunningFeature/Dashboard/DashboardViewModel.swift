@@ -17,15 +17,15 @@ public class DashboardViewModel: ObservableObject {
     @Published var calories = "0"
     @Published var runningTime: Int = 0
     
-    private var activityUsecase: ActivityUsecase
+    private var dashboardUsecase: RunningDashboardUsecase
     private var timerUsecase: TimerUsecase
     private var cancellables = Set<AnyCancellable>()
     
-    public init(activityUsecase: ActivityUsecase, timerUsecase: TimerUsecase) {
-        self.activityUsecase = activityUsecase
+    public init(dashboardUsecase: RunningDashboardUsecase, timerUsecase: TimerUsecase) {
+        self.dashboardUsecase = dashboardUsecase
         self.timerUsecase = timerUsecase
         
-        activityUsecase.activity
+        dashboardUsecase.activity
             .sink { activity in
                 self.distance = String(format: "%.1f", activity.distance)
                 

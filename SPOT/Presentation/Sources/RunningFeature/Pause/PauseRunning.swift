@@ -6,12 +6,36 @@
 //
 
 import SwiftUI
+import MapKit
 
 public struct PauseRunning: View {
+    @EnvironmentObject private var status: RunningStatus
     
-    public init() {}
+    private var map = Map()
+    private var dashboardViewModel: DashboardViewModel
+    
+    public init(dashboardViewModel: DashboardViewModel) {
+        self.dashboardViewModel = dashboardViewModel
+    }
     
     public var body: some View {
-        Text("PauseRunning View")
+        VStack(alignment: .center) {
+            map
+                .frame(maxWidth: .infinity)
+                .frame(height: 400)
+            
+            Spacer()
+            
+            DashboardView(viewModel: dashboardViewModel)
+            
+            Spacer()
+            
+            HStack(alignment: .center, spacing: 20) {
+                ResumeButton(status: status)
+                
+                StopButton(status: status)
+            }
+            .frame(height: 100)
+        }
     }
 }
