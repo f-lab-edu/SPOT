@@ -12,7 +12,10 @@ let package = Package(
             targets: ["Root"]),
         .library(
             name: "RunningFeature",
-            targets: ["RunningFeature"])
+            targets: ["RunningFeature"]),
+        .library(
+            name: "AuthFeature",
+            targets: ["AuthFeature"])
     ],
     dependencies: [
         .package(path: "../Domain")
@@ -25,6 +28,11 @@ let package = Package(
             ]),
         .target(
             name: "RunningFeature",
+            dependencies: [
+                .product(name: "Usecase", package: "Domain")
+            ]),
+        .target(
+            name: "AuthFeature",
             dependencies: [
                 .product(name: "Usecase", package: "Domain")
             ]),
