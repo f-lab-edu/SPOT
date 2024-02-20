@@ -22,13 +22,11 @@ public final class GoogleAuthService: AuthorizationController {
         GIDSignIn.sharedInstance.signIn(withPresenting: presentingViewController) { result, error in
             guard let name = result?.user.profile?.name else { return }
             guard let thumbnailURL = result?.user.profile?.imageURL(withDimension: 70) else { return }
-         
+            
             let runner = Runner(name: name, thumbnailURL: thumbnailURL)
             completion(.success(runner))
         }
     }
     
-    public func logout() {
-        
-    }
+    public func logout() {}
 }

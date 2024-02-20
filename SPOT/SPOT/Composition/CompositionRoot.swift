@@ -105,6 +105,9 @@ class CompositionRoot {
                                                      currentDate: Date.init)
         self.pauseRunningViewModel = PauseRunningViewModel(dashboardUsecase: self.dashboardUsecase)
         self.loginViewModel = LoginViewModel(loginUsecase: self.loginUsecase)
+        self.loginUsecase = LoginUsecaseImp(kakaoAuthController: self.kakaoAuthController,
+                                            googleAuthController: self.googleAuthController)
+        
         
         self.beforeRunningFactory = BeforeRunningFactoryImp(locationViewModel: self.beforeRunningViewModel)
         self.duringRunningFactory = DuringRunningFactoryImp(dashboardViewModel: self.dashboardViewModel,
