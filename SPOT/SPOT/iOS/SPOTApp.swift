@@ -19,6 +19,9 @@ struct SPOTApp: App {
                 pauseRunningFactory: compositionRoot.pauseRunningFactory,
                 stopRunningFactory: compositionRoot.stopRunningFactory
             )
+            .onOpenURL { url in
+                compositionRoot.validateURL(url)
+            }
         }
     }
 }

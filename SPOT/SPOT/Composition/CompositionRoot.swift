@@ -9,6 +9,10 @@ import CoreLocation
 import CoreMotion
 import SwiftUI
 
+import GoogleLoginProxy
+import KakaoLoginProxy
+import KakaoSDKCommon
+import KakaoSDKAuth
 import LocationFeature
 import RunningFeature
 import RunningDataAccess
@@ -29,6 +33,7 @@ class CompositionRoot {
     
     let locationManager: CLLocationManager
     var pedometer: CMPedometer
+    let kakaoSDKAPPKey = "c9c8d578c14531682aef24a880009340"
     
     let runningLocationViewModel: BeforeRnningViewModel
     let dashboardViewModel: DashboardViewModel
@@ -36,6 +41,7 @@ class CompositionRoot {
     init() {
         self.locationManager = CLLocationManager()
         self.pedometer = CMPedometer()
+        KakaoSDK.initSDK(appKey: kakaoSDKAPPKey)
         
         self.locationController = LocationService(manager: self.locationManager)
         self.activityController = ActivityService(pedometer: self.pedometer)
@@ -52,5 +58,11 @@ class CompositionRoot {
         self.duringRunningFactory = DuringRunningFactoryImp(dashboardViewModel: self.dashboardViewModel)
         self.pauseRunningFactory = PauseRunningFactoryImp(dashboardViewModel: self.dashboardViewModel)
         self.stopRunningFactory = StopRunningFactoryImp()
+    }
+    
+    func validateURL(_ url: URL) {
+        if AuthApi.isKakaoTalkLoginUrl(url) {
+            _ = AuthController.handleOpenUrl(url: url)
+        }
     }
 }
