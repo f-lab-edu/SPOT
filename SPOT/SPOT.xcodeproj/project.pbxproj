@@ -15,6 +15,9 @@
 		6911E91B2B70BF20005F02AB /* RunningFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 6911E91A2B70BF20005F02AB /* RunningFeature */; };
 		6911E91D2B70D623005F02AB /* Usecase in Frameworks */ = {isa = PBXBuildFile; productRef = 6911E91C2B70D623005F02AB /* Usecase */; };
 		6911E91F2B70D717005F02AB /* Controller in Frameworks */ = {isa = PBXBuildFile; productRef = 6911E91E2B70D717005F02AB /* Controller */; };
+		6911E9462B8478A6005F02AB /* GoogleLoginProxy in Frameworks */ = {isa = PBXBuildFile; productRef = 6911E9452B8478A6005F02AB /* GoogleLoginProxy */; };
+		6911E9482B8478A6005F02AB /* KakaoLoginProxy in Frameworks */ = {isa = PBXBuildFile; productRef = 6911E9472B8478A6005F02AB /* KakaoLoginProxy */; };
+		6911E94A2B8478AB005F02AB /* AuthDataAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 6911E9492B8478AB005F02AB /* AuthDataAccess */; };
 		9B756BAF2B7A2233005A16D7 /* CompositionRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B756BAE2B7A2233005A16D7 /* CompositionRoot.swift */; };
 		9B756BB22B7A224E005A16D7 /* SPOTApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B756BB02B7A224E005A16D7 /* SPOTApp.swift */; };
 		9B756BB32B7A224E005A16D7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B756BB12B7A224E005A16D7 /* ContentView.swift */; };
@@ -53,8 +56,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6911E9482B8478A6005F02AB /* KakaoLoginProxy in Frameworks */,
+				6911E9462B8478A6005F02AB /* GoogleLoginProxy in Frameworks */,
 				6911E9192B6CD028005F02AB /* Root in Frameworks */,
 				6911E91F2B70D717005F02AB /* Controller in Frameworks */,
+				6911E94A2B8478AB005F02AB /* AuthDataAccess in Frameworks */,
 				6911E90F2B6C75C9005F02AB /* RunningDataAccess in Frameworks */,
 				6911E91D2B70D623005F02AB /* Usecase in Frameworks */,
 				6911E91B2B70BF20005F02AB /* RunningFeature in Frameworks */,
@@ -170,6 +176,9 @@
 				6911E91A2B70BF20005F02AB /* RunningFeature */,
 				6911E91C2B70D623005F02AB /* Usecase */,
 				6911E91E2B70D717005F02AB /* Controller */,
+				6911E9452B8478A6005F02AB /* GoogleLoginProxy */,
+				6911E9472B8478A6005F02AB /* KakaoLoginProxy */,
+				6911E9492B8478AB005F02AB /* AuthDataAccess */,
 			);
 			productName = SPOT;
 			productReference = 311F84CA2B528D920035134F /* SPOT.app */;
@@ -579,6 +588,18 @@
 		6911E91E2B70D717005F02AB /* Controller */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Controller;
+		};
+		6911E9452B8478A6005F02AB /* GoogleLoginProxy */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = GoogleLoginProxy;
+		};
+		6911E9472B8478A6005F02AB /* KakaoLoginProxy */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = KakaoLoginProxy;
+		};
+		6911E9492B8478AB005F02AB /* AuthDataAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AuthDataAccess;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
