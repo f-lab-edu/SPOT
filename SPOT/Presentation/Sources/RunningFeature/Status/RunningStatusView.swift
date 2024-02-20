@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-import LocationFeature
-
 public struct RunningStatusView: View {
     @StateObject private var status: RunningStatus = .init()
     

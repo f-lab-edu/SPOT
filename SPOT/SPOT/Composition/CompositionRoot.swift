@@ -10,11 +10,11 @@ import CoreMotion
 import SwiftUI
 
 import AuthFeature
+import AuthDataAccess
 import GoogleLoginProxy
 import KakaoLoginProxy
 import KakaoSDKCommon
 import KakaoSDKAuth
-import LocationFeature
 import RunningFeature
 import RunningDataAccess
 import Controller
@@ -25,12 +25,16 @@ class CompositionRoot {
     var duringRunningFactory: any Factory
     var pauseRunningFactory: any Factory
     var stopRunningFactory: any Factory
+    var loginFactory: any LoginFactory
     
     var dashboardUsecase: RunningDashboardUsecase
     var timerUsecase: TimerUsecase
+    var authUsecase: AuthUsecase
     
     var locationController: LocationController
     var activityController: ActivityController
+    var kakaoAuthController: AuthorizationController
+    var googleAuthController: AuthorizationController
     
     let locationManager: CLLocationManager
     var pedometer: CMPedometer
@@ -47,19 +51,25 @@ class CompositionRoot {
         
         self.locationController = LocationService(manager: self.locationManager)
         self.activityController = ActivityService(pedometer: self.pedometer)
+        self.kakaoAuthController = KakaoAuthService()
+        self.googleAuthController = GoogleAuthService()
         
         self.dashboardUsecase = RunningDashboardUsecaseImp(locationController: self.locationController,
                                                            activityController: self.activityController)
         self.timerUsecase = TimerUsecaseImp()
+        self.authUsecase = AuthUsecaseImp(kakaoAuthController: self.kakaoAuthController,
+                                          googleAuthController: self.googleAuthController)
         
         self.runningLocationViewModel = BeforeRnningViewModel()
         self.dashboardViewModel = DashboardViewModel(dashboardUsecase: self.dashboardUsecase,
                                                      timerUsecase: self.timerUsecase)
+        self.loginViewModel = LoginViewModel(authUsecase: self.authUsecase)
         
         self.beforeRunningFactory = BeforeRunningFactoryImp(locationViewModel: self.runningLocationViewModel)
         self.duringRunningFactory = DuringRunningFactoryImp(dashboardViewModel: self.dashboardViewModel)
         self.pauseRunningFactory = PauseRunningFactoryImp(dashboardViewModel: self.dashboardViewModel)
         self.stopRunningFactory = StopRunningFactoryImp()
+        self.loginFactory = LoginFactoryImp(viewModel: self.loginViewModel)
     }
     
     func validateURL(_ url: URL) {

@@ -13,15 +13,12 @@ struct SPOTApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView(
-                beforeRunningFactory: compositionRoot.beforeRunningFactory,
-                duringRunningFactory: compositionRoot.duringRunningFactory,
-                pauseRunningFactory: compositionRoot.pauseRunningFactory,
-                stopRunningFactory: compositionRoot.stopRunningFactory
+            AnyView(
+                compositionRoot.loginFactory.make()
+                .onOpenURL { url in
+                    compositionRoot.validateURL(url)
+                }
             )
-            .onOpenURL { url in
-                compositionRoot.validateURL(url)
-            }
         }
     }
 }
