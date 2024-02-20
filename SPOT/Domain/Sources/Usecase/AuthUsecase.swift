@@ -8,5 +8,6 @@
 import Foundation
 
 public protocol AuthUsecase {
-    
+    func loginWithKakao()
+    func loginWithGoogle()
 }

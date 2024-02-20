@@ -7,6 +7,20 @@
 
 import Foundation
 
+import Usecase
+
 public final class LoginViewModel: ObservableObject {
-    /// 로그인 버튼 누르기
+    private let authUsecase: AuthUsecase
+    
+    public init(authUsecase: AuthUsecase) {
+        self.authUsecase = authUsecase
+    }
+    
+    func kakaoLoginButtonTapped() {
+        authUsecase.loginWithKakao()
+    }
+    
+    func googleLoginButtonTapped() {
+        authUsecase.loginWithGoogle()
+    }
 }

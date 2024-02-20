@@ -9,6 +9,7 @@ import CoreLocation
 import CoreMotion
 import SwiftUI
 
+import AuthFeature
 import GoogleLoginProxy
 import KakaoLoginProxy
 import KakaoSDKCommon
@@ -37,6 +38,7 @@ class CompositionRoot {
     
     let runningLocationViewModel: BeforeRnningViewModel
     let dashboardViewModel: DashboardViewModel
+    let loginViewModel: LoginViewModel
     
     init() {
         self.locationManager = CLLocationManager()
