@@ -9,10 +9,20 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>kakaoc9c8d578c14531682aef24a880009340:ouath</string>
+				<string>c9c8d578c14531682aef24a880009340</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>702300377706-ral8jq5143lrrqlqvmbaoa8hg098lkjq.apps.googleusercontent.com</string>
 			</array>
 		</dict>
 	</array>
+	<key>GIDClientID</key>
+	<string>702300377706-ral8jq5143lrrqlqvmbaoa8hg098lkjq.apps.googleusercontent.com</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>kakaompassauth</string>

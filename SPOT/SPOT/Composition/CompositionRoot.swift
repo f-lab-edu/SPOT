@@ -12,6 +12,7 @@ import SwiftUI
 import AuthFeature
 import AuthDataAccess
 import GoogleLoginProxy
+import GoogleSignIn
 import KakaoLoginProxy
 import KakaoSDKCommon
 import KakaoSDKAuth
@@ -38,6 +39,8 @@ class CompositionRoot {
     
     let locationManager: CLLocationManager
     var pedometer: CMPedometer
+    let googleSignInConfig: GIDConfiguration
+    let presentingViewController: UIViewController?
     let kakaoSDKAPPKey = "c9c8d578c14531682aef24a880009340"
     
     let runningLocationViewModel: BeforeRnningViewModel
@@ -52,7 +55,9 @@ class CompositionRoot {
         self.locationController = LocationService(manager: self.locationManager)
         self.activityController = ActivityService(pedometer: self.pedometer)
         self.kakaoAuthController = KakaoAuthService()
-        self.googleAuthController = GoogleAuthService()
+        self.googleSignInConfig = GIDConfiguration(clientID: "702300377706-ral8jq5143lrrqlqvmbaoa8hg098lkjq.apps.googleusercontent.com")
+        self.presentingViewController = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.windows.first?.rootViewController
+        self.googleAuthController = GoogleAuthService(signInConfig: self.googleSignInConfig, presentingViewController: self.presentingViewController ?? UIViewController())
         
         self.dashboardUsecase = RunningDashboardUsecaseImp(locationController: self.locationController,
                                                            activityController: self.activityController)
@@ -75,6 +80,8 @@ class CompositionRoot {
     func validateURL(_ url: URL) {
         if AuthApi.isKakaoTalkLoginUrl(url) {
             _ = AuthController.handleOpenUrl(url: url)
+        } else if GIDSignIn.sharedInstance.handle(url) {
+            
         }
     }
 }

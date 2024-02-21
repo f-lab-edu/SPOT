@@ -19,6 +19,7 @@
 		6911E9482B8478A6005F02AB /* KakaoLoginProxy in Frameworks */ = {isa = PBXBuildFile; productRef = 6911E9472B8478A6005F02AB /* KakaoLoginProxy */; };
 		6911E94A2B8478AB005F02AB /* AuthDataAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 6911E9492B8478AB005F02AB /* AuthDataAccess */; };
 		6911E94C2B849982005F02AB /* AuthFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 6911E94B2B849982005F02AB /* AuthFeature */; };
+		6911E94E2B85D6E2005F02AB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6911E94D2B85D6E2005F02AB /* GoogleService-Info.plist */; };
 		9B756BAF2B7A2233005A16D7 /* CompositionRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B756BAE2B7A2233005A16D7 /* CompositionRoot.swift */; };
 		9B756BB22B7A224E005A16D7 /* SPOTApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B756BB02B7A224E005A16D7 /* SPOTApp.swift */; };
 		9B756BB32B7A224E005A16D7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B756BB12B7A224E005A16D7 /* ContentView.swift */; };
@@ -47,6 +48,7 @@
 		311F84FF2B52B6C70035134F /* DataAccess */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = DataAccess; sourceTree = "<group>"; };
 		311F85002B52B6D40035134F /* Proxy */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Proxy; sourceTree = "<group>"; };
 		6911E9202B724B5D005F02AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		6911E94D2B85D6E2005F02AB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9B756BAE2B7A2233005A16D7 /* CompositionRoot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompositionRoot.swift; sourceTree = "<group>"; };
 		9B756BB02B7A224E005A16D7 /* SPOTApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SPOTApp.swift; sourceTree = "<group>"; };
 		9B756BB12B7A224E005A16D7 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 		311F84CC2B528D920035134F /* SPOT */ = {
 			isa = PBXGroup;
 			children = (
+				6911E94D2B85D6E2005F02AB /* GoogleService-Info.plist */,
 				6911E9202B724B5D005F02AB /* Info.plist */,
 				6911E90C2B6B9834005F02AB /* Composition */,
 				6911E90A2B6B74B2005F02AB /* iOS */,
@@ -251,6 +254,7 @@
 			files = (
 				311F84D62B528D950035134F /* Preview Assets.xcassets in Resources */,
 				311F84D22B528D950035134F /* Assets.xcassets in Resources */,
+				6911E94E2B85D6E2005F02AB /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

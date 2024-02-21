@@ -28,7 +28,6 @@ public final class KakaoAuthService: AuthorizationController {
         
         UserApi.shared.loginWithKakaoTalk { token, error in
             if let error = error {
-                print("###2")
                 completion(.failure(error))
             } else {
                 _ = token
@@ -40,7 +39,6 @@ public final class KakaoAuthService: AuthorizationController {
             guard let thumbnailURL = user?.kakaoAccount?.profile?.thumbnailImageUrl else { return }
             let runner = Runner(name: name, thumbnailURL: thumbnailURL)
             
-            print("###3")
             completion(.success(runner))
         }
     }
