@@ -12,7 +12,7 @@ struct StartButton: View {
     
     var body: some View {
         Button {
-            status.uiState = .during
+            status.uiState = .countdown
         } label: {
             Image(systemName: "arrowtriangle.right.circle.fill")
                 .resizable()

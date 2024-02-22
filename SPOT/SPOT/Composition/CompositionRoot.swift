@@ -14,7 +14,6 @@ import GoogleLoginProxy
 import KakaoLoginProxy
 import KakaoSDKCommon
 import KakaoSDKAuth
-import LocationFeature
 import RunningFeature
 import RunningDataAccess
 import Controller
@@ -25,8 +24,10 @@ class CompositionRoot {
     var duringRunningFactory: any Factory
     var pauseRunningFactory: any Factory
     var stopRunningFactory: any Factory
+    var countdownFactory: any Factory
     
     var dashboardUsecase: RunningDashboardUsecase
+    var padUsecase: RunningPadUsecase
     var timerUsecase: TimerUsecase
     
     var locationController: LocationController
@@ -36,9 +37,8 @@ class CompositionRoot {
     var pedometer: CMPedometer
     let kakaoSDKAPPKey = "c9c8d578c14531682aef24a880009340"
     
-    let runningLocationViewModel: BeforeRnningViewModel
+    let beforeRunningViewModel: BeforeRnningViewModel
     let dashboardViewModel: DashboardViewModel
-    let loginViewModel: LoginViewModel
     
     init() {
         self.locationManager = CLLocationManager()
@@ -50,16 +50,19 @@ class CompositionRoot {
         
         self.dashboardUsecase = RunningDashboardUsecaseImp(locationController: self.locationController,
                                                            activityController: self.activityController)
+        self.padUsecase = RunningPadUsecaseImp(locationController: self.locationController,
+                                               activityController: self.activityController)
         self.timerUsecase = TimerUsecaseImp()
         
-        self.runningLocationViewModel = BeforeRnningViewModel()
+        self.beforeRunningViewModel = BeforeRnningViewModel(padUsecase: self.padUsecase, currentDate: Date.init)
         self.dashboardViewModel = DashboardViewModel(dashboardUsecase: self.dashboardUsecase,
                                                      timerUsecase: self.timerUsecase)
         
-        self.beforeRunningFactory = BeforeRunningFactoryImp(locationViewModel: self.runningLocationViewModel)
+        self.beforeRunningFactory = BeforeRunningFactoryImp(locationViewModel: self.beforeRunningViewModel)
         self.duringRunningFactory = DuringRunningFactoryImp(dashboardViewModel: self.dashboardViewModel)
         self.pauseRunningFactory = PauseRunningFactoryImp(dashboardViewModel: self.dashboardViewModel)
         self.stopRunningFactory = StopRunningFactoryImp()
+        self.countdownFactory = CountdownFactoryImp(viewModel: self.beforeRunningViewModel)
     }
     
     func validateURL(_ url: URL) {

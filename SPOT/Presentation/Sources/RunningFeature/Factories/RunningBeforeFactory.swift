@@ -56,3 +56,15 @@ public struct StopRunningFactoryImp: Factory {
         StopRunning()
     }
 }
+
+public struct CountdownFactoryImp: Factory {
+    let viewModel: BeforeRnningViewModel
+    
+    public init(viewModel: BeforeRnningViewModel) {
+        self.viewModel = viewModel
+    }
+    
+    public func make() -> some View {
+        CountdownView(viewModel: viewModel)
+    }
+}
