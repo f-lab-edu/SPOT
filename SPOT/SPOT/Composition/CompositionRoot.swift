@@ -38,6 +38,7 @@ class CompositionRoot {
     let kakaoSDKAPPKey = "c9c8d578c14531682aef24a880009340"
     
     let beforeRunningViewModel: BeforeRnningViewModel
+    let duringRunningViewModel: DuringRunningViewModel
     let dashboardViewModel: DashboardViewModel
     
     init() {
@@ -54,12 +55,14 @@ class CompositionRoot {
                                                activityController: self.activityController)
         self.timerUsecase = TimerUsecaseImp()
         
-        self.beforeRunningViewModel = BeforeRnningViewModel(padUsecase: self.padUsecase, currentDate: Date.init)
+        self.beforeRunningViewModel = BeforeRnningViewModel()
+        self.duringRunningViewModel = DuringRunningViewModel(padUsecase: self.padUsecase, currentDate: Date.init)
         self.dashboardViewModel = DashboardViewModel(dashboardUsecase: self.dashboardUsecase,
                                                      timerUsecase: self.timerUsecase)
         
         self.beforeRunningFactory = BeforeRunningFactoryImp(locationViewModel: self.beforeRunningViewModel)
-        self.duringRunningFactory = DuringRunningFactoryImp(dashboardViewModel: self.dashboardViewModel)
+        self.duringRunningFactory = DuringRunningFactoryImp(dashboardViewModel: self.dashboardViewModel, 
+                                                            viewModel: self.duringRunningViewModel)
         self.pauseRunningFactory = PauseRunningFactoryImp(dashboardViewModel: self.dashboardViewModel)
         self.stopRunningFactory = StopRunningFactoryImp()
         self.countdownFactory = CountdownFactoryImp(viewModel: self.beforeRunningViewModel)

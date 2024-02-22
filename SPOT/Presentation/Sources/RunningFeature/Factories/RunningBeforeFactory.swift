@@ -27,13 +27,15 @@ public struct BeforeRunningFactoryImp: Factory {
 
 public struct DuringRunningFactoryImp: Factory {
     let dashboardViewModel: DashboardViewModel
+    let viewModel: DuringRunningViewModel
     
-    public init(dashboardViewModel: DashboardViewModel) {
+    public init(dashboardViewModel: DashboardViewModel, viewModel: DuringRunningViewModel) {
         self.dashboardViewModel = dashboardViewModel
+        self.viewModel = viewModel
     }
     
     public func make() -> some View {
-        DuringRunning(dashboardViewModel: dashboardViewModel)
+        DuringRunning(dashboardViewModel: dashboardViewModel, viewModel: viewModel)
     }
 }
 

@@ -425,6 +425,7 @@
 				INFOPLIST_FILE = SPOT/Info.plist;
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "사용자 위치 권한 허용";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "사용자 위치 권한 허용";
+				INFOPLIST_KEY_NSMotionUsageDescription = "사용자 활동 권한 허용";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -467,6 +468,7 @@
 				INFOPLIST_FILE = SPOT/Info.plist;
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "사용자 위치 권한 허용";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "사용자 위치 권한 허용";
+				INFOPLIST_KEY_NSMotionUsageDescription = "사용자 활동 권한 허용";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;

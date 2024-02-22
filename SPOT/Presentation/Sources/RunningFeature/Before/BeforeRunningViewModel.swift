@@ -10,8 +10,5 @@ import Foundation
 import Usecase
 
 public class BeforeRnningViewModel: ObservableObject {
-    
-    public init() {
-        
-    }
+    public init() {}
 }
