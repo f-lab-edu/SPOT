@@ -11,14 +11,13 @@ import Usecase
 
 public final class DuringRunningViewModel: ObservableObject {
     private let padUsecase: RunningPadUsecase
-    private let currentDate: () -> Date
     
-    public init(padUsecase: RunningPadUsecase, currentDate: @escaping () -> Date) {
+    public init(padUsecase: RunningPadUsecase) {
         self.padUsecase = padUsecase
-        self.currentDate = currentDate
     }
     
-    func start() {
-        padUsecase.start(startedAt: self.currentDate())
+    func pause(completion: () -> Void) {
+        padUsecase.pause()
+        completion()
     }
 }

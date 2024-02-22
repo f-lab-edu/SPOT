@@ -10,5 +10,16 @@ import Foundation
 import Usecase
 
 public class BeforeRnningViewModel: ObservableObject {
-    public init() {}
+    private let padUsecase: RunningPadUsecase
+    private let currentDate: () -> Date
+    
+    public init(padUsecase: RunningPadUsecase, currentDate: @escaping () -> Date) {
+        self.padUsecase = padUsecase
+        self.currentDate = currentDate
+    }
+    
+    func start(completion: () -> Void) {
+        padUsecase.start(startedAt: self.currentDate())
+        completion()
+    }
 }

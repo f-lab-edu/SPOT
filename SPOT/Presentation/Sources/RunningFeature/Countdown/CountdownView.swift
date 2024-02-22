@@ -9,7 +9,7 @@ import SwiftUI
 
 public struct CountdownView: View {
     @EnvironmentObject private var status: RunningStatus
-    @State private var timeRemaining = 5
+    @State private var timeRemaining = 3
     private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     private let viewModel: BeforeRnningViewModel
     
@@ -23,7 +23,9 @@ public struct CountdownView: View {
                 Spacer()
                 
                 Button {
-                    status.uiState = .during
+                    viewModel.start {
+                        viewModel.start { status.uiState = .during }
+                    }
                 } label: {
                     Text("건너뛰기")
                         .font(.system(size: 14))
@@ -40,7 +42,7 @@ public struct CountdownView: View {
                     if timeRemaining > 1 {
                         timeRemaining -= 1
                     } else {
-                        status.uiState = .during
+                        viewModel.start { status.uiState = .during }
                     }
                 }
             

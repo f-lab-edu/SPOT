@@ -9,10 +9,11 @@ import SwiftUI
 
 struct PauseButton: View {
     @ObservedObject var status: RunningStatus
+    @ObservedObject var viewModel: DuringRunningViewModel
     
     var body: some View {
         Button {
-            status.uiState = .pause
+            viewModel.pause { status.uiState = .pause }
         } label: {
             Image(systemName: "pause.circle.fill")
                 .resizable()
