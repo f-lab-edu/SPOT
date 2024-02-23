@@ -13,6 +13,9 @@ let package = Package(
         .library(
             name: "AuthDataAccess",
             targets: ["AuthDataAccess"]),
+        .library(
+            name: "PersistanceDataAccess",
+            targets: ["PersistanceDataAccess"]),
     ],
     dependencies: [
         .package(path: "../Domain"),
@@ -31,6 +34,12 @@ let package = Package(
                 .product(name: "Controller", package: "Domain"),
                 .product(name: "KakaoLoginProxy", package: "Proxy"),
                 .product(name: "GoogleLoginProxy", package: "Proxy")
+            ]
+        ),
+        .target(
+            name: "PersistanceDataAccess",
+            dependencies: [
+                .product(name: "Controller", package: "Domain")
             ]
         )
     ]

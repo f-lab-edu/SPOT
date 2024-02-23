@@ -38,7 +38,6 @@ class CompositionRoot {
     
     let runningLocationViewModel: BeforeRnningViewModel
     let dashboardViewModel: DashboardViewModel
-    let loginViewModel: LoginViewModel
     
     init() {
         self.locationManager = CLLocationManager()
