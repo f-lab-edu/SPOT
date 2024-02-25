@@ -23,19 +23,21 @@ public final class TimerUsecaseImp: TimerUsecase {
     public init() {}
     
     private lazy var timer: DispatchSourceTimer = {
-        let t = DispatchSource.makeTimerSource(flags: [], queue: DispatchQueue.init(label: "SPOT"))
-        t.schedule(deadline: .now(), repeating: .milliseconds(self.interval))
-        self.time += self.interval
-        runningTime.send(self.time)
+        let timer = DispatchSource.makeTimerSource(flags: [], queue: DispatchQueue.main)
+        timer.schedule(deadline: .now(), repeating: .seconds(self.interval))
+        timer.setEventHandler {
+            self.time += self.interval
+            self.runningTime.send(self.time)
+        }
         
-        return t
+        return timer
     }()
     
     public func activate() {
-        timerLock.lock()
+//        timerLock.lock()
         timer.activate()
-        state = .resumed
-        timerLock.unlock()
+//        state = .resumed
+//        timerLock.unlock()
     }
     
     public func resume() {

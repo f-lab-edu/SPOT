@@ -11,13 +11,16 @@ import Usecase
 
 public final class DuringRunningViewModel: ObservableObject {
     private let padUsecase: RunningPadUsecase
+    private let timerUsecase: TimerUsecase
     
-    public init(padUsecase: RunningPadUsecase) {
+    public init(padUsecase: RunningPadUsecase, timerUsecase: TimerUsecase) {
         self.padUsecase = padUsecase
+        self.timerUsecase = timerUsecase
     }
     
     func pause(completion: () -> Void) {
         padUsecase.pause()
+        timerUsecase.activate()
         completion()
     }
 }

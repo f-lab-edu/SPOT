@@ -55,8 +55,8 @@ class CompositionRoot {
                                                activityController: self.activityController)
         self.timerUsecase = TimerUsecaseImp()
         
-        self.beforeRunningViewModel = BeforeRnningViewModel()
-        self.duringRunningViewModel = DuringRunningViewModel(padUsecase: self.padUsecase, currentDate: Date.init)
+        self.beforeRunningViewModel = BeforeRnningViewModel(padUsecase: self.padUsecase, timerUsecase: self.timerUsecase, currentDate: Date.init)
+        self.duringRunningViewModel = DuringRunningViewModel(padUsecase: self.padUsecase, timerUsecase: self.timerUsecase)
         self.dashboardViewModel = DashboardViewModel(dashboardUsecase: self.dashboardUsecase,
                                                      timerUsecase: self.timerUsecase)
         
