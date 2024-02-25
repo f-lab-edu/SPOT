@@ -11,9 +11,9 @@ public struct CountdownView: View {
     @EnvironmentObject private var status: RunningStatus
     @State private var timeRemaining = 3
     private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    private let viewModel: BeforeRnningViewModel
+    private let viewModel: CountdownViewModel
     
-    public init(viewModel: BeforeRnningViewModel) {
+    public init(viewModel: CountdownViewModel) {
         self.viewModel = viewModel
     }
     
@@ -24,7 +24,7 @@ public struct CountdownView: View {
                 
                 Button {
                     viewModel.start {
-                        viewModel.start { status.uiState = .during }
+                        status.uiState = .during
                     }
                 } label: {
                     Text("건너뛰기")

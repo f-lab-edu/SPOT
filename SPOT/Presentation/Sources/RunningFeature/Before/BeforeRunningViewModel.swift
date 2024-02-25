@@ -10,19 +10,14 @@ import Foundation
 import Usecase
 
 public class BeforeRnningViewModel: ObservableObject {
-    private let padUsecase: RunningPadUsecase
-    private let timerUsecase: TimerUsecase
-    private let currentDate: () -> Date
+    private let authorizationUsecase: RunningAuthorizationUsecase
     
-    public init(padUsecase: RunningPadUsecase, timerUsecase: TimerUsecase, currentDate: @escaping () -> Date) {
-        self.padUsecase = padUsecase
-        self.timerUsecase = timerUsecase
-        self.currentDate = currentDate
+    public init(authorizationUsecase: RunningAuthorizationUsecase) {
+        self.authorizationUsecase = authorizationUsecase
     }
     
-    func start(completion: () -> Void) {
-        padUsecase.start(startedAt: self.currentDate())
-        timerUsecase.activate()
+    func requestAuthorization(completion: () -> Void) {
+        authorizationUsecase.requestAuthorization()
         completion()
     }
 }

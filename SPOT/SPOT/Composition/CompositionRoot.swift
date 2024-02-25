@@ -29,6 +29,7 @@ class CompositionRoot {
     var dashboardUsecase: RunningDashboardUsecase
     var padUsecase: RunningPadUsecase
     var timerUsecase: TimerUsecase
+    var authorizationUsecase: RunningAuthorizationUsecase
     
     var locationController: LocationController
     var activityController: ActivityController
@@ -40,6 +41,7 @@ class CompositionRoot {
     let beforeRunningViewModel: BeforeRnningViewModel
     let duringRunningViewModel: DuringRunningViewModel
     let dashboardViewModel: DashboardViewModel
+    let countdownViewModel: CountdownViewModel
     
     init() {
         self.locationManager = CLLocationManager()
@@ -54,18 +56,23 @@ class CompositionRoot {
         self.padUsecase = RunningPadUsecaseImp(locationController: self.locationController,
                                                activityController: self.activityController)
         self.timerUsecase = TimerUsecaseImp()
+        self.authorizationUsecase = RunningAuthorizationUsecaseImp(locationController: self.locationController,
+                                                                   activityController: self.activityController)
         
-        self.beforeRunningViewModel = BeforeRnningViewModel(padUsecase: self.padUsecase, timerUsecase: self.timerUsecase, currentDate: Date.init)
+        self.beforeRunningViewModel = BeforeRnningViewModel(authorizationUsecase: self.authorizationUsecase)
         self.duringRunningViewModel = DuringRunningViewModel(padUsecase: self.padUsecase, timerUsecase: self.timerUsecase)
         self.dashboardViewModel = DashboardViewModel(dashboardUsecase: self.dashboardUsecase,
                                                      timerUsecase: self.timerUsecase)
+        self.countdownViewModel = CountdownViewModel(padUsecase: self.padUsecase,
+                                                     timerUsecase: self.timerUsecase,
+                                                     currentDate: Date.init)
         
         self.beforeRunningFactory = BeforeRunningFactoryImp(locationViewModel: self.beforeRunningViewModel)
         self.duringRunningFactory = DuringRunningFactoryImp(dashboardViewModel: self.dashboardViewModel, 
                                                             viewModel: self.duringRunningViewModel)
         self.pauseRunningFactory = PauseRunningFactoryImp(dashboardViewModel: self.dashboardViewModel)
         self.stopRunningFactory = StopRunningFactoryImp()
-        self.countdownFactory = CountdownFactoryImp(viewModel: self.beforeRunningViewModel)
+        self.countdownFactory = CountdownFactoryImp(viewModel: self.countdownViewModel)
     }
     
     func validateURL(_ url: URL) {

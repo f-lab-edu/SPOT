@@ -29,7 +29,7 @@ public struct BeforeRunning: View {
             Spacer()
             
             HStack(alignment: .center, spacing: 20) {
-                StartButton(status: status)
+                StartButton(status: status, viewModel: viewModel)
                 
                 SettingButton()
             }

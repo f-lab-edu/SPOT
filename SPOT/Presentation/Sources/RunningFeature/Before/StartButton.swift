@@ -9,10 +9,13 @@ import SwiftUI
 
 struct StartButton: View {
     @ObservedObject var status: RunningStatus
+    @ObservedObject var viewModel: BeforeRnningViewModel
     
     var body: some View {
         Button {
-            status.uiState = .countdown
+            viewModel.requestAuthorization {
+                status.uiState = .countdown
+            }
         } label: {
             Image(systemName: "arrowtriangle.right.circle.fill")
                 .resizable()

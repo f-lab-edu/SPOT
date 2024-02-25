@@ -16,6 +16,7 @@ public protocol LocationController {
     var updatingLocation: PassthroughSubject<Bool, Never> { get }
     var locationError: PassthroughSubject<Error, Never> { get }
     
+    func requestLocation()
     func start()
     func pause()
     func resume()

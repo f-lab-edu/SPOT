@@ -20,12 +20,9 @@ public final class RunningAuthorizationUsecaseImp: RunningAuthorizationUsecase {
         self.activityController = activityController
     }
     
-    public func locationIsAuthorize() -> Bool {
-        return true
-    }
-    
-    public func activityIsAuthorize() -> Bool {
-        return true
+    public func requestAuthorization() {
+        locationController.requestLocation()
+        activityController.requestActivity()
     }
 }
 

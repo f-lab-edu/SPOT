@@ -20,6 +20,10 @@ public final class ActivityService: ActivityController {
         self.pedometer = pedometer
     }
     
+    public func requestActivity() {
+        pedometer.startEventUpdates { _, _ in }
+    }
+    
     public func checkAuthoization() {
         switch CMPedometer.authorizationStatus() {
         case .authorized: 

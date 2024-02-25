@@ -60,9 +60,9 @@ public struct StopRunningFactoryImp: Factory {
 }
 
 public struct CountdownFactoryImp: Factory {
-    let viewModel: BeforeRnningViewModel
+    let viewModel: CountdownViewModel
     
-    public init(viewModel: BeforeRnningViewModel) {
+    public init(viewModel: CountdownViewModel) {
         self.viewModel = viewModel
     }
     

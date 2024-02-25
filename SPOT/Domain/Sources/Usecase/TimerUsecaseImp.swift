@@ -34,10 +34,10 @@ public final class TimerUsecaseImp: TimerUsecase {
     }()
     
     public func activate() {
-//        timerLock.lock()
+        timerLock.lock()
         timer.activate()
-//        state = .resumed
-//        timerLock.unlock()
+        state = .resumed
+        timerLock.unlock()
     }
     
     public func resume() {
