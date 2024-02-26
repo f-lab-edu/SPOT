@@ -14,7 +14,7 @@ public protocol ActivityController {
     var activity: PassthroughSubject<Activity, Never> { get }
     var authorizationStatus: PassthroughSubject<ActivityAuthorizationStatus, Never> { get }
     
-    func requestActivity()
+    func requestActivity() async
     func checkAuthoization()
     func startUpdates(startedAt: Date)
     func stopUpdates()

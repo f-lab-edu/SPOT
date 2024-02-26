@@ -13,8 +13,10 @@ struct StartButton: View {
     
     var body: some View {
         Button {
-            viewModel.requestAuthorization {
-                status.uiState = .countdown
+            Task {
+                await viewModel.requestAuthorization {
+                    status.uiState = .countdown
+                }
             }
         } label: {
             Image(systemName: "arrowtriangle.right.circle.fill")

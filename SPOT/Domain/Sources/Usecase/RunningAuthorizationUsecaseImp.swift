@@ -12,6 +12,9 @@ import Controller
 import Entity
 
 public final class RunningAuthorizationUsecaseImp: RunningAuthorizationUsecase {
+    public var locationAuthorizationStatus = PassthroughSubject<Entity.AuthorizationStatus, Never>()
+    public var activityAuthorizationStatus = PassthroughSubject<Entity.ActivityAuthorizationStatus, Never>()
+    
     private let locationController: LocationController
     private let activityController: ActivityController
     
@@ -20,9 +23,9 @@ public final class RunningAuthorizationUsecaseImp: RunningAuthorizationUsecase {
         self.activityController = activityController
     }
     
-    public func requestAuthorization() {
-        locationController.requestLocation()
-        activityController.requestActivity()
+    public func requestAuthorization() async {
+        await locationController.requestLocation()
+        await activityController.requestActivity()
     }
 }
 

@@ -16,8 +16,8 @@ public class BeforeRnningViewModel: ObservableObject {
         self.authorizationUsecase = authorizationUsecase
     }
     
-    func requestAuthorization(completion: () -> Void) {
-        authorizationUsecase.requestAuthorization()
+    func requestAuthorization(completion: () -> Void) async {
+        await authorizationUsecase.requestAuthorization()
         completion()
     }
 }
