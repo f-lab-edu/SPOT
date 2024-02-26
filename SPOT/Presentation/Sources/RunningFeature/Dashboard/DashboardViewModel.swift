@@ -27,6 +27,7 @@ public class DashboardViewModel: ObservableObject {
         self.timerUsecase = timerUsecase
         
         dashboardUsecase.activity
+            .receive(on: DispatchQueue.main)
             .sink { activity in
                 self.distance = String(format: "%.1f", activity.distance)
                 let minutes = Int(activity.pace)
@@ -39,6 +40,7 @@ public class DashboardViewModel: ObservableObject {
             .store(in: &cancellables)
         
         timerUsecase.runningTime
+            .receive(on: DispatchQueue.main)
             .sink { seconds in
                 let hours = seconds / 3600
                 let minutes = (seconds % 3600) / 60

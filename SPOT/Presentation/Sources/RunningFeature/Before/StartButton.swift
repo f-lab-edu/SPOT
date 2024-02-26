@@ -14,15 +14,18 @@ struct StartButton: View {
     var body: some View {
         Button {
             Task {
-                await viewModel.requestAuthorization {
-                    status.uiState = .countdown
-                }
+                await viewModel.requestAuthorization()
             }
         } label: {
             Image(systemName: "arrowtriangle.right.circle.fill")
                 .resizable()
                 .frame(width: 60, height: 60)
                 .foregroundColor(.black)
+        }
+        .onReceive(viewModel.$isLocationAuthorized) { locationAuthorizationStatus in
+            if locationAuthorizationStatus {
+                status.uiState = .countdown
+            }
         }
     }
 }
