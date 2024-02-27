@@ -20,7 +20,12 @@ public final class DuringRunningViewModel: ObservableObject {
     
     func pause(completion: () -> Void) {
         padUsecase.pause()
-        timerUsecase.activate()
+        timerUsecase.suspend()
+        completion()
+    }
+    
+    func stop(completion: () -> Void) {
+        padUsecase.stop()
         completion()
     }
 }

@@ -42,6 +42,7 @@ class CompositionRoot {
     let duringRunningViewModel: DuringRunningViewModel
     let dashboardViewModel: DashboardViewModel
     let countdownViewModel: CountdownViewModel
+    let pauseRunningViewModel: PauseRunningViewModel
     
     init() {
         self.locationManager = CLLocationManager()
@@ -66,11 +67,13 @@ class CompositionRoot {
         self.countdownViewModel = CountdownViewModel(padUsecase: self.padUsecase,
                                                      timerUsecase: self.timerUsecase,
                                                      currentDate: Date.init)
+        self.pauseRunningViewModel = PauseRunningViewModel(dashboardUsecase: self.dashboardUsecase)
         
         self.beforeRunningFactory = BeforeRunningFactoryImp(locationViewModel: self.beforeRunningViewModel)
         self.duringRunningFactory = DuringRunningFactoryImp(dashboardViewModel: self.dashboardViewModel, 
                                                             viewModel: self.duringRunningViewModel)
-        self.pauseRunningFactory = PauseRunningFactoryImp(dashboardViewModel: self.dashboardViewModel)
+        self.pauseRunningFactory = PauseRunningFactoryImp(dashboardViewModel: self.dashboardViewModel, 
+                                                          pauseRunningViewModel: self.pauseRunningViewModel)
         self.stopRunningFactory = StopRunningFactoryImp()
         self.countdownFactory = CountdownFactoryImp(viewModel: self.countdownViewModel)
     }

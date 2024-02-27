@@ -16,6 +16,7 @@ public class DashboardViewModel: ObservableObject {
     @Published var pace = "0'0"
     @Published var calories = "0"
     @Published var runningTime = "00:00:00"
+    @Published var locations: [Location] = []
     
     private var dashboardUsecase: RunningDashboardUsecase
     private var timerUsecase: TimerUsecase
@@ -36,6 +37,13 @@ public class DashboardViewModel: ObservableObject {
                 
                 let calories = Int(activity.calories)
                 self.calories = String(calories)
+            }
+            .store(in: &cancellables)
+        
+        dashboardUsecase.location
+            .receive(on: DispatchQueue.main)
+            .sink { location in
+                self.locations.append(location)
             }
             .store(in: &cancellables)
         
