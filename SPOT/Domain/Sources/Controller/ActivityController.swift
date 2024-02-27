@@ -12,10 +12,10 @@ import Entity
 
 public protocol ActivityController {
     var activity: PassthroughSubject<Activity, Never> { get }
-    var authorizationStatus: PassthroughSubject<ActivityAuthorizationStatus, Never> { get }
+    var authorizationStatus: PassthroughSubject<Bool, Never> { get }
     
     func requestActivity() async
-    func checkAuthoization()
+    func isAuthoized() -> Bool
     func startUpdates(startedAt: Date)
     func stopUpdates()
 }

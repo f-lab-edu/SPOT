@@ -12,7 +12,7 @@ import Controller
 import Entity
 
 public final class ActivityService: ActivityController {
-    public var authorizationStatus = PassthroughSubject<ActivityAuthorizationStatus, Never>()
+    public var authorizationStatus = PassthroughSubject<Bool, Never>()
     public var activity = PassthroughSubject<Entity.Activity, Never>()
     private let pedometer: CMPedometer
     
@@ -21,21 +21,15 @@ public final class ActivityService: ActivityController {
     }
     
     public func requestActivity() {
-        pedometer.startEventUpdates { _, _ in }
+        guard !isAuthoized() else { return }
+        
+        pedometer.startUpdates(from: .now) { _, _ in
+            self.authorizationStatus.send(true)
+        }
     }
     
-    public func checkAuthoization() {
-        switch CMPedometer.authorizationStatus() {
-        case .authorized: 
-            authorizationStatus.send(.authorized)
-        case .denied: 
-            authorizationStatus.send(.denied)
-        case .notDetermined: 
-            authorizationStatus.send(.notDetermined)
-        case .restricted: 
-            authorizationStatus.send(.restricted)
-        @unknown default: break
-        }
+    public func isAuthoized() -> Bool {
+        return CMPedometer.authorizationStatus() == .authorized
     }
     
     public func startUpdates(startedAt: Date) {

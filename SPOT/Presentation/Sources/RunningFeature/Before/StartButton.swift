@@ -22,8 +22,8 @@ struct StartButton: View {
                 .frame(width: 60, height: 60)
                 .foregroundColor(.black)
         }
-        .onReceive(viewModel.$isLocationAuthorized) { locationAuthorizationStatus in
-            if locationAuthorizationStatus {
+        .onReceive(viewModel.$isCountdown) { isCountdown in
+            if isCountdown {
                 status.uiState = .countdown
             }
         }

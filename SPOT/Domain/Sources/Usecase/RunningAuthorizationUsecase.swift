@@ -10,7 +10,10 @@ import Combine
 import Entity
 
 public protocol RunningAuthorizationUsecase {
-    func requestAuthorization() async
     var locationAuthorizationStatus: PassthroughSubject<AuthorizationStatus, Never> { get }
-    var activityAuthorizationStatus: PassthroughSubject<ActivityAuthorizationStatus, Never> { get }
+    var activityAuthorizationStatus: PassthroughSubject<Bool, Never> { get }
+    
+    func requestAuthorization() async
+    func isAuthorizedLocation() -> Bool
+    func isAuthorizedActivity() -> Bool
 }

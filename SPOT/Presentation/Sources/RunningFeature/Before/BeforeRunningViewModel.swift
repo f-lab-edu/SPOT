@@ -6,12 +6,12 @@
 //
 
 import Combine
+import Foundation
 
 import Usecase
 
 public class BeforeRnningViewModel: ObservableObject {
-    @Published var isLocationAuthorized = false
-    @Published var isActivityAuthorized = false
+    @Published var isCountdown = false
     
     private let authorizationUsecase: RunningAuthorizationUsecase
     private var cancellables = Set<AnyCancellable>()
@@ -19,20 +19,38 @@ public class BeforeRnningViewModel: ObservableObject {
     public init(authorizationUsecase: RunningAuthorizationUsecase) {
         self.authorizationUsecase = authorizationUsecase
         
-        authorizationUsecase.locationAuthorizationStatus
+        authorizationUsecase.activityAuthorizationStatus
+            .receive(on: DispatchQueue.main)
             .sink { status in
-                self.isLocationAuthorized = status == .always || status == .whenInUse
+                let isAuthorizedLocation = authorizationUsecase.isAuthorizedLocation()
+                let isAuthorizedActivity = status
+                
+                self.isCountdown = isAuthorizedActivity && isAuthorizedLocation
             }
             .store(in: &cancellables)
         
-        authorizationUsecase.activityAuthorizationStatus
+        authorizationUsecase.locationAuthorizationStatus
+            .receive(on: DispatchQueue.main)
             .sink { status in
-                self.isActivityAuthorized = status == .authorized
+                let isAuthorizedLocation = status == .always || status == .whenInUse
+                let isAuthorizedActivity = authorizationUsecase.isAuthorizedActivity()
+                
+                self.isCountdown = isAuthorizedActivity && isAuthorizedLocation
             }
             .store(in: &cancellables)
     }
     
+    private func isAuthorized() -> Bool {
+        authorizationUsecase.isAuthorizedLocation() && authorizationUsecase.isAuthorizedActivity()
+    }
+    
+    @MainActor
     func requestAuthorization() async {
-        await authorizationUsecase.requestAuthorization()
+        guard isAuthorized() else {
+            await authorizationUsecase.requestAuthorization()
+            return
+        }
+        
+        isCountdown = true
     }
 }

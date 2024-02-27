@@ -33,6 +33,10 @@ public final class LocationService: LocationController {
         manager.requestLocation()
     }
     
+    public func isAuthoized() -> Bool {
+        manager.authorizationStatus == .authorizedAlways || manager.authorizationStatus == .authorizedWhenInUse
+    }
+    
     public func start() {
         manager.startUpdatingLocation()
     }

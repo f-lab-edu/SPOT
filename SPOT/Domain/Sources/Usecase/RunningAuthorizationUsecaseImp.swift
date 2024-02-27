@@ -13,7 +13,7 @@ import Entity
 
 public final class RunningAuthorizationUsecaseImp: RunningAuthorizationUsecase {
     public var locationAuthorizationStatus = PassthroughSubject<AuthorizationStatus, Never>()
-    public var activityAuthorizationStatus = PassthroughSubject<ActivityAuthorizationStatus, Never>()
+    public var activityAuthorizationStatus = PassthroughSubject<Bool, Never>()
     
     private let locationController: LocationController
     private let activityController: ActivityController
@@ -39,6 +39,14 @@ public final class RunningAuthorizationUsecaseImp: RunningAuthorizationUsecase {
                 self.activityAuthorizationStatus.send(status)
             }
             .store(in: &cancellables)
+    }
+    
+    public func isAuthorizedLocation() -> Bool {
+        return locationController.isAuthoized()
+    }
+    
+    public func isAuthorizedActivity() -> Bool {
+        return activityController.isAuthoized()
     }
 }
 

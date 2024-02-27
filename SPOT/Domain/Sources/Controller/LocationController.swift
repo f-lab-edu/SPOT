@@ -17,6 +17,7 @@ public protocol LocationController {
     var locationError: PassthroughSubject<Error, Never> { get }
     
     func requestLocation() async
+    func isAuthoized() -> Bool
     func start()
     func pause()
     func resume()
