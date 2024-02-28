@@ -22,7 +22,7 @@ public final class UserDefaultsService: PersistanceController {
     }
     
     public func save<T: Encodable>(model: T, with key: String) {
-        let data = try? encoder.encode(T)
+        let data = try? encoder.encode(model)
         userdefaults.setValue(data, forKeyPath: key)
     }
     
