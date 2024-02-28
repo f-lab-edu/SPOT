@@ -20,8 +20,8 @@ public struct PauseRunning: View {
     }
     
     public var body: some View {
-        Map {
-            MapPolyline(coordinates: [])
+        Map(interactionModes: .pan) {
+            MapPolyline(coordinates: pauseRunningViewModel.locations.map { CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude) })
                 .stroke(.orange, lineWidth: 10)
         }
         
@@ -36,9 +36,6 @@ public struct PauseRunning: View {
                 StopButton(status: status)
             }
             .frame(height: 100)
-        }
-        .onReceive(pauseRunningViewModel.$locations) { locations in
-            
         }
     }
 }
