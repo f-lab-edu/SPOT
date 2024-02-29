@@ -19,6 +19,7 @@
 		6911E9482B8478A6005F02AB /* KakaoLoginProxy in Frameworks */ = {isa = PBXBuildFile; productRef = 6911E9472B8478A6005F02AB /* KakaoLoginProxy */; };
 		6911E94A2B8478AB005F02AB /* AuthDataAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 6911E9492B8478AB005F02AB /* AuthDataAccess */; };
 		6911E94C2B849982005F02AB /* AuthFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 6911E94B2B849982005F02AB /* AuthFeature */; };
+		6911E9502B900EB6005F02AB /* PersistanceDataAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 6911E94F2B900EB6005F02AB /* PersistanceDataAccess */; };
 		9B756BAF2B7A2233005A16D7 /* CompositionRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B756BAE2B7A2233005A16D7 /* CompositionRoot.swift */; };
 		9B756BB22B7A224E005A16D7 /* SPOTApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B756BB02B7A224E005A16D7 /* SPOTApp.swift */; };
 		9B756BB32B7A224E005A16D7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B756BB12B7A224E005A16D7 /* ContentView.swift */; };
@@ -59,6 +60,7 @@
 			files = (
 				6911E94C2B849982005F02AB /* AuthFeature in Frameworks */,
 				6911E9482B8478A6005F02AB /* KakaoLoginProxy in Frameworks */,
+				6911E9502B900EB6005F02AB /* PersistanceDataAccess in Frameworks */,
 				6911E9462B8478A6005F02AB /* GoogleLoginProxy in Frameworks */,
 				6911E9192B6CD028005F02AB /* Root in Frameworks */,
 				6911E91F2B70D717005F02AB /* Controller in Frameworks */,
@@ -182,6 +184,7 @@
 				6911E9472B8478A6005F02AB /* KakaoLoginProxy */,
 				6911E9492B8478AB005F02AB /* AuthDataAccess */,
 				6911E94B2B849982005F02AB /* AuthFeature */,
+				6911E94F2B900EB6005F02AB /* PersistanceDataAccess */,
 			);
 			productName = SPOT;
 			productReference = 311F84CA2B528D920035134F /* SPOT.app */;
@@ -609,6 +612,10 @@
 		6911E94B2B849982005F02AB /* AuthFeature */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AuthFeature;
+		};
+		6911E94F2B900EB6005F02AB /* PersistanceDataAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PersistanceDataAccess;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

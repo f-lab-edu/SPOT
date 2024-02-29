@@ -17,7 +17,9 @@ import KakaoSDKAuth
 import RunningFeature
 import RunningDataAccess
 import Controller
+import Entity
 import Usecase
+import PersistanceDataAccess
 
 class CompositionRoot {
     var beforeRunningFactory: any Factory
@@ -33,10 +35,15 @@ class CompositionRoot {
     
     var locationController: LocationController
     var activityController: ActivityController
+    var persistanceController: PersistanceController
     
     let locationManager: CLLocationManager
     var pedometer: CMPedometer
     let kakaoSDKAPPKey = "c9c8d578c14531682aef24a880009340"
+    let userDefaults: UserDefaults
+    let decoder: JSONDecoder
+    let encoder: JSONEncoder
+    let record: RunningRecord
     
     let beforeRunningViewModel: BeforeRnningViewModel
     let duringRunningViewModel: DuringRunningViewModel
@@ -47,13 +54,22 @@ class CompositionRoot {
     init() {
         self.locationManager = CLLocationManager()
         self.pedometer = CMPedometer()
+        self.userDefaults = UserDefaults()
+        self.decoder = JSONDecoder()
+        self.encoder = JSONEncoder()
+        self.record = RunningRecord()
         KakaoSDK.initSDK(appKey: kakaoSDKAPPKey)
         
         self.locationController = LocationService(manager: self.locationManager)
         self.activityController = ActivityService(pedometer: self.pedometer)
+        self.persistanceController = UserDefaultsService(userdefaults: self.userDefaults, 
+                                                         decoder: self.decoder,
+                                                         encoder: self.encoder)
         
         self.dashboardUsecase = RunningDashboardUsecaseImp(locationController: self.locationController,
-                                                           activityController: self.activityController)
+                                                           activityController: self.activityController,
+                                                           persistanceController: self.persistanceController,
+                                                           record: self.record)
         self.padUsecase = RunningPadUsecaseImp(locationController: self.locationController,
                                                activityController: self.activityController)
         self.timerUsecase = TimerUsecaseImp()
