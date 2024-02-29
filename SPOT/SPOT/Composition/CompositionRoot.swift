@@ -5,6 +5,7 @@
 //  Created by 김민식 on 2024/02/02.
 //
 
+import Combine
 import CoreLocation
 import CoreMotion
 import SwiftUI
@@ -44,6 +45,7 @@ class CompositionRoot {
     let decoder: JSONDecoder
     let encoder: JSONEncoder
     let record: RunningRecord
+    let recordTimer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
     
     let beforeRunningViewModel: BeforeRnningViewModel
     let duringRunningViewModel: DuringRunningViewModel
@@ -66,20 +68,21 @@ class CompositionRoot {
                                                          decoder: self.decoder,
                                                          encoder: self.encoder)
         
+        self.timerUsecase = TimerUsecaseImp()
         self.dashboardUsecase = RunningDashboardUsecaseImp(locationController: self.locationController,
                                                            activityController: self.activityController,
                                                            persistanceController: self.persistanceController,
-                                                           record: self.record)
+                                                           record: self.record, 
+                                                           timerUsecase: self.timerUsecase, 
+                                                           recordTimer: self.recordTimer)
         self.padUsecase = RunningPadUsecaseImp(locationController: self.locationController,
                                                activityController: self.activityController)
-        self.timerUsecase = TimerUsecaseImp()
         self.authorizationUsecase = RunningAuthorizationUsecaseImp(locationController: self.locationController,
                                                                    activityController: self.activityController)
         
         self.beforeRunningViewModel = BeforeRnningViewModel(authorizationUsecase: self.authorizationUsecase)
         self.duringRunningViewModel = DuringRunningViewModel(padUsecase: self.padUsecase, timerUsecase: self.timerUsecase)
-        self.dashboardViewModel = DashboardViewModel(dashboardUsecase: self.dashboardUsecase,
-                                                     timerUsecase: self.timerUsecase)
+        self.dashboardViewModel = DashboardViewModel(dashboardUsecase: self.dashboardUsecase)
         self.countdownViewModel = CountdownViewModel(padUsecase: self.padUsecase,
                                                      timerUsecase: self.timerUsecase,
                                                      currentDate: Date.init)

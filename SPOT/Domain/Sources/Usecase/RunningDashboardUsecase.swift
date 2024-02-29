@@ -12,4 +12,5 @@ import Entity
 public protocol RunningDashboardUsecase {
     var location: PassthroughSubject<Location, Never> { get }
     var activity: PassthroughSubject<Activity, Never> { get }
+    var runningTime: PassthroughSubject<Int, Never> { get }
 }

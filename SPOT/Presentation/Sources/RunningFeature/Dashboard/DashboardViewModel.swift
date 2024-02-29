@@ -19,13 +19,11 @@ public class DashboardViewModel: ObservableObject {
     @Published var locations: [Location] = []
     
     private var dashboardUsecase: RunningDashboardUsecase
-    private var timerUsecase: TimerUsecase
     private var cancellables = Set<AnyCancellable>()
     private let timeFormat = "%02d:%02d:%02d"
     
-    public init(dashboardUsecase: RunningDashboardUsecase, timerUsecase: TimerUsecase) {
+    public init(dashboardUsecase: RunningDashboardUsecase) {
         self.dashboardUsecase = dashboardUsecase
-        self.timerUsecase = timerUsecase
         
         dashboardUsecase.activity
             .receive(on: DispatchQueue.main)
@@ -47,7 +45,7 @@ public class DashboardViewModel: ObservableObject {
             }
             .store(in: &cancellables)
         
-        timerUsecase.runningTime
+        dashboardUsecase.runningTime
             .receive(on: DispatchQueue.main)
             .sink { seconds in
                 let hours = seconds / 3600

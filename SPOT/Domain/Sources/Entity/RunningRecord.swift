@@ -7,17 +7,20 @@
 
 import Foundation
 
-public struct RunningRecord {
+public final class RunningRecord: Encodable, Decodable {
     public private(set) var locations: [Location]
     public private(set) var activity: Activity
+    public private(set) var time: Int
     
-    public init(locations: [Location] = [], activity: Activity = .init(distance: 0, pace: 0, calories: 0)) {
+    public init(locations: [Location] = [], activity: Activity = .init(distance: 0, pace: 0, calories: 0), time: Int = 0) {
         self.locations = locations
         self.activity = activity
+        self.time = time
     }
     
-    public mutating func update(locations: [Location], activity: Activity) {
-        self.locations = locations
+    public func update(location: Location, activity: Activity, time: Int) {
+        self.locations.append(location)
         self.activity = activity
+        self.time += time
     }
 }
