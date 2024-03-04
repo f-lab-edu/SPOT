@@ -8,16 +8,16 @@
 import SwiftUI
 
 public struct DashboardView: View {
-    private var viewModel: DashboardViewModel
+    @StateObject private var viewModel: DashboardViewModel
     
     public init(viewModel: DashboardViewModel) {
-        self.viewModel = viewModel
+        self._viewModel = StateObject(wrappedValue: viewModel)
     }
     
     public var body: some View {
         HStack(alignment: .bottom, spacing: 0) {
             VStack(alignment: .center, spacing: 5) {
-                Text("1:23:31")
+                Text("\(viewModel.runningTime)")
                     .font(.system(size: 30, weight: .bold))
                 
                 Text("시간")
@@ -29,6 +29,7 @@ public struct DashboardView: View {
                 VStack(alignment: .center, spacing: 5) {
                     HStack(alignment: .bottom) {
                         Text(viewModel.distance)
+                            .frame(width: 100)
                             .font(.system(size: 60, weight: .bold))
                         
                         Text("km")

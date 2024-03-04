@@ -28,9 +28,16 @@ public final class LocationService: LocationController {
         self.manager.delegate = self.delegate
     }
     
-    public func start() {
+    public func requestLocation() {
         manager.requestWhenInUseAuthorization()
         manager.requestLocation()
+    }
+    
+    public func isAuthoized() -> Bool {
+        manager.authorizationStatus == .authorizedAlways || manager.authorizationStatus == .authorizedWhenInUse
+    }
+    
+    public func start() {
         manager.startUpdatingLocation()
     }
     

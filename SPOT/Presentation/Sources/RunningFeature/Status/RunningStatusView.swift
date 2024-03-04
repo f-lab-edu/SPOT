@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-import LocationFeature
-
 public struct RunningStatusView: View {
     @StateObject private var status: RunningStatus = .init()
     
@@ -16,25 +14,28 @@ public struct RunningStatusView: View {
     private let duringRunningFactory: any Factory
     private let pauseRunningFactory: any Factory
     private let stopRunningFactory: any Factory
+    private let countdownFactory: any Factory
     
     public init(
-         beforeRunningFactory: any Factory,
-         duringRunningFactory: any Factory,
-         pauseRunningFactory: any Factory,
-         stopRunningFactory: any Factory) {
-        self.beforeRunningFactory = beforeRunningFactory
-        self.duringRunningFactory = duringRunningFactory
-        self.pauseRunningFactory = pauseRunningFactory
-        self.stopRunningFactory = stopRunningFactory
-    }
+        beforeRunningFactory: any Factory,
+        duringRunningFactory: any Factory,
+        pauseRunningFactory: any Factory,
+        stopRunningFactory: any Factory,
+        countdownFactory: any Factory) {
+            self.beforeRunningFactory = beforeRunningFactory
+            self.duringRunningFactory = duringRunningFactory
+            self.pauseRunningFactory = pauseRunningFactory
+            self.stopRunningFactory = stopRunningFactory
+            self.countdownFactory = countdownFactory
+        }
     
     public var body: some View {
         Group {
             switch status.uiState {
             case .before:
                 AnyView(beforeRunningFactory.make())
-            case .startCountdown:
-                Text("startCountdown")
+            case .countdown:
+                AnyView(countdownFactory.make())
             case .during:
                 AnyView(duringRunningFactory.make())
             case .pause:

@@ -11,9 +11,11 @@ public struct DuringRunning: View {
     @EnvironmentObject private var status: RunningStatus
     
     private var dashboardViewModel: DashboardViewModel
+    @StateObject private var viewModel: DuringRunningViewModel
     
-    public init(dashboardViewModel: DashboardViewModel) {
+    public init(dashboardViewModel: DashboardViewModel, viewModel: DuringRunningViewModel) {
         self.dashboardViewModel = dashboardViewModel
+        _viewModel = StateObject(wrappedValue: viewModel)
     }
     
     public var body: some View {
@@ -27,7 +29,7 @@ public struct DuringRunning: View {
             Spacer()
             
             HStack(alignment: .center, spacing: 20) {
-                PauseButton(status: status)
+                PauseButton(status: status, viewModel: viewModel)
                 
                 MapButton()
             }

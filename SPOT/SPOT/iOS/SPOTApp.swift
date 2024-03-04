@@ -17,8 +17,12 @@ struct SPOTApp: App {
                 beforeRunningFactory: compositionRoot.beforeRunningFactory,
                 duringRunningFactory: compositionRoot.duringRunningFactory,
                 pauseRunningFactory: compositionRoot.pauseRunningFactory,
-                stopRunningFactory: compositionRoot.stopRunningFactory
+                stopRunningFactory: compositionRoot.stopRunningFactory, 
+                countdownFactory: compositionRoot.countdownFactory
             )
+            .onOpenURL { url in
+                compositionRoot.validateURL(url)
+            }
         }
     }
 }

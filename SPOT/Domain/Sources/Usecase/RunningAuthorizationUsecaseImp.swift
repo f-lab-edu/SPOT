@@ -12,20 +12,41 @@ import Controller
 import Entity
 
 public final class RunningAuthorizationUsecaseImp: RunningAuthorizationUsecase {
+    public var locationAuthorizationStatus = PassthroughSubject<AuthorizationStatus, Never>()
+    public var activityAuthorizationStatus = PassthroughSubject<Bool, Never>()
+    
     private let locationController: LocationController
     private let activityController: ActivityController
+    private var cancellables = Set<AnyCancellable>()
     
     public init(locationController: LocationController, activityController: ActivityController) {
         self.locationController = locationController
         self.activityController = activityController
     }
     
-    public func locationIsAuthorize() -> Bool {
-        return true
+    public func requestAuthorization() async {
+        await locationController.requestLocation()
+        await activityController.requestActivity()
+        
+        locationController.authorizationStatus
+            .sink { status in
+                self.locationAuthorizationStatus.send(status)
+            }
+            .store(in: &cancellables)
+        
+        activityController.authorizationStatus
+            .sink { status in
+                self.activityAuthorizationStatus.send(status)
+            }
+            .store(in: &cancellables)
     }
     
-    public func activityIsAuthorize() -> Bool {
-        return true
+    public func isAuthorizedLocation() -> Bool {
+        return locationController.isAuthoized()
+    }
+    
+    public func isAuthorizedActivity() -> Bool {
+        return activityController.isAuthoized()
     }
 }
 
