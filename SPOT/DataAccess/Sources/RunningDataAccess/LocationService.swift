@@ -28,6 +28,10 @@ public final class LocationService: LocationController {
         self.manager.delegate = self.delegate
     }
     
+    public func subscribe(sink: Subscribers.Sink<Location, Never>) {
+        self.location.subscribe(sink)
+    }
+    
     public func requestLocation() {
         manager.requestWhenInUseAuthorization()
         manager.requestLocation()

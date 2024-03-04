@@ -35,20 +35,20 @@ public final class RunningDashboardUsecaseImp: RunningDashboardUsecase {
         self.recordTimer = recordTimer
         
         self.locationController.location
-            .sink { newLocation in
-                self.location.send(newLocation)
+            .sink {
+                self.location.send($0)
             }
             .store(in: &cancellables)
         
         self.activityController.activity
-            .sink { newActivity in
-                self.activity.send(newActivity)
+            .sink {
+                self.activity.send($0)
             }
             .store(in: &cancellables)
         
         self.timerUsecase.runningTime
-            .sink { newRunningTime in
-                self.runningTime.send(newRunningTime)
+            .sink {
+                self.runningTime.send($0)
             }
             .store(in: &cancellables)
         
@@ -56,7 +56,7 @@ public final class RunningDashboardUsecaseImp: RunningDashboardUsecase {
     }
     
     public func saveRecord() {
-        let stream = Publishers.CombineLatest3(locationController.location, activityController.activity, timerUsecase.runningTime)
+        let stream = Publishers.CombineLatest3(location, activity, runningTime)
             .map { location, activity, time in
                 self.record.update(location: location, activity: activity, time: time)
             }
@@ -69,7 +69,9 @@ public final class RunningDashboardUsecaseImp: RunningDashboardUsecase {
             .store(in: &cancellables)
     }
     
-    public func loadRecord() -> RunningRecord {
-        let record: RunningRecord? = self.persistanceController.load(key: RunningDashboardUsecaseImp.RecordSaveKey) as? RunningRecord
+    public func loadRecord() -> RunningRecord? {
+        let record: RunningRecord? = self.persistanceController.load(key: RunningDashboardUsecaseImp.RecordSaveKey, type: RunningRecord.self)
+        
+        return record
     }
 }

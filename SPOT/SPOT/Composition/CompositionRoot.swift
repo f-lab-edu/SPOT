@@ -10,11 +10,13 @@ import CoreLocation
 import CoreMotion
 import SwiftUI
 
+import AuthDataAccess
 import AuthFeature
 import GoogleLoginProxy
 import KakaoLoginProxy
 import KakaoSDKCommon
 import KakaoSDKAuth
+import KakaoSDKUser
 import RunningFeature
 import RunningDataAccess
 import Controller
@@ -37,6 +39,7 @@ class CompositionRoot {
     var locationController: LocationController
     var activityController: ActivityController
     var persistanceController: PersistanceController
+    var kakaoAuthorizationController: AuthorizationController
     
     let locationManager: CLLocationManager
     var pedometer: CMPedometer
@@ -67,6 +70,7 @@ class CompositionRoot {
         self.persistanceController = UserDefaultsService(userdefaults: self.userDefaults, 
                                                          decoder: self.decoder,
                                                          encoder: self.encoder)
+        self.kakaoAuthorizationController = KakaoAuthService(userAPI: UserApi.self)
         
         self.timerUsecase = TimerUsecaseImp()
         self.dashboardUsecase = RunningDashboardUsecaseImp(locationController: self.locationController,

@@ -26,12 +26,12 @@ public final class UserDefaultsService: PersistanceController {
         userdefaults.setValue(data, forKeyPath: key)
     }
     
-    public func load<T: Decodable>(key: String) -> T? {
+    public func load<T: Decodable>(key: String, type: T.Type) -> T? {
         guard let data = userdefaults.data(forKey: key) else {
             return nil
         }
         
-        let model = try? decoder.decode(T.self, from: data)
+        let model = try? decoder.decode(type.self, from: data)
         return model
     }
     
