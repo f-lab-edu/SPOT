@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol AuthUsecase {
+public protocol LoginUsecase {
     func loginWithKakao()
     func loginWithGoogle()
 }

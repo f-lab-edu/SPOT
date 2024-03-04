@@ -10,7 +10,7 @@ import Foundation
 import Controller
 import Entity
 
-public final class AuthUsecaseImp: AuthUsecase {
+public final class LoginUsecaseImp: LoginUsecase {
     private let kakaoAuthController: AuthorizationController
     private let googleAuthController:AuthorizationController
     

@@ -32,6 +32,8 @@ public final class KakaoAuthService: AuthorizationController {
         userAPI.shared.loginWithKakaoTalk { token, error in
             if let error = error {
                 completion(.failure(error))
+            } else {
+                _ = token
             }
         }
         
