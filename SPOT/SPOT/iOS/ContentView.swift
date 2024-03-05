@@ -29,14 +29,12 @@ struct ContentView: View {
     }
     
     var body: some View {
-        AnyView(
-            RunningStatusView(
-                beforeRunningFactory: beforeRunningFactory,
-                duringRunningFactory: duringRunningFactory,
-                pauseRunningFactory: pauseRunningFactory,
-                stopRunningFactory: stopRunningFactory,
-                countdownFactory: countdownFactory
-            )
+        RunningStatusView(
+            beforeRunningFactory: beforeRunningFactory,
+            duringRunningFactory: duringRunningFactory,
+            pauseRunningFactory: pauseRunningFactory,
+            stopRunningFactory: stopRunningFactory,
+            countdownFactory: countdownFactory
         )
     }
 }

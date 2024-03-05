@@ -17,11 +17,11 @@ public struct RunningStatusView: View {
     private let countdownFactory: any Factory
     
     public init(
-        beforeRunningFactory: any Factory,
-        duringRunningFactory: any Factory,
-        pauseRunningFactory: any Factory,
-        stopRunningFactory: any Factory,
-        countdownFactory: any Factory) {
+        beforeRunningFactory: some Factory,
+        duringRunningFactory: some Factory,
+        pauseRunningFactory: some Factory,
+        stopRunningFactory: some Factory,
+        countdownFactory: some Factory) {
             self.beforeRunningFactory = beforeRunningFactory
             self.duringRunningFactory = duringRunningFactory
             self.pauseRunningFactory = pauseRunningFactory
@@ -30,18 +30,18 @@ public struct RunningStatusView: View {
         }
     
     public var body: some View {
-        Group {
+        AnyView {
             switch status.uiState {
             case .before:
-                AnyView(beforeRunningFactory.make())
+                beforeRunningFactory.make()
             case .countdown:
-                AnyView(countdownFactory.make())
+                countdownFactory.make()
             case .during:
-                AnyView(duringRunningFactory.make())
+                duringRunningFactory.make()
             case .pause:
-                AnyView(pauseRunningFactory.make())
+                pauseRunningFactory.make()
             case .stop:
-                AnyView(stopRunningFactory.make())
+                stopRunningFactory.make()
             }
         }
         .environmentObject(status)
