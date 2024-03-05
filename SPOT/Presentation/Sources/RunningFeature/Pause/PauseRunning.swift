@@ -11,21 +11,21 @@ import MapKit
 public struct PauseRunning: View {
     @EnvironmentObject private var status: RunningStatus
     
-    private var map = Map()
-    private var dashboardViewModel: DashboardViewModel
+    @StateObject  private var dashboardViewModel: DashboardViewModel
+    @StateObject private var pauseRunningViewModel: PauseRunningViewModel
     
-    public init(dashboardViewModel: DashboardViewModel) {
-        self.dashboardViewModel = dashboardViewModel
+    public init(dashboardViewModel: DashboardViewModel, pauseRunningViewModel: PauseRunningViewModel) {
+        _dashboardViewModel = StateObject(wrappedValue: dashboardViewModel)
+        _pauseRunningViewModel = StateObject(wrappedValue: pauseRunningViewModel)
     }
     
     public var body: some View {
+        Map(interactionModes: .pan) {
+            MapPolyline(coordinates: pauseRunningViewModel.locations.map { CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude) })
+                .stroke(.orange, lineWidth: 10)
+        }
+        
         VStack(alignment: .center) {
-            map
-                .frame(maxWidth: .infinity)
-                .frame(height: 400)
-            
-            Spacer()
-            
             DashboardView(viewModel: dashboardViewModel)
             
             Spacer()

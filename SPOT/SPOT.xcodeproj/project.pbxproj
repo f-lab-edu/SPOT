@@ -19,6 +19,8 @@
 		6911E9482B8478A6005F02AB /* KakaoLoginProxy in Frameworks */ = {isa = PBXBuildFile; productRef = 6911E9472B8478A6005F02AB /* KakaoLoginProxy */; };
 		6911E94A2B8478AB005F02AB /* AuthDataAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 6911E9492B8478AB005F02AB /* AuthDataAccess */; };
 		6911E94C2B849982005F02AB /* AuthFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 6911E94B2B849982005F02AB /* AuthFeature */; };
+		6911E94E2B85D6E2005F02AB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6911E94D2B85D6E2005F02AB /* GoogleService-Info.plist */; };
+		6911E9522B95AFD9005F02AB /* PersistanceDataAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 6911E9512B95AFD9005F02AB /* PersistanceDataAccess */; };
 		9B756BAF2B7A2233005A16D7 /* CompositionRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B756BAE2B7A2233005A16D7 /* CompositionRoot.swift */; };
 		9B756BB22B7A224E005A16D7 /* SPOTApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B756BB02B7A224E005A16D7 /* SPOTApp.swift */; };
 		9B756BB32B7A224E005A16D7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B756BB12B7A224E005A16D7 /* ContentView.swift */; };
@@ -47,6 +49,7 @@
 		311F84FF2B52B6C70035134F /* DataAccess */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = DataAccess; sourceTree = "<group>"; };
 		311F85002B52B6D40035134F /* Proxy */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Proxy; sourceTree = "<group>"; };
 		6911E9202B724B5D005F02AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		6911E94D2B85D6E2005F02AB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9B756BAE2B7A2233005A16D7 /* CompositionRoot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompositionRoot.swift; sourceTree = "<group>"; };
 		9B756BB02B7A224E005A16D7 /* SPOTApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SPOTApp.swift; sourceTree = "<group>"; };
 		9B756BB12B7A224E005A16D7 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -59,6 +62,7 @@
 			files = (
 				6911E94C2B849982005F02AB /* AuthFeature in Frameworks */,
 				6911E9482B8478A6005F02AB /* KakaoLoginProxy in Frameworks */,
+				6911E9522B95AFD9005F02AB /* PersistanceDataAccess in Frameworks */,
 				6911E9462B8478A6005F02AB /* GoogleLoginProxy in Frameworks */,
 				6911E9192B6CD028005F02AB /* Root in Frameworks */,
 				6911E91F2B70D717005F02AB /* Controller in Frameworks */,
@@ -106,6 +110,7 @@
 		311F84CC2B528D920035134F /* SPOT */ = {
 			isa = PBXGroup;
 			children = (
+				6911E94D2B85D6E2005F02AB /* GoogleService-Info.plist */,
 				6911E9202B724B5D005F02AB /* Info.plist */,
 				6911E90C2B6B9834005F02AB /* Composition */,
 				6911E90A2B6B74B2005F02AB /* iOS */,
@@ -182,6 +187,7 @@
 				6911E9472B8478A6005F02AB /* KakaoLoginProxy */,
 				6911E9492B8478AB005F02AB /* AuthDataAccess */,
 				6911E94B2B849982005F02AB /* AuthFeature */,
+				6911E9512B95AFD9005F02AB /* PersistanceDataAccess */,
 			);
 			productName = SPOT;
 			productReference = 311F84CA2B528D920035134F /* SPOT.app */;
@@ -251,6 +257,7 @@
 			files = (
 				311F84D62B528D950035134F /* Preview Assets.xcassets in Resources */,
 				311F84D22B528D950035134F /* Assets.xcassets in Resources */,
+				6911E94E2B85D6E2005F02AB /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -425,7 +432,6 @@
 				INFOPLIST_FILE = SPOT/Info.plist;
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "사용자 위치 권한 허용";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "사용자 위치 권한 허용";
-				INFOPLIST_KEY_NSMotionUsageDescription = "사용자 활동 권한 허용";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -468,7 +474,6 @@
 				INFOPLIST_FILE = SPOT/Info.plist;
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "사용자 위치 권한 허용";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "사용자 위치 권한 허용";
-				INFOPLIST_KEY_NSMotionUsageDescription = "사용자 활동 권한 허용";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -609,6 +614,10 @@
 		6911E94B2B849982005F02AB /* AuthFeature */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AuthFeature;
+		};
+		6911E9512B95AFD9005F02AB /* PersistanceDataAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PersistanceDataAccess;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

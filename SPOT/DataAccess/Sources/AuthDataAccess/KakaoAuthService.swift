@@ -13,24 +13,31 @@ import KakaoSDKAuth
 import KakaoSDKUser
 
 public final class KakaoAuthService: AuthorizationController {
+    private let userAPI: UserApi.Type
+    
+    public init(userAPI: UserApi.Type) {
+        self.userAPI = userAPI
+    }
     
     public enum Error: Swift.Error {
         case notAvailable
     }
     
     public func login(completion: @escaping (LoginResult) -> Void) {
-        guard UserApi.isKakaoTalkLoginAvailable() else {
+        guard userAPI.isKakaoTalkLoginAvailable() else {
             completion(.failure(Error.notAvailable))
             return
         }
         
-        UserApi.shared.loginWithKakaoTalk { token, error in
+        userAPI.shared.loginWithKakaoTalk { token, error in
             if let error = error {
                 completion(.failure(error))
+            } else {
+                _ = token
             }
         }
         
-        UserApi.shared.me { user, error in
+        userAPI.shared.me { user, error in
             guard let name = user?.kakaoAccount?.name else { return }
             guard let thumbnailURL = user?.kakaoAccount?.profile?.thumbnailImageUrl else { return }
             let runner = Runner(name: name, thumbnailURL: thumbnailURL)

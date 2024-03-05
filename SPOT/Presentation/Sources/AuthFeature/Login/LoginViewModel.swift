@@ -10,17 +10,17 @@ import Foundation
 import Usecase
 
 public final class LoginViewModel: ObservableObject {
-    private let authUsecase: AuthUsecase
+    private let loginUsecase: LoginUsecase
     
-    public init(authUsecase: AuthUsecase) {
-        self.authUsecase = authUsecase
+    public init(loginUsecase: LoginUsecase) {
+        self.loginUsecase = loginUsecase
     }
     
     func kakaoLoginButtonTapped() {
-        authUsecase.loginWithKakao()
+        loginUsecase.loginWithKakao()
     }
     
     func googleLoginButtonTapped() {
-        authUsecase.loginWithGoogle()
+        loginUsecase.loginWithGoogle()
     }
 }
