@@ -14,18 +14,21 @@ import Usecase
 import Controller
 
 
-struct ActivityServiceSpy: ActivityController {
+final class ActivityServiceSpy: ActivityController {
     typealias ActivityMessage = PassthroughSubject<Activity, Never>
     typealias AuthorizationStatusMessage = PassthroughSubject<Bool, Never>
     
     var activityMessages: [ActivityMessage] = []
     var authorizationStatusMessages: [AuthorizationStatusMessage] = []
+    var startCallCount: Int = 0
+    var stopCallCount: Int = 0
     
     var activity: PassthroughSubject<Activity, Never> = .init() {
         didSet {
             activityMessages.append(activity)
         }
     }
+    
     var authorizationStatus: PassthroughSubject<Bool, Never> = .init() {
         didSet {
             authorizationStatusMessages.append(authorizationStatus)
@@ -41,10 +44,10 @@ struct ActivityServiceSpy: ActivityController {
     }
     
     func startUpdates(startedAt: Date) {
-      
+        startCallCount += 1
     }
     
     func stopUpdates() {
-      
+        stopCallCount += 1
     }
 }

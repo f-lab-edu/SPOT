@@ -12,16 +12,21 @@ import Entity
 import RunningDataAccess
 import Usecase
 
-struct LocationServiceSpy: LocationController {
+final class LocationServiceSpy: LocationController {
     typealias LocationMessage = PassthroughSubject<Location, Never>
     typealias AuthorizationStatusMessage = PassthroughSubject<AuthorizationStatus, Never>
     typealias UpdatingLocationMessage = PassthroughSubject<Bool, Never>
     typealias LocationErrorMessage = PassthroughSubject<Error, Never>
     
+    private var cancellables: Set<AnyCancellable> = .init()
     var locationMessages: [LocationMessage] = []
     var authorizationStatusMessages: [AuthorizationStatusMessage] = []
     var updatingLocationMessages: [UpdatingLocationMessage] = []
     var locationErrorMessages: [LocationErrorMessage] = []
+    var startCallCount: Int = 0
+    var pauseCallCount: Int = 0
+    var resumeCallCount: Int = 0
+    var stopCallCount: Int = 0
     
     var location: PassthroughSubject<Location, Never> = .init() {
         didSet {
@@ -47,28 +52,26 @@ struct LocationServiceSpy: LocationController {
         }
     }
     
-    func requestLocation() async {
-        
-    }
+    func requestLocation() async {}
     
     func isAuthoized() -> Bool {
-        return false
+        return true
     }
     
     func start() {
-        
+        startCallCount += 1
     }
     
     func pause() {
-        
+        pauseCallCount += 1
     }
     
     func resume() {
-        
+        resumeCallCount += 1
     }
     
     func stop() {
-        
+        stopCallCount += 1
     }
 }
 
