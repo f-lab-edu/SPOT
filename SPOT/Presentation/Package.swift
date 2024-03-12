@@ -37,7 +37,7 @@ let package = Package(
                 .product(name: "Usecase", package: "Domain")
             ]),
         .testTarget(
-            name: "LocationFeatureTests",
+            name: "RunningFeatureTests",
             dependencies: []),
     ]
 )
