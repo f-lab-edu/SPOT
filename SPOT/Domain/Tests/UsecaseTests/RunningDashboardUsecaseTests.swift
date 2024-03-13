@@ -2,7 +2,6 @@ import XCTest
 
 import Controller
 import Entity
-import RunningDataAccess
 import Usecase
 
 final class RunningDashboardUsecaseTests: XCTestCase {
@@ -70,8 +69,8 @@ final class RunningDashboardUsecaseTests: XCTestCase {
         XCTAssertEqual(activityController.stopCallCount, 1)
     }
     
-    func test_update_location() {
-        let sut = RunningDashboardUsecaseImp(locationController: locationController,
+    func test_update_dashboard() {
+        let sut = RunningDashboardUsecaseSpy(locationController: locationController,
                                              activityController: activityController,
                                              persistanceController: persistanceController,
                                              record: record,
@@ -82,27 +81,15 @@ final class RunningDashboardUsecaseTests: XCTestCase {
         locationController.location.send(
             Location(latitude: 37.514639, longitude: 127.048426)
         )
-    }
-}
-
-import Combine
-
-class RunningDashboardUsecaseSpy: RunningDashboardUsecase {
-    var location = PassthroughSubject<Location, Never>.init() {
-        didSet {
-            
-        }
-    }
-    
-    var activity = PassthroughSubject<Activity, Never>.init() {
-        didSet {
-            
-        }
-    }
-    
-    var runningTime = PassthroughSubject<Int, Never>.init() {
-        didSet {
-            
-        }
+        
+        activityController.activity.send(
+            Activity(distance: 2.0, pace: 2.0, calories: 2.0)
+        )
+        
+        timerUsecase.runningTime.send(20)
+        
+        XCTAssertEqual(sut.locationMessages.count, 1)
+        XCTAssertEqual(sut.activityMessages.count, 1)
+        XCTAssertEqual(sut.timeMessages.count, 1)
     }
 }
