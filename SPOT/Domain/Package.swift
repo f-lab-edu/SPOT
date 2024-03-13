@@ -38,6 +38,10 @@ let package = Package(
         ),
         .testTarget(
             name: "UsecaseTests",
-            dependencies: []),
+            dependencies: [
+                "Usecase",
+                "Controller",
+                "Entity"
+            ]),
     ]
 )
