@@ -12,7 +12,7 @@ import Controller
 import Entity
 import Usecase
 
-class RunningDashboardUsecaseSpy: RunningDashboardUsecase {
+class RunningDashboardUsecaseSpy: RunningStreamUsecase {
     var locationMessages: [Location] = []
     var activityMessages: [Activity] = []
     var timeMessages: [Int] = []

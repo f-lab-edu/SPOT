@@ -10,18 +10,18 @@ import Foundation
 import Usecase
 
 public class CountdownViewModel: ObservableObject {
-    private let padUsecase: RunningPadUsecase
+    private let controlUsecase: RunningControlUsecase
     private let timerUsecase: TimerUsecase
     private let currentDate: () -> Date
     
-    public init(padUsecase: RunningPadUsecase, timerUsecase: TimerUsecase, currentDate: @escaping () -> Date) {
-        self.padUsecase = padUsecase
+    public init(controlUsecase: RunningControlUsecase, timerUsecase: TimerUsecase, currentDate: @escaping () -> Date) {
+        self.controlUsecase = controlUsecase
         self.timerUsecase = timerUsecase
         self.currentDate = currentDate
     }
     
     func start(completion: () -> Void) {
-        padUsecase.start(startedAt: self.currentDate())
+        controlUsecase.start(startedAt: self.currentDate())
         timerUsecase.activate()
         completion()
     }

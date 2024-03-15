@@ -1,5 +1,5 @@
 //
-//  RunningDashboardUsecaseImp.swift
+//  RunningStreamUsecaseImp.swift
 //
 //
 //  Created by 10004 on 2/18/24.
@@ -11,7 +11,7 @@ import Combine
 import Controller
 import Entity
 
-public final class RunningDashboardUsecaseImp: RunningDashboardUsecase {
+public final class RunningDashboardUsecaseImp: RunningStreamUsecase, RunningControlUsecase {
     public var location = PassthroughSubject<Location, Never>()
     public var activity = PassthroughSubject<Activity, Never>()
     public var runningTime = PassthroughSubject<Int, Never>()
@@ -53,6 +53,26 @@ public final class RunningDashboardUsecaseImp: RunningDashboardUsecase {
             .store(in: &cancellables)
         
         self.saveRecord()
+    }
+    
+    public func start(startedAt: Date) {
+        locationController.start()
+        activityController.startUpdates(startedAt: startedAt)
+    }
+    
+    public func pause() {
+        locationController.pause()
+        activityController.stopUpdates()
+    }
+    
+    public func resume(startedAt: Date) {
+        locationController.resume()
+        activityController.startUpdates(startedAt: startedAt)
+    }
+    
+    public func stop() {
+        locationController.stop()
+        activityController.stopUpdates()
     }
     
     public func saveRecord() {

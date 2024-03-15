@@ -14,13 +14,13 @@ import Entity
 public final class PauseRunningViewModel: ObservableObject {
     @Published var locations: [Location] = []
     
-    private var dashboardUsecase: RunningDashboardUsecase
+    private var streamUsecase: RunningStreamUsecase
     private var cancellables = Set<AnyCancellable>()
     
-    public init(dashboardUsecase: RunningDashboardUsecase) {
-        self.dashboardUsecase = dashboardUsecase
+    public init(streamUsecase: RunningStreamUsecase) {
+        self.streamUsecase = streamUsecase
         
-        dashboardUsecase.location
+        streamUsecase.location
             .receive(on: DispatchQueue.main)
             .sink { location in
                 self.locations.append(location)
