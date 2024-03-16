@@ -7,7 +7,7 @@
 
 import Foundation
 
-public final class RunningRecord: Encodable, Decodable {
+public final class RunningRecord: Codable, Equatable {
     public private(set) var locations: [Location]
     public private(set) var activity: Activity
     public private(set) var time: Int
@@ -22,5 +22,9 @@ public final class RunningRecord: Encodable, Decodable {
         self.locations.append(location)
         self.activity = activity
         self.time += time
+    }
+    
+    public static func == (lhs: RunningRecord, rhs: RunningRecord) -> Bool {
+        lhs.locations == rhs.locations && lhs.activity == rhs.activity && lhs.time == rhs.time
     }
 }

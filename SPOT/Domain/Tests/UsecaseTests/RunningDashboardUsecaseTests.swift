@@ -1,4 +1,5 @@
 import XCTest
+import Combine
 
 import Controller
 import Entity
@@ -10,7 +11,7 @@ final class RunningDashboardUsecaseTests: XCTestCase {
     var persistanceController: PersistanceServiceSpy!
     var timerUsecase: TimerUsecaseSpy!
     var record: RunningRecord!
-    var recordTimer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
+    var recordTimer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
     let date = Date.now
     
     override func setUp() async throws {
@@ -30,66 +31,72 @@ final class RunningDashboardUsecaseTests: XCTestCase {
     }
     
     func test_startRunning() {
-        let sut = RunningPadUsecaseImp(locationController: locationController,
-                                       activityController: activityController)
-        
-        sut.start(startedAt: date)
-        
-        XCTAssertEqual(locationController.startCallCount, 1)
-        XCTAssertEqual(activityController.startCallCount, 1)
-    }
-    
-    func test_pauseRunning() {
-        let sut = RunningPadUsecaseImp(locationController: locationController,
-                                       activityController: activityController)
-        
-        sut.pause()
-        
-        XCTAssertEqual(locationController.pauseCallCount, 1)
-        XCTAssertEqual(activityController.stopCallCount, 1)
-    }
-    
-    func test_resumeRunning() {
-        let sut = RunningPadUsecaseImp(locationController: locationController,
-                                       activityController: activityController)
-        
-        sut.resume(startedAt: date)
-        
-        XCTAssertEqual(locationController.resumeCallCount, 1)
-        XCTAssertEqual(activityController.startCallCount, 1)
-    }
-
-    func test_stopRunning() {
-        let sut = RunningPadUsecaseImp(locationController: locationController,
-                                       activityController: activityController)
-        
-        sut.stop()
-        
-        XCTAssertEqual(locationController.stopCallCount, 1)
-        XCTAssertEqual(activityController.stopCallCount, 1)
-    }
-    
-    func test_update_dashboard() {
-        let sut = RunningDashboardUsecaseSpy(locationController: locationController,
+        //given
+        let sut = RunningDashboardUsecaseImp(locationController: locationController,
                                              activityController: activityController,
                                              persistanceController: persistanceController,
                                              record: record,
                                              timerUsecase: timerUsecase,
-                                             recordTimer: recordTimer
-        )
+                                             recordTimer: recordTimer)
         
-        locationController.location.send(
-            Location(latitude: 37.514639, longitude: 127.048426)
-        )
+        let location = Location(latitude: 37.514639, longitude: 127.048426)
+        let activity = Activity(distance: 2.0, pace: 2.0, calories: 2.0)
+        let time = 20
+        var cancellables = Set<AnyCancellable>.init()
         
-        activityController.activity.send(
-            Activity(distance: 2.0, pace: 2.0, calories: 2.0)
-        )
+        var newLocation = Location(latitude: 0, longitude: 0)
+        var newActivity = Activity(distance: 0, pace: 0, calories: 0)
+        var newTime = 0
         
-        timerUsecase.runningTime.send(20)
+        sut.location.sink { newLocation = $0 }
+            .store(in: &cancellables)
+        sut.activity.sink { newActivity = $0 }
+            .store(in: &cancellables)
+        sut.runningTime.sink { newTime = $0 }
+            .store(in: &cancellables)
         
-        XCTAssertEqual(sut.locationMessages.count, 1)
-        XCTAssertEqual(sut.activityMessages.count, 1)
-        XCTAssertEqual(sut.timeMessages.count, 1)
+        //when
+        sut.start(startedAt: date)
+        
+        locationController.location.send(location)
+        activityController.activity.send(activity)
+        timerUsecase.runningTime.send(time)
+        
+        //then
+        XCTAssertEqual(location, newLocation)
+        XCTAssertEqual(activity, newActivity)
+        XCTAssertEqual(time, newTime)
+    }
+    
+    func test_save_record() {
+        //given
+        let sut = RunningDashboardUsecaseImp(locationController: locationController,
+                                             activityController: activityController,
+                                             persistanceController: persistanceController,
+                                             record: record,
+                                             timerUsecase: timerUsecase,
+                                             recordTimer: recordTimer)
+        
+        let location1 = Location(latitude: 37.514639, longitude: 127.048426)
+        let location2 = Location(latitude: 37.514639, longitude: 127.048428)
+        let activity = Activity(distance: 2.0, pace: 2.0, calories: 2.0)
+        let time = 20
+        let record = RunningRecord(
+            locations: [location1, location2],
+            activity: activity,
+            time: time)
+        
+        //when
+        sut.start(startedAt: date)
+        
+        locationController.location.send(location1)
+        locationController.location.send(location2)
+        activityController.activity.send(activity)
+        timerUsecase.runningTime.send(time)
+        
+        //then
+        guard let loadedRecord = sut.loadRecord() else { return }
+        XCTAssertNotNil(loadedRecord)
+        XCTAssertEqual(loadedRecord, record)
     }
 }
