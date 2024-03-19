@@ -36,6 +36,7 @@ class CompositionRoot {
     
     var streamUsecase: RunningStreamUsecase
     var controlUsecase: RunningControlUsecase
+    var runningRecordUsecase: RunningRecordUsecase
     var timerUsecase: TimerUsecase
     var loginUsecase: LoginUsecase
     var authorizationUsecase: RunningAuthorizationUsecase
@@ -54,14 +55,11 @@ class CompositionRoot {
     let userDefaults: UserDefaults
     let decoder: JSONDecoder
     let encoder: JSONEncoder
+    let dateFormatter: DateFormatter
     let record: RunningRecord
     let recordTimer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
-    
-    let beforeRunningViewModel: BeforeRnningViewModel
-    let duringRunningViewModel: DuringRunningViewModel
+
     let dashboardViewModel: DashboardViewModel
-    let countdownViewModel: CountdownViewModel
-    let pauseRunningViewModel: PauseRunningViewModel
     let loginViewModel: LoginViewModel
     
     init() {
@@ -70,6 +68,7 @@ class CompositionRoot {
         self.userDefaults = UserDefaults()
         self.decoder = JSONDecoder()
         self.encoder = JSONEncoder()
+        self.dateFormatter = DateFormatter()
         self.record = RunningRecord()
         KakaoSDK.initSDK(appKey: kakaoSDKAPPKey)
         
@@ -78,7 +77,9 @@ class CompositionRoot {
         self.kakaoAuthController = KakaoAuthService(userAPI: UserApi.self)
         self.googleSignInConfig = GIDConfiguration(clientID: "702300377706-ral8jq5143lrrqlqvmbaoa8hg098lkjq.apps.googleusercontent.com")
         self.presentingViewController = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.windows.first?.rootViewController
-        self.googleAuthController = GoogleAuthService(signInConfig: self.googleSignInConfig, presentingViewController: self.presentingViewController ?? UIViewController())
+        self.googleAuthController = GoogleAuthService(signInConfig: self.googleSignInConfig,
+                                                      gidSignIn: GIDSignIn.self,
+                                                      presentingViewController: self.presentingViewController ?? UIViewController())
         self.persistanceController = UserDefaultsService(userdefaults: self.userDefaults,
                                                          decoder: self.decoder,
                                                          encoder: self.encoder)
@@ -92,31 +93,37 @@ class CompositionRoot {
                                                           recordTimer: self.recordTimer)
         self.streamUsecase = dashboardUsecase
         self.controlUsecase = dashboardUsecase
+        self.runningRecordUsecase = dashboardUsecase
         
         self.authorizationUsecase = RunningAuthorizationUsecaseImp(locationController: self.locationController,
                                                                    activityController: self.activityController)
         self.loginUsecase = LoginUsecaseImp(kakaoAuthController: self.kakaoAuthController,
-                                          googleAuthController: self.googleAuthController)
+                                            googleAuthController: self.googleAuthController)
         
-        self.beforeRunningViewModel = BeforeRnningViewModel(authorizationUsecase: self.authorizationUsecase)
-        self.duringRunningViewModel = DuringRunningViewModel(controlUsecase: self.controlUsecase, timerUsecase: self.timerUsecase)
-        self.dashboardViewModel = DashboardViewModel(streamUsecase: self.streamUsecase)
-        self.countdownViewModel = CountdownViewModel(controlUsecase: self.controlUsecase,
-                                                     timerUsecase: self.timerUsecase,
-                                                     currentDate: Date.init)
-        self.pauseRunningViewModel = PauseRunningViewModel(streamUsecase: self.streamUsecase)
         self.loginViewModel = LoginViewModel(loginUsecase: self.loginUsecase)
         self.loginUsecase = LoginUsecaseImp(kakaoAuthController: self.kakaoAuthController,
                                             googleAuthController: self.googleAuthController)
         
+        self.dashboardViewModel = DashboardViewModel(streamUsecase: self.streamUsecase)
         
-        self.beforeRunningFactory = BeforeRunningFactoryImp(locationViewModel: self.beforeRunningViewModel)
-        self.duringRunningFactory = DuringRunningFactoryImp(dashboardViewModel: self.dashboardViewModel,
-                                                            viewModel: self.duringRunningViewModel)
-        self.pauseRunningFactory = PauseRunningFactoryImp(dashboardViewModel: self.dashboardViewModel,
-                                                          pauseRunningViewModel: self.pauseRunningViewModel)
-        self.stopRunningFactory = StopRunningFactoryImp()
-        self.countdownFactory = CountdownFactoryImp(viewModel: self.countdownViewModel)
+        self.beforeRunningFactory = BeforeRunningFactoryImp(authorizationUsecase: authorizationUsecase)
+        self.duringRunningFactory = DuringRunningFactoryImp(
+            dashboardViewModel: dashboardViewModel,
+            controlUsecase: controlUsecase,
+            timerUsecase: timerUsecase)
+        self.pauseRunningFactory = PauseRunningFactoryImp(
+            dashboardViewModel: dashboardViewModel,
+            streamUsecase: streamUsecase,
+            controlUsecase: controlUsecase, 
+            timerUsecase: timerUsecase)
+        self.stopRunningFactory = StopRunningFactoryImp(
+            dashboardViewModel: dashboardViewModel,
+            runningRecordUsecase: runningRecordUsecase,
+            dateFormatter: dateFormatter,
+            calendar: Calendar.self)
+        self.countdownFactory = CountdownFactoryImp(
+            controlUsecase: controlUsecase,
+            timerUsecase: timerUsecase)
         self.loginFactory = LoginFactoryImp(viewModel: self.loginViewModel)
     }
     
@@ -124,7 +131,7 @@ class CompositionRoot {
         if AuthApi.isKakaoTalkLoginUrl(url) {
             _ = AuthController.handleOpenUrl(url: url)
         } else if GIDSignIn.sharedInstance.handle(url) {
-            
+            GIDSignIn.sharedInstance.handle(url)
         }
     }
 }
