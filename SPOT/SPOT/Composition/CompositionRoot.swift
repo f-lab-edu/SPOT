@@ -21,6 +21,7 @@ import KakaoSDKAuth
 import KakaoSDKUser
 import RunningFeature
 import RunningDataAccess
+import Root
 import Controller
 import Entity
 import Usecase
@@ -38,6 +39,7 @@ class CompositionRoot {
     var controlUsecase: RunningControlUsecase
     var timerUsecase: TimerUsecase
     var loginUsecase: LoginUsecase
+    var loginableUsecase: LoginableUsecase
     var authorizationUsecase: RunningAuthorizationUsecase
     
     var locationController: LocationController
@@ -63,6 +65,7 @@ class CompositionRoot {
     let countdownViewModel: CountdownViewModel
     let pauseRunningViewModel: PauseRunningViewModel
     let loginViewModel: LoginViewModel
+    let contentViewModel: ContentViewModel
     
     init() {
         self.locationManager = CLLocationManager()
@@ -95,8 +98,13 @@ class CompositionRoot {
         
         self.authorizationUsecase = RunningAuthorizationUsecaseImp(locationController: self.locationController,
                                                                    activityController: self.activityController)
-        self.loginUsecase = LoginUsecaseImp(kakaoAuthController: self.kakaoAuthController,
-                                          googleAuthController: self.googleAuthController)
+        
+        let authUsecase = AuthUsecaseImp(kakaoAuthController: self.kakaoAuthController,
+                                         googleAuthController: self.googleAuthController,
+                                         persistanceController: self.persistanceController)
+        
+        self.loginUsecase = authUsecase
+        self.loginableUsecase = authUsecase
         
         self.beforeRunningViewModel = BeforeRnningViewModel(authorizationUsecase: self.authorizationUsecase)
         self.duringRunningViewModel = DuringRunningViewModel(controlUsecase: self.controlUsecase, timerUsecase: self.timerUsecase)
@@ -106,8 +114,11 @@ class CompositionRoot {
                                                      currentDate: Date.init)
         self.pauseRunningViewModel = PauseRunningViewModel(streamUsecase: self.streamUsecase)
         self.loginViewModel = LoginViewModel(loginUsecase: self.loginUsecase)
-        self.loginUsecase = LoginUsecaseImp(kakaoAuthController: self.kakaoAuthController,
-                                            googleAuthController: self.googleAuthController)
+        self.contentViewModel = ContentViewModel(loginableUsecase: self.loginableUsecase)
+        
+        self.loginUsecase = AuthUsecaseImp(kakaoAuthController: self.kakaoAuthController,
+                                           googleAuthController: self.googleAuthController, 
+                                           persistanceController: self.persistanceController)
         
         
         self.beforeRunningFactory = BeforeRunningFactoryImp(locationViewModel: self.beforeRunningViewModel)

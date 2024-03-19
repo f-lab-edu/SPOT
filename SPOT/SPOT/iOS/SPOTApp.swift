@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+import Root
+
 @main
 struct SPOTApp: App {
     private let compositionRoot = CompositionRoot()
@@ -14,11 +16,13 @@ struct SPOTApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView(
+                viewModel: compositionRoot.contentViewModel,
                 beforeRunningFactory: compositionRoot.beforeRunningFactory,
                 duringRunningFactory: compositionRoot.duringRunningFactory,
                 pauseRunningFactory: compositionRoot.pauseRunningFactory,
                 stopRunningFactory: compositionRoot.stopRunningFactory, 
-                countdownFactory: compositionRoot.countdownFactory
+                countdownFactory: compositionRoot.countdownFactory,
+                loginFactory: compositionRoot.loginFactory
             )
         }
     }
