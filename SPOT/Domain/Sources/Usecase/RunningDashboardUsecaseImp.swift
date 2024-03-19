@@ -11,7 +11,11 @@ import Combine
 import Controller
 import Entity
 
-public final class RunningDashboardUsecaseImp: RunningStreamUsecase, RunningControlUsecase {
+public final class RunningDashboardUsecaseImp: RunningStreamUsecase, RunningControlUsecase, RunningRecordUsecase {
+    
+    private var savableLocation = Location(latitude: 0, longitude: 0)
+    private var savableActivity = Activity(distance: 0, pace: 0, calories: 0)
+    private var savableTime = 0
     public var location = PassthroughSubject<Location, Never>()
     public var activity = PassthroughSubject<Activity, Never>()
     public var runningTime = PassthroughSubject<Int, Never>()
@@ -37,27 +41,30 @@ public final class RunningDashboardUsecaseImp: RunningStreamUsecase, RunningCont
         self.locationController.location
             .sink {
                 self.location.send($0)
+                self.savableLocation = $0
             }
             .store(in: &cancellables)
         
         self.activityController.activity
             .sink {
                 self.activity.send($0)
+                self.savableActivity = $0
             }
             .store(in: &cancellables)
         
         self.timerUsecase.runningTime
             .sink {
                 self.runningTime.send($0)
+                self.savableTime = $0
             }
             .store(in: &cancellables)
-        
-        self.saveRecord()
     }
     
     public func start(startedAt: Date) {
+        saveRecord()
         locationController.start()
         activityController.startUpdates(startedAt: startedAt)
+        record.save(with: startedAt)
     }
     
     public func pause() {
@@ -65,33 +72,33 @@ public final class RunningDashboardUsecaseImp: RunningStreamUsecase, RunningCont
         activityController.stopUpdates()
     }
     
-    public func resume(startedAt: Date) {
+    public func resume() {
         locationController.resume()
-        activityController.startUpdates(startedAt: startedAt)
+        activityController.startUpdates(startedAt: record.startedAt)
     }
     
     public func stop() {
         locationController.stop()
         activityController.stopUpdates()
+        recordTimer.upstream.connect().cancel()
     }
     
-    public func saveRecord() {
-        let stream = Publishers.CombineLatest3(location, activity, runningTime)
-            .map { location, activity, time in
-                self.record.update(location: location, activity: activity, time: time)
-            }
-        
-        stream
-            .zip(recordTimer)
-            .sink { record, _ in
-                self.persistanceController.save(model: self.record, with: RunningDashboardUsecaseImp.RecordSaveKey)
-            }
-            .store(in: &cancellables)
+    private func saveRecord() {
+        self.recordTimer.sink { _ in
+            self.record.update(location: self.savableLocation,
+                               activity: self.savableActivity,
+                               time: self.savableTime)
+            self.persistanceController.save(model: self.record, with: RunningDashboardUsecaseImp.RecordSaveKey)
+        }
+        .store(in: &cancellables)
     }
     
     public func loadRecord() -> RunningRecord? {
         let record: RunningRecord? = self.persistanceController.load(key: RunningDashboardUsecaseImp.RecordSaveKey, type: RunningRecord.self)
-        
         return record
+    }
+    
+    public func resetRecord() {
+        self.persistanceController.remove(with: RunningDashboardUsecaseImp.RecordSaveKey)
     }
 }
