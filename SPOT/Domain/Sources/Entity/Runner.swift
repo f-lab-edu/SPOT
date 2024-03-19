@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Runner {
+public struct Runner: Codable, Equatable {
     public let name: String
     public let thumbnailURL: URL
     
