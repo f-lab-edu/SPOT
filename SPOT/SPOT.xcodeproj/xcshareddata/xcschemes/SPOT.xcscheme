@@ -49,7 +49,7 @@
             parallelizable = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "311F84E42B528D950035134F"
+               BlueprintIdentifier = "6911E9562B9839BD005F02AB"
                BuildableName = "SPOTUITests.xctest"
                BlueprintName = "SPOTUITests"
                ReferencedContainer = "container:SPOT.xcodeproj">

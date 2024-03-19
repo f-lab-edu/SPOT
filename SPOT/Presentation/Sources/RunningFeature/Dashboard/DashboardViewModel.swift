@@ -18,14 +18,14 @@ public class DashboardViewModel: ObservableObject {
     @Published var runningTime = "00:00:00"
     @Published var locations: [Location] = []
     
-    private var dashboardUsecase: RunningDashboardUsecase
+    private var streamUsecase: RunningStreamUsecase
     private var cancellables = Set<AnyCancellable>()
     private let timeFormat = "%02d:%02d:%02d"
     
-    public init(dashboardUsecase: RunningDashboardUsecase) {
-        self.dashboardUsecase = dashboardUsecase
+    public init(streamUsecase: RunningStreamUsecase) {
+        self.streamUsecase = streamUsecase
         
-        dashboardUsecase.activity
+        streamUsecase.activity
             .receive(on: DispatchQueue.main)
             .sink { activity in
                 self.distance = String(format: "%.1f", activity.distance)
@@ -38,14 +38,14 @@ public class DashboardViewModel: ObservableObject {
             }
             .store(in: &cancellables)
         
-        dashboardUsecase.location
+        streamUsecase.location
             .receive(on: DispatchQueue.main)
             .sink { location in
                 self.locations.append(location)
             }
             .store(in: &cancellables)
         
-        dashboardUsecase.runningTime
+        streamUsecase.runningTime
             .receive(on: DispatchQueue.main)
             .sink { seconds in
                 let hours = seconds / 3600

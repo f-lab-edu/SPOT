@@ -20,7 +20,7 @@ public struct LoginFactoryImp: LoginFactory {
         self.viewModel = viewModel
     }
     
-    public func make() -> some View {
+    public func make() -> LoginView {
         LoginView(viewModel: viewModel)
     }
 }

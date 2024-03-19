@@ -29,15 +29,11 @@ public final class RunningAuthorizationUsecaseImp: RunningAuthorizationUsecase {
         await activityController.requestActivity()
         
         locationController.authorizationStatus
-            .sink { status in
-                self.locationAuthorizationStatus.send(status)
-            }
+            .subscribe(locationAuthorizationStatus)
             .store(in: &cancellables)
         
         activityController.authorizationStatus
-            .sink { status in
-                self.activityAuthorizationStatus.send(status)
-            }
+            .subscribe(activityAuthorizationStatus)
             .store(in: &cancellables)
     }
     

@@ -34,8 +34,8 @@ class CompositionRoot {
     var countdownFactory: any Factory
     var loginFactory: any LoginFactory
     
-    var dashboardUsecase: RunningDashboardUsecase
-    var padUsecase: RunningPadUsecase
+    var streamUsecase: RunningStreamUsecase
+    var controlUsecase: RunningControlUsecase
     var timerUsecase: TimerUsecase
     var loginUsecase: LoginUsecase
     var authorizationUsecase: RunningAuthorizationUsecase
@@ -84,26 +84,27 @@ class CompositionRoot {
                                                          encoder: self.encoder)
         
         self.timerUsecase = TimerUsecaseImp()
-        self.dashboardUsecase = RunningDashboardUsecaseImp(locationController: self.locationController,
-                                                           activityController: self.activityController,
-                                                           persistanceController: self.persistanceController,
-                                                           record: self.record,
-                                                           timerUsecase: self.timerUsecase,
-                                                           recordTimer: self.recordTimer)
-        self.padUsecase = RunningPadUsecaseImp(locationController: self.locationController,
-                                               activityController: self.activityController)
+        let dashboardUsecase = RunningDashboardUsecaseImp(locationController: self.locationController,
+                                                          activityController: self.activityController,
+                                                          persistanceController: self.persistanceController,
+                                                          record: self.record,
+                                                          timerUsecase: self.timerUsecase,
+                                                          recordTimer: self.recordTimer)
+        self.streamUsecase = dashboardUsecase
+        self.controlUsecase = dashboardUsecase
+        
         self.authorizationUsecase = RunningAuthorizationUsecaseImp(locationController: self.locationController,
                                                                    activityController: self.activityController)
         self.loginUsecase = LoginUsecaseImp(kakaoAuthController: self.kakaoAuthController,
                                           googleAuthController: self.googleAuthController)
         
         self.beforeRunningViewModel = BeforeRnningViewModel(authorizationUsecase: self.authorizationUsecase)
-        self.duringRunningViewModel = DuringRunningViewModel(padUsecase: self.padUsecase, timerUsecase: self.timerUsecase)
-        self.dashboardViewModel = DashboardViewModel(dashboardUsecase: self.dashboardUsecase)
-        self.countdownViewModel = CountdownViewModel(padUsecase: self.padUsecase,
+        self.duringRunningViewModel = DuringRunningViewModel(controlUsecase: self.controlUsecase, timerUsecase: self.timerUsecase)
+        self.dashboardViewModel = DashboardViewModel(streamUsecase: self.streamUsecase)
+        self.countdownViewModel = CountdownViewModel(controlUsecase: self.controlUsecase,
                                                      timerUsecase: self.timerUsecase,
                                                      currentDate: Date.init)
-        self.pauseRunningViewModel = PauseRunningViewModel(dashboardUsecase: self.dashboardUsecase)
+        self.pauseRunningViewModel = PauseRunningViewModel(streamUsecase: self.streamUsecase)
         self.loginViewModel = LoginViewModel(loginUsecase: self.loginUsecase)
         self.loginUsecase = LoginUsecaseImp(kakaoAuthController: self.kakaoAuthController,
                                             googleAuthController: self.googleAuthController)

@@ -10,22 +10,22 @@ import Foundation
 import Usecase
 
 public final class DuringRunningViewModel: ObservableObject {
-    private let padUsecase: RunningPadUsecase
+    private let controlUsecase: RunningControlUsecase
     private let timerUsecase: TimerUsecase
     
-    public init(padUsecase: RunningPadUsecase, timerUsecase: TimerUsecase) {
-        self.padUsecase = padUsecase
+    public init(controlUsecase: RunningControlUsecase, timerUsecase: TimerUsecase) {
+        self.controlUsecase = controlUsecase
         self.timerUsecase = timerUsecase
     }
     
     func pause(completion: () -> Void) {
-        padUsecase.pause()
+        controlUsecase.pause()
         timerUsecase.suspend()
         completion()
     }
     
     func stop(completion: () -> Void) {
-        padUsecase.stop()
+        controlUsecase.stop()
         completion()
     }
 }

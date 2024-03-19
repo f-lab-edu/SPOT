@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Activity: Codable {
+public struct Activity: Codable, Equatable {
     public let distance: Double
     public let pace: Double
     public let calories: Double

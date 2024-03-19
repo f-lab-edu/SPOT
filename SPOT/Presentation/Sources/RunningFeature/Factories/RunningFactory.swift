@@ -1,5 +1,5 @@
 //
-//  RunningBeforeFactory.swift
+//  RunningFactory.swift
 //
 //
 //  Created by 김민식 on 2024/02/16.
@@ -20,7 +20,7 @@ public struct BeforeRunningFactoryImp: Factory {
         self.locationViewModel = locationViewModel
     }
     
-    public func make() -> some View {
+    public func make() -> BeforeRunning {
         BeforeRunning(viewModel: locationViewModel)
     }
 }
@@ -34,7 +34,7 @@ public struct DuringRunningFactoryImp: Factory {
         self.viewModel = viewModel
     }
     
-    public func make() -> some View {
+    public func make() -> DuringRunning {
         DuringRunning(dashboardViewModel: dashboardViewModel, viewModel: viewModel)
     }
 }
@@ -48,7 +48,7 @@ public struct PauseRunningFactoryImp: Factory {
         self.pauseRunningViewModel = pauseRunningViewModel
     }
     
-    public func make() -> some View {
+    public func make() -> PauseRunning {
         PauseRunning(dashboardViewModel: dashboardViewModel, pauseRunningViewModel: pauseRunningViewModel)
     }
 }
@@ -56,7 +56,7 @@ public struct PauseRunningFactoryImp: Factory {
 public struct StopRunningFactoryImp: Factory {
     public init() {}
     
-    public func make() -> some View {
+    public func make() -> StopRunning {
         StopRunning()
     }
 }
@@ -68,7 +68,7 @@ public struct CountdownFactoryImp: Factory {
         self.viewModel = viewModel
     }
     
-    public func make() -> some View {
+    public func make() -> CountdownView {
         CountdownView(viewModel: viewModel)
     }
 }

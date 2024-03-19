@@ -21,6 +21,8 @@
 		6911E94C2B849982005F02AB /* AuthFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 6911E94B2B849982005F02AB /* AuthFeature */; };
 		6911E94E2B85D6E2005F02AB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6911E94D2B85D6E2005F02AB /* GoogleService-Info.plist */; };
 		6911E9522B95AFD9005F02AB /* PersistanceDataAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 6911E9512B95AFD9005F02AB /* PersistanceDataAccess */; };
+		6911E95A2B9839BE005F02AB /* SPOTUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6911E9592B9839BE005F02AB /* SPOTUITests.swift */; };
+		6911E95C2B9839BE005F02AB /* SPOTUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6911E95B2B9839BE005F02AB /* SPOTUITestsLaunchTests.swift */; };
 		9B756BAF2B7A2233005A16D7 /* CompositionRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B756BAE2B7A2233005A16D7 /* CompositionRoot.swift */; };
 		9B756BB22B7A224E005A16D7 /* SPOTApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B756BB02B7A224E005A16D7 /* SPOTApp.swift */; };
 		9B756BB32B7A224E005A16D7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B756BB12B7A224E005A16D7 /* ContentView.swift */; };
@@ -28,6 +30,13 @@
 
 /* Begin PBXContainerItemProxy section */
 		311F84DC2B528D950035134F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 311F84C22B528D920035134F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 311F84C92B528D920035134F;
+			remoteInfo = SPOT;
+		};
+		6911E95D2B9839BE005F02AB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 311F84C22B528D920035134F /* Project object */;
 			proxyType = 1;
@@ -50,6 +59,9 @@
 		311F85002B52B6D40035134F /* Proxy */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Proxy; sourceTree = "<group>"; };
 		6911E9202B724B5D005F02AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		6911E94D2B85D6E2005F02AB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		6911E9572B9839BD005F02AB /* SPOTUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SPOTUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6911E9592B9839BE005F02AB /* SPOTUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPOTUITests.swift; sourceTree = "<group>"; };
+		6911E95B2B9839BE005F02AB /* SPOTUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPOTUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		9B756BAE2B7A2233005A16D7 /* CompositionRoot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompositionRoot.swift; sourceTree = "<group>"; };
 		9B756BB02B7A224E005A16D7 /* SPOTApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SPOTApp.swift; sourceTree = "<group>"; };
 		9B756BB12B7A224E005A16D7 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -80,6 +92,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6911E9542B9839BD005F02AB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -93,6 +112,7 @@
 				311F84F82B5291000035134F /* SPOTTests.xctestplan */,
 				311F84CC2B528D920035134F /* SPOT */,
 				311F84DE2B528D950035134F /* SPOTTests */,
+				6911E9582B9839BE005F02AB /* SPOTUITests */,
 				311F84CB2B528D920035134F /* Products */,
 				6911E90D2B6C75C9005F02AB /* Frameworks */,
 			);
@@ -103,6 +123,7 @@
 			children = (
 				311F84CA2B528D920035134F /* SPOT.app */,
 				311F84DB2B528D950035134F /* SPOTTests.xctest */,
+				6911E9572B9839BD005F02AB /* SPOTUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -161,6 +182,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		6911E9582B9839BE005F02AB /* SPOTUITests */ = {
+			isa = PBXGroup;
+			children = (
+				6911E9592B9839BE005F02AB /* SPOTUITests.swift */,
+				6911E95B2B9839BE005F02AB /* SPOTUITestsLaunchTests.swift */,
+			);
+			path = SPOTUITests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -211,6 +241,24 @@
 			productReference = 311F84DB2B528D950035134F /* SPOTTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		6911E9562B9839BD005F02AB /* SPOTUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6911E9612B9839BE005F02AB /* Build configuration list for PBXNativeTarget "SPOTUITests" */;
+			buildPhases = (
+				6911E9532B9839BD005F02AB /* Sources */,
+				6911E9542B9839BD005F02AB /* Frameworks */,
+				6911E9552B9839BD005F02AB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6911E95E2B9839BE005F02AB /* PBXTargetDependency */,
+			);
+			name = SPOTUITests;
+			productName = SPOTUITests;
+			productReference = 6911E9572B9839BD005F02AB /* SPOTUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -218,7 +266,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1520;
+				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1520;
 				TargetAttributes = {
 					311F84C92B528D920035134F = {
@@ -226,6 +274,10 @@
 					};
 					311F84DA2B528D950035134F = {
 						CreatedOnToolsVersion = 15.2;
+						TestTargetID = 311F84C92B528D920035134F;
+					};
+					6911E9562B9839BD005F02AB = {
+						CreatedOnToolsVersion = 15.0.1;
 						TestTargetID = 311F84C92B528D920035134F;
 					};
 				};
@@ -246,6 +298,7 @@
 			targets = (
 				311F84C92B528D920035134F /* SPOT */,
 				311F84DA2B528D950035134F /* SPOTTests */,
+				6911E9562B9839BD005F02AB /* SPOTUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -262,6 +315,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		311F84D92B528D950035134F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6911E9552B9839BD005F02AB /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -289,6 +349,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6911E9532B9839BD005F02AB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6911E95C2B9839BE005F02AB /* SPOTUITestsLaunchTests.swift in Sources */,
+				6911E95A2B9839BE005F02AB /* SPOTUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -296,6 +365,11 @@
 			isa = PBXTargetDependency;
 			target = 311F84C92B528D920035134F /* SPOT */;
 			targetProxy = 311F84DC2B528D950035134F /* PBXContainerItemProxy */;
+		};
+		6911E95E2B9839BE005F02AB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 311F84C92B528D920035134F /* SPOT */;
+			targetProxy = 6911E95D2B9839BE005F02AB /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -546,6 +620,43 @@
 			};
 			name = Release;
 		};
+		6911E95F2B9839BE005F02AB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8G43M5CX79;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.qutopia.SPOTUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = SPOT;
+			};
+			name = Debug;
+		};
+		6911E9602B9839BE005F02AB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8G43M5CX79;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.qutopia.SPOTUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = SPOT;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -572,6 +683,15 @@
 			buildConfigurations = (
 				311F84F32B528D950035134F /* Debug */,
 				311F84F42B528D950035134F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6911E9612B9839BE005F02AB /* Build configuration list for PBXNativeTarget "SPOTUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6911E95F2B9839BE005F02AB /* Debug */,
+				6911E9602B9839BE005F02AB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
