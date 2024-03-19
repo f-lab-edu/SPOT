@@ -30,18 +30,18 @@ public struct RunningStatusView: View {
         }
     
     public var body: some View {
-        AnyView {
+        Group {
             switch status.uiState {
             case .before:
-                beforeRunningFactory.make()
+                AnyView(beforeRunningFactory.make())
             case .countdown:
-                countdownFactory.make()
+                AnyView(countdownFactory.make())
             case .during:
-                duringRunningFactory.make()
+                AnyView(duringRunningFactory.make())
             case .pause:
-                pauseRunningFactory.make()
+                AnyView(pauseRunningFactory.make())
             case .stop:
-                stopRunningFactory.make()
+                AnyView(stopRunningFactory.make())
             }
         }
         .environmentObject(status)

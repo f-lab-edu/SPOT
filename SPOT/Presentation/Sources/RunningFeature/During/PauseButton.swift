@@ -13,7 +13,9 @@ struct PauseButton: View {
     
     var body: some View {
         Button {
-            viewModel.pause { status.uiState = .pause }
+            viewModel.pause {
+                status.uiState = .pause
+            }
         } label: {
             Image(systemName: "pause.circle.fill")
                 .resizable()
