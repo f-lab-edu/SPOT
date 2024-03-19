@@ -13,4 +13,5 @@ public protocol TimerUsecase {
     func activate()
     func resume()
     func suspend()
+    func stop()
 }
