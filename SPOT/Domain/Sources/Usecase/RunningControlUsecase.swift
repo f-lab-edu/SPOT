@@ -9,7 +9,7 @@ import Foundation
 
 public protocol RunningControlUsecase {
     func start(startedAt: Date)
-    func resume(startedAt: Date)
+    func resume()
     func pause()
     func stop()
 }

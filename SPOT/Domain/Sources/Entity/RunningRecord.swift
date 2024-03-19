@@ -8,14 +8,22 @@
 import Foundation
 
 public final class RunningRecord: Codable, Equatable {
+    public private(set) var startedAt: Date
     public private(set) var locations: [Location]
     public private(set) var activity: Activity
     public private(set) var time: Int
     
-    public init(locations: [Location] = [], activity: Activity = .init(distance: 0, pace: 0, calories: 0), time: Int = 0) {
+    public init(startedAt: Date = .init(),
+                locations: [Location] = [],
+                activity: Activity = .init(distance: 0, pace: 0, calories: 0), time: Int = 0) {
+        self.startedAt = startedAt
         self.locations = locations
         self.activity = activity
         self.time = time
+    }
+    
+    public func save(with startedAt: Date) {
+        self.startedAt = startedAt
     }
     
     public func update(location: Location, activity: Activity, time: Int) {

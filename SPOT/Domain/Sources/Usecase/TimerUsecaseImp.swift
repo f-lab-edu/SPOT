@@ -61,4 +61,10 @@ public final class TimerUsecaseImp: TimerUsecase {
         timer.suspend()
         timerLock.unlock()
     }
+    
+    public func stop() {
+        timer.cancel()
+        time = 0
+        state = .suspended
+    }
 }

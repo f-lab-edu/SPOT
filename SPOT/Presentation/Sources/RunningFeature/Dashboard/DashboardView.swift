@@ -19,6 +19,8 @@ public struct DashboardView: View {
             VStack(alignment: .center, spacing: 5) {
                 Text("\(viewModel.runningTime)")
                     .font(.system(size: 30, weight: .bold))
+                    .lineLimit(1)
+                    .fixedSize(horizontal: false, vertical: true)
                 
                 Text("시간")
                     .font(.system(size: 12))
@@ -31,6 +33,7 @@ public struct DashboardView: View {
                         Text(viewModel.distance)
                             .frame(width: 100)
                             .font(.system(size: 60, weight: .bold))
+                            .lineLimit(1)
                         
                         Text("km")
                             .font(.system(size: 20, weight: .bold))
@@ -43,6 +46,7 @@ public struct DashboardView: View {
                 
                 VStack(alignment: .center, spacing: 5) {
                     Text(viewModel.pace)
+                        .lineLimit(1)
                         .font(.system(size: 30, weight: .bold))
                     
                     Text("현재 페이스")
@@ -53,6 +57,7 @@ public struct DashboardView: View {
             
             VStack(alignment: .center, spacing: 5) {
                 Text(viewModel.pace)
+                    .lineLimit(1)
                     .font(.system(size: 30, weight: .bold))
                 
                 Text("소모 칼로리")

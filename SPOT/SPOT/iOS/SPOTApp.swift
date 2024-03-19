@@ -24,6 +24,9 @@ struct SPOTApp: App {
                 countdownFactory: compositionRoot.countdownFactory,
                 loginFactory: compositionRoot.loginFactory
             )
+            .onOpenURL { url in
+                compositionRoot.validateURL(url)
+            }
         }
     }
 }

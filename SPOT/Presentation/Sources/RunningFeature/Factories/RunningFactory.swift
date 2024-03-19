@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+import Usecase
+
 public protocol Factory {
     associatedtype SomeView: View
     
@@ -14,61 +16,95 @@ public protocol Factory {
 }
 
 public struct BeforeRunningFactoryImp: Factory {
-    let locationViewModel: BeforeRnningViewModel
+    let authorizationUsecase: RunningAuthorizationUsecase
     
-    public init(locationViewModel: BeforeRnningViewModel) {
-        self.locationViewModel = locationViewModel
+    public init(authorizationUsecase: RunningAuthorizationUsecase) {
+        self.authorizationUsecase = authorizationUsecase
     }
     
     public func make() -> BeforeRunning {
-        BeforeRunning(viewModel: locationViewModel)
+        let locationViewModel = BeforeRnningViewModel(authorizationUsecase: self.authorizationUsecase)
+        return BeforeRunning(viewModel: locationViewModel)
     }
 }
 
 public struct DuringRunningFactoryImp: Factory {
     let dashboardViewModel: DashboardViewModel
-    let viewModel: DuringRunningViewModel
+    let controlUsecase: RunningControlUsecase
+    let timerUsecase: TimerUsecase
     
-    public init(dashboardViewModel: DashboardViewModel, viewModel: DuringRunningViewModel) {
+    public init(dashboardViewModel: DashboardViewModel,
+                controlUsecase: RunningControlUsecase, 
+                timerUsecase: TimerUsecase) {
         self.dashboardViewModel = dashboardViewModel
-        self.viewModel = viewModel
+        self.controlUsecase = controlUsecase
+        self.timerUsecase = timerUsecase
     }
     
     public func make() -> DuringRunning {
-        DuringRunning(dashboardViewModel: dashboardViewModel, viewModel: viewModel)
+        let viewModel = DuringRunningViewModel(controlUsecase: controlUsecase, timerUsecase: timerUsecase)
+        return DuringRunning(dashboardViewModel: dashboardViewModel, viewModel: viewModel)
     }
 }
 
 public struct PauseRunningFactoryImp: Factory {
     let dashboardViewModel: DashboardViewModel
-    let pauseRunningViewModel: PauseRunningViewModel
+    let streamUsecase: RunningStreamUsecase
+    let controlUsecase: RunningControlUsecase
+    let timerUsecase: TimerUsecase
     
-    public init(dashboardViewModel: DashboardViewModel, pauseRunningViewModel: PauseRunningViewModel) {
+    public init(dashboardViewModel: DashboardViewModel, streamUsecase: RunningStreamUsecase, controlUsecase: RunningControlUsecase, timerUsecase: TimerUsecase) {
         self.dashboardViewModel = dashboardViewModel
-        self.pauseRunningViewModel = pauseRunningViewModel
+        self.streamUsecase = streamUsecase
+        self.controlUsecase = controlUsecase
+        self.timerUsecase = timerUsecase
     }
     
     public func make() -> PauseRunning {
-        PauseRunning(dashboardViewModel: dashboardViewModel, pauseRunningViewModel: pauseRunningViewModel)
+        let pauseRunningViewModel = PauseRunningViewModel(streamUsecase: streamUsecase, controlUsecase: controlUsecase, timerUsecase: timerUsecase)
+        
+        return PauseRunning(dashboardViewModel: dashboardViewModel, pauseRunningViewModel: pauseRunningViewModel)
     }
 }
 
 public struct StopRunningFactoryImp: Factory {
-    public init() {}
+    let dashboardViewModel: DashboardViewModel
+    let runningRecordUsecase: RunningRecordUsecase
+    let dateFormatter: DateFormatter
+    let calendar: Calendar.Type
+    
+    public init(dashboardViewModel: DashboardViewModel,
+                runningRecordUsecase: RunningRecordUsecase,
+                dateFormatter: DateFormatter,
+                calendar: Calendar.Type) {
+        self.dashboardViewModel = dashboardViewModel
+        self.runningRecordUsecase = runningRecordUsecase
+        self.dateFormatter = dateFormatter
+        self.calendar = calendar
+    }
     
     public func make() -> StopRunning {
-        StopRunning()
+        let stopRunningViewModel = StopRunningViewModel(runningRecordUsecase: runningRecordUsecase,
+                                                        dateFormatter: dateFormatter,
+                                                        calendar: calendar)
+        return StopRunning(dashboardViewModel: dashboardViewModel,
+                    stopRunningViewModel: stopRunningViewModel)
     }
 }
 
 public struct CountdownFactoryImp: Factory {
-    let viewModel: CountdownViewModel
+    private let controlUsecase: RunningControlUsecase
+    private let timerUsecase: TimerUsecase
     
-    public init(viewModel: CountdownViewModel) {
-        self.viewModel = viewModel
+    public init(controlUsecase: RunningControlUsecase, timerUsecase: TimerUsecase) {
+        self.controlUsecase = controlUsecase
+        self.timerUsecase = timerUsecase
     }
     
     public func make() -> CountdownView {
-        CountdownView(viewModel: viewModel)
+        let viewModel = CountdownViewModel(controlUsecase: controlUsecase,
+                                           timerUsecase: timerUsecase,
+                                           currentDate: Date.init)
+        return CountdownView(viewModel: viewModel)
     }
 }
