@@ -8,6 +8,8 @@
 import SwiftUI
 
 public struct LoginView: View {
+    @Environment(\.dismiss) private var dismiss
+    
     private let viewModel: LoginViewModel
     
     public init(viewModel: LoginViewModel) {
@@ -50,5 +52,10 @@ public struct LoginView: View {
             }
         }
         .padding()
+        .onReceive(viewModel.$isLoggedIn) { isLoggedIn in
+            if isLoggedIn {
+                dismiss()
+            }
+        }
     }
 }

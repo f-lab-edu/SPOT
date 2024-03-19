@@ -25,22 +25,24 @@ public final class AuthUsecaseImp: LoginUsecase, LogoutUsecase, LoginableUsecase
         self.persistanceController = persistanceController
     }
     
-    public func loginWithKakao() {
+    public func loginWithKakao(completion: @escaping (Bool) -> Void) {
         kakaoAuthController.login { result in
             switch result {
             case .success(let runner):
                 self.persistanceController.save(model: runner, with: AuthUsecaseImp.RunnerSaveKey)
+                completion(true)
                 
             case .failure(let _): break
             }
         }
     }
     
-    public func loginWithGoogle() {
+    public func loginWithGoogle(completion: @escaping (Bool) -> Void) {
         googleAuthController.login { result in
             switch result {
             case .success(let runner):
                 self.persistanceController.save(model: runner, with: AuthUsecaseImp.RunnerSaveKey)
+                completion(true)
                 
             case .failure(let _): break
             }

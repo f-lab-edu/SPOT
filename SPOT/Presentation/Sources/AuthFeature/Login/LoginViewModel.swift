@@ -10,6 +10,8 @@ import Foundation
 import Usecase
 
 public final class LoginViewModel: ObservableObject {
+    @Published var isLoggedIn: Bool = false
+    
     private let loginUsecase: LoginUsecase
     
     public init(loginUsecase: LoginUsecase) {
@@ -17,10 +19,14 @@ public final class LoginViewModel: ObservableObject {
     }
     
     func kakaoLoginButtonTapped() {
-        loginUsecase.loginWithKakao()
+        loginUsecase.loginWithKakao { isLoggedIn in
+            self.isLoggedIn = isLoggedIn
+        }
     }
     
     func googleLoginButtonTapped() {
-        loginUsecase.loginWithGoogle()
+        loginUsecase.loginWithGoogle { isLoggedIn in
+            self.isLoggedIn = isLoggedIn
+        }
     }
 }

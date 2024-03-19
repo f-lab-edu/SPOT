@@ -8,6 +8,6 @@
 import Foundation
 
 public protocol LoginUsecase {
-    func loginWithKakao()
-    func loginWithGoogle()
+    func loginWithKakao(completion: @escaping (Bool) -> Void)
+    func loginWithGoogle(completion: @escaping (Bool) -> Void)
 }
