@@ -27,7 +27,7 @@
 	<string>702300377706-ral8jq5143lrrqlqvmbaoa8hg098lkjq.apps.googleusercontent.com</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
-		<string>kakaompassauth</string>
+		<string>kakaokompassauth</string>
 		<string>kakaolink</string>
 	</array>
 	<key>UIBackgroundModes</key>

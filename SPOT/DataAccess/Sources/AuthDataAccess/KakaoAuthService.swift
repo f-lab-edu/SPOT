@@ -38,7 +38,7 @@ public final class KakaoAuthService: AuthorizationController {
         }
         
         userAPI.shared.me { user, error in
-            guard let name = user?.kakaoAccount?.name else { return }
+            guard let name = user?.kakaoAccount?.profile?.nickname else { return }
             guard let thumbnailURL = user?.kakaoAccount?.profile?.thumbnailImageUrl else { return }
             let runner = Runner(name: name, thumbnailURL: thumbnailURL)
             

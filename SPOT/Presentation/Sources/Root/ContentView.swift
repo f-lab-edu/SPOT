@@ -40,20 +40,26 @@ public struct ContentView: View {
     
     public var body: some View {
         TabView {
-            RunningStatusView(
-                beforeRunningFactory: beforeRunningFactory,
-                duringRunningFactory: duringRunningFactory,
-                pauseRunningFactory: pauseRunningFactory,
-                stopRunningFactory: stopRunningFactory,
-                countdownFactory: countdownFactory
-            )
+            NavigationStack {
+                RunningStatusView(
+                    beforeRunningFactory: beforeRunningFactory,
+                    duringRunningFactory: duringRunningFactory,
+                    pauseRunningFactory: pauseRunningFactory,
+                    stopRunningFactory: stopRunningFactory,
+                    countdownFactory: countdownFactory
+                )
+            }
             .tabItem { Label("러닝", systemImage: "bolt") }
             
-            EmptyView()
-                .tabItem { Label("기록", systemImage: "list.bullet") }
+            NavigationStack {
+                EmptyView()
+            }
+            .tabItem { Label("기록", systemImage: "list.bullet") }
             
-            EmptyView()
-                .tabItem { Label("마이", systemImage: "person") }
+            NavigationStack {
+                EmptyView()
+            }
+            .tabItem { Label("마이", systemImage: "person") }
         }
         .onAppear {
             isLoggingIn = viewModel.needToLogin()
