@@ -21,6 +21,8 @@ public final class LocationService: LocationController {
     
     public init(manager: CLLocationManager) {
         self.manager = manager
+        self.manager.desiredAccuracy = kCLLocationAccuracyBest
+        self.manager.distanceFilter = 5
         self.delegate = LocationServiceDelegate(location: location,
                                                 authorizationStatus: authorizationStatus,
                                                 updatingLocation: updatingLocation,
