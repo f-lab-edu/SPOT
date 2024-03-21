@@ -10,6 +10,7 @@ import MapKit
 
 public struct PauseRunning: View {
     @EnvironmentObject private var status: RunningStatus
+    @State private var position: MapCameraPosition = .userLocation(fallback: .camera(MapCamera(centerCoordinate: .init(), distance: 0)))
     
     @StateObject private var dashboardViewModel: DashboardViewModel
     @StateObject private var pauseRunningViewModel: PauseRunningViewModel
@@ -20,9 +21,9 @@ public struct PauseRunning: View {
     }
     
     public var body: some View {
-        Map(interactionModes: .pan) {
-//            MapPolyline(coordinates: pauseRunningViewModel.locations.map { CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude) })
-//                .stroke(.orange, lineWidth: 10)
+        Map(position: $position) {
+            MapPolyline(coordinates: pauseRunningViewModel.locations.map { CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude) })
+                .stroke(.orange, lineWidth: 4)
         }
         
         VStack(alignment: .center) {

@@ -36,7 +36,7 @@ public struct StopRunning: View {
                 VStack(alignment: .leading, spacing: 20) {
                     HStack(spacing: 20) {
                         Text("기록")
-                            .font(.system(size: 17, weight: .bold))
+                            .font(.system(size: 22, weight: .bold))
                             .onTapGesture {
                                 selectedSegment = 0
                             }
@@ -44,21 +44,21 @@ public struct StopRunning: View {
                             
                         
                         Text("잽리스트")
-                            .font(.system(size: 17, weight: .bold))
+                            .font(.system(size: 22, weight: .bold))
                             .onTapGesture {
                                 selectedSegment = 1
                             }
                             .foregroundColor(selectedSegment == 0 ? .gray : .black)
                     }
-                    .padding()
+                    .padding(.horizontal)
                                       
                     if selectedSegment == 0 {
                         VStack(alignment: .leading, spacing: 8) {
                             Text("\(stopRunningViewModel.dayOfWeek)" + " " + "\(stopRunningViewModel.isDaytime ? "주간" : "야간")" + " " + "러닝")
-                                .font(.system(size: 16, weight: .bold))
+                                .font(.system(size: 18, weight: .bold))
                                 .foregroundStyle(Color("SpotPurple"))
                             Text(stopRunningViewModel.startedAt)
-                                .font(.system(size: 12, weight: .regular))
+                                .font(.system(size: 14, weight: .regular))
                                 .foregroundStyle(.gray)
                             
                             DashboardView(viewModel: dashboardViewModel)
@@ -71,6 +71,7 @@ public struct StopRunning: View {
                 .interactiveDismissDisabled()
                 .presentationDetents([.medium])
                 .presentationBackgroundInteraction(.enabled(upThrough: .medium))
+                .padding(.top, 20)
             }
             
             HStack(spacing: 16) {
