@@ -10,11 +10,11 @@ import SwiftUI
 public struct DuringRunning: View {
     @EnvironmentObject private var status: RunningStatus
     
-    private var dashboardViewModel: DashboardViewModel
+    private var dashboardFactory: any Factory
     @StateObject private var viewModel: DuringRunningViewModel
     
-    public init(dashboardViewModel: DashboardViewModel, viewModel: DuringRunningViewModel) {
-        self.dashboardViewModel = dashboardViewModel
+    public init(dashboardFactory: some Factory, viewModel: DuringRunningViewModel) {
+        self.dashboardFactory = dashboardFactory
         _viewModel = StateObject(wrappedValue: viewModel)
     }
     
@@ -24,7 +24,7 @@ public struct DuringRunning: View {
             
             Spacer()
             
-            DashboardView(viewModel: dashboardViewModel)
+            AnyView(dashboardFactory.make())
             
             Spacer()
             

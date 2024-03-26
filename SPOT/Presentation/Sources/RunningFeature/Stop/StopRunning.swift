@@ -13,12 +13,12 @@ public struct StopRunning: View {
     @State private var presentSheet = true
     @State private var selectedSegment = 0
     
-    @StateObject private var dashboardViewModel: DashboardViewModel
+    private var dashboardFactory: any Factory
     @StateObject private var stopRunningViewModel: StopRunningViewModel
     
-    public init(dashboardViewModel: DashboardViewModel,
+    public init(dashboardFactory: some Factory,
                 stopRunningViewModel: StopRunningViewModel) {
-        _dashboardViewModel = StateObject(wrappedValue: dashboardViewModel)
+        self.dashboardFactory = dashboardFactory
         _stopRunningViewModel = StateObject(wrappedValue: stopRunningViewModel)
     }
     
@@ -61,7 +61,7 @@ public struct StopRunning: View {
                                 .font(.system(size: 14, weight: .regular))
                                 .foregroundStyle(.gray)
                             
-                            DashboardView(viewModel: dashboardViewModel)
+                            AnyView(dashboardFactory.make())
                         }
                         .padding(.horizontal)
                     } else {

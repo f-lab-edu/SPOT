@@ -12,11 +12,11 @@ public struct PauseRunning: View {
     @EnvironmentObject private var status: RunningStatus
     @State private var position: MapCameraPosition = .userLocation(fallback: .camera(MapCamera(centerCoordinate: .init(), distance: 0)))
     
-    @StateObject private var dashboardViewModel: DashboardViewModel
+    private var dashboardFactory: any Factory
     @StateObject private var pauseRunningViewModel: PauseRunningViewModel
     
-    public init(dashboardViewModel: DashboardViewModel, pauseRunningViewModel: PauseRunningViewModel) {
-        _dashboardViewModel = StateObject(wrappedValue: dashboardViewModel)
+    public init(dashboardFactory: some Factory, pauseRunningViewModel: PauseRunningViewModel) {
+        self.dashboardFactory = dashboardFactory
         _pauseRunningViewModel = StateObject(wrappedValue: pauseRunningViewModel)
     }
     
@@ -27,7 +27,7 @@ public struct PauseRunning: View {
         }
         
         VStack(alignment: .center) {
-            DashboardView(viewModel: dashboardViewModel)
+            AnyView(dashboardFactory.make())
             
             Spacer()
             

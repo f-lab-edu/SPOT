@@ -29,32 +29,32 @@ public struct BeforeRunningFactoryImp: Factory {
 }
 
 public struct DuringRunningFactoryImp: Factory {
-    let dashboardViewModel: DashboardViewModel
+    private let dashboardFactory: any Factory
     let controlUsecase: RunningControlUsecase
     let timerUsecase: TimerUsecase
     
-    public init(dashboardViewModel: DashboardViewModel,
-                controlUsecase: RunningControlUsecase, 
+    public init(dashboardFactory: some Factory,
+                controlUsecase: RunningControlUsecase,
                 timerUsecase: TimerUsecase) {
-        self.dashboardViewModel = dashboardViewModel
+        self.dashboardFactory = dashboardFactory
         self.controlUsecase = controlUsecase
         self.timerUsecase = timerUsecase
     }
     
     public func make() -> DuringRunning {
         let viewModel = DuringRunningViewModel(controlUsecase: controlUsecase, timerUsecase: timerUsecase)
-        return DuringRunning(dashboardViewModel: dashboardViewModel, viewModel: viewModel)
+        return DuringRunning(dashboardFactory: dashboardFactory, viewModel: viewModel)
     }
 }
 
 public struct PauseRunningFactoryImp: Factory {
-    let dashboardViewModel: DashboardViewModel
+    private let dashboardFactory: any Factory
     let streamUsecase: RunningStreamUsecase
     let controlUsecase: RunningControlUsecase
     let timerUsecase: TimerUsecase
     
-    public init(dashboardViewModel: DashboardViewModel, streamUsecase: RunningStreamUsecase, controlUsecase: RunningControlUsecase, timerUsecase: TimerUsecase) {
-        self.dashboardViewModel = dashboardViewModel
+    public init(dashboardFactory: some Factory, streamUsecase: RunningStreamUsecase, controlUsecase: RunningControlUsecase, timerUsecase: TimerUsecase) {
+        self.dashboardFactory = dashboardFactory
         self.streamUsecase = streamUsecase
         self.controlUsecase = controlUsecase
         self.timerUsecase = timerUsecase
@@ -63,21 +63,21 @@ public struct PauseRunningFactoryImp: Factory {
     public func make() -> PauseRunning {
         let pauseRunningViewModel = PauseRunningViewModel(streamUsecase: streamUsecase, controlUsecase: controlUsecase, timerUsecase: timerUsecase)
         
-        return PauseRunning(dashboardViewModel: dashboardViewModel, pauseRunningViewModel: pauseRunningViewModel)
+        return PauseRunning(dashboardFactory: dashboardFactory, pauseRunningViewModel: pauseRunningViewModel)
     }
 }
 
 public struct StopRunningFactoryImp: Factory {
-    let dashboardViewModel: DashboardViewModel
+    private let dashboardFactory: any Factory
     let runningRecordUsecase: RunningRecordUsecase
     let dateFormatter: DateFormatter
     let calendar: Calendar.Type
     
-    public init(dashboardViewModel: DashboardViewModel,
+    public init(dashboardFactory: some Factory,
                 runningRecordUsecase: RunningRecordUsecase,
                 dateFormatter: DateFormatter,
                 calendar: Calendar.Type) {
-        self.dashboardViewModel = dashboardViewModel
+        self.dashboardFactory = dashboardFactory
         self.runningRecordUsecase = runningRecordUsecase
         self.dateFormatter = dateFormatter
         self.calendar = calendar
@@ -87,7 +87,7 @@ public struct StopRunningFactoryImp: Factory {
         let stopRunningViewModel = StopRunningViewModel(runningRecordUsecase: runningRecordUsecase,
                                                         dateFormatter: dateFormatter,
                                                         calendar: calendar)
-        return StopRunning(dashboardViewModel: dashboardViewModel,
+        return StopRunning(dashboardFactory: dashboardFactory,
                     stopRunningViewModel: stopRunningViewModel)
     }
 }
@@ -106,5 +106,19 @@ public struct CountdownFactoryImp: Factory {
                                            timerUsecase: timerUsecase,
                                            currentDate: Date.init)
         return CountdownView(viewModel: viewModel)
+    }
+}
+
+public struct DashboardFactoryImp: Factory {
+    private let streamUsecase: RunningStreamUsecase
+    
+    public init(streamUsecase: RunningStreamUsecase) {
+        self.streamUsecase = streamUsecase
+    }
+    
+    public func make() -> DashboardView {
+        let viewModel = DashboardViewModel(streamUsecase: streamUsecase)
+        
+        return DashboardView(viewModel: viewModel)
     }
 }

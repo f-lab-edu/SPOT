@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+import Usecase
+
 public protocol LoginFactory {
     associatedtype SomeView: View
     
@@ -14,13 +16,15 @@ public protocol LoginFactory {
 }
 
 public struct LoginFactoryImp: LoginFactory {
-    let viewModel: LoginViewModel
+    private let usecase: LoginUsecase
     
-    public init(viewModel: LoginViewModel) {
-        self.viewModel = viewModel
+    public init(usecase: LoginUsecase) {
+        self.usecase = usecase
     }
     
     public func make() -> LoginView {
-        LoginView(viewModel: viewModel)
+        let viewModel = LoginViewModel(loginUsecase: usecase)
+        
+        return LoginView(viewModel: viewModel)
     }
 }

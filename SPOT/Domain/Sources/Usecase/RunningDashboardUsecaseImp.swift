@@ -81,6 +81,7 @@ public final class RunningDashboardUsecaseImp: RunningStreamUsecase, RunningCont
         locationController.stop()
         activityController.stopUpdates()
         recordTimer.upstream.connect().cancel()
+        cancellables.forEach({ $0.cancel() })
     }
     
     private func saveRecord() {

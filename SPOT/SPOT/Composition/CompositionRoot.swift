@@ -33,6 +33,7 @@ class CompositionRoot {
     var pauseRunningFactory: any Factory
     var stopRunningFactory: any Factory
     var countdownFactory: any Factory
+    var dashboardFactory: any Factory
     var loginFactory: any LoginFactory
     
     var streamUsecase: RunningStreamUsecase
@@ -61,8 +62,6 @@ class CompositionRoot {
     let record: RunningRecord
     let recordTimer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
 
-    let dashboardViewModel: DashboardViewModel
-    let loginViewModel: LoginViewModel
     let contentViewModel: ContentViewModel
     
     init() {
@@ -108,34 +107,32 @@ class CompositionRoot {
         self.loginUsecase = authUsecase
         self.loginableUsecase = authUsecase
         
-        self.loginViewModel = LoginViewModel(loginUsecase: self.loginUsecase)
         self.contentViewModel = ContentViewModel(loginableUsecase: self.loginableUsecase)
         
         self.loginUsecase = AuthUsecaseImp(kakaoAuthController: self.kakaoAuthController,
                                            googleAuthController: self.googleAuthController, 
                                            persistanceController: self.persistanceController)
         
-        self.dashboardViewModel = DashboardViewModel(streamUsecase: self.streamUsecase)
-        
+        self.dashboardFactory = DashboardFactoryImp(streamUsecase: streamUsecase)
         self.beforeRunningFactory = BeforeRunningFactoryImp(authorizationUsecase: authorizationUsecase)
         self.duringRunningFactory = DuringRunningFactoryImp(
-            dashboardViewModel: dashboardViewModel,
+            dashboardFactory: dashboardFactory,
             controlUsecase: controlUsecase,
             timerUsecase: timerUsecase)
         self.pauseRunningFactory = PauseRunningFactoryImp(
-            dashboardViewModel: dashboardViewModel,
+            dashboardFactory: dashboardFactory,
             streamUsecase: streamUsecase,
             controlUsecase: controlUsecase, 
             timerUsecase: timerUsecase)
         self.stopRunningFactory = StopRunningFactoryImp(
-            dashboardViewModel: dashboardViewModel,
+            dashboardFactory: dashboardFactory,
             runningRecordUsecase: runningRecordUsecase,
             dateFormatter: dateFormatter,
             calendar: Calendar.self)
         self.countdownFactory = CountdownFactoryImp(
             controlUsecase: controlUsecase,
             timerUsecase: timerUsecase)
-        self.loginFactory = LoginFactoryImp(viewModel: self.loginViewModel)
+        self.loginFactory = LoginFactoryImp(usecase: loginUsecase)
     }
     
     func validateURL(_ url: URL) {
